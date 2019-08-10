@@ -4,7 +4,6 @@ pipeline {
                 // ##### Defining the variable
 		//def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
                 rtMaven = Artifactory.newMavenBuild()
-                buildInfo
    	}
 
 
