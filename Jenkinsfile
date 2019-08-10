@@ -1,6 +1,6 @@
 
 
-#### Defining the variable
+// ##### Defining the variable
 //def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
 def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
