@@ -13,7 +13,11 @@ pipeline {
       				git 'https://github.com/suyogchinche/pipeline_code.git'
       				// Get the Maven tool.
       				// ** NOTE: This 'M3' Maven tool must be configured
-      				// **       in the global configuration.           
+      				// **       in the global configuration.          
+				script{
+                                        rtMaven.tool = 'maven'
+                                }
+ 
 			}
    		}
 
