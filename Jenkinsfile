@@ -13,8 +13,19 @@ node {
       rtMaven.tool = 'maven'
    }
    stage('Build') {
+      
+      steps {
        
-      rtMaven.run pom: 'java_project/pom.xml', goals: 'clean install'
+             rtMaven.run pom: 'java_project/pom.xml', goals: 'clean test install'
+      }
+
+      post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
+      }
      
    }
+
+
 }
