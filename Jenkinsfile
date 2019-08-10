@@ -1,27 +1,25 @@
-pipeline
-{
-    agent {
-        label 'master'
-    }
-    stages {
-        
-        stage("first stage") {
-            steps {
-                echo 'Hello World'
-                sh 'pwd'
-                sh 'printenv'
-                sh 'id'
-                sh 'uname -a'
-                sh 'cd /u01/app'
-                sh 'pwd'
-           }
-       }
-       
-        stage("Second stage") {
-            steps {
-                echo "Second stage"
-            }
-        }
-        
-    }
+node {
+   def mvnHome
+   stage('Preparation') { // for display purposes
+      // Get some code from a GitHub repository
+      git 'https://github.com/suyogchinche/pipeline_code.git'
+      // Get the Maven tool.
+      // ** NOTE: This 'M3' Maven tool must be configured
+      // **       in the global configuration.           
+      mvnHome = tool 'M3'
+   }
+   stage('Build') {
+      // Run the maven build
+      withEnv(["MVN_HOME=$mvnHome"]) {
+         if (isUnix()) {
+            sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
+         } else {
+            bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
+         }
+      }
+   }
+   stage('Results') {
+      junit '**/target/surefire-reports/TEST-*.xml'
+      archiveArtifacts 'target/*.jar'
+   }
 }
