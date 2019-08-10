@@ -1,9 +1,12 @@
 pipeline {
 	agent any
+
+	//def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+	def rtMaven = Artifactory.newMavenBuild()
+	def buildInfo
+
+
 	stages {
-   		//def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
-		def rtMaven = Artifactory.newMavenBuild()
-    		def buildInfo
     
    		stage('Preparation') { // for display purposes
       			// Get some code from a GitHub repository
