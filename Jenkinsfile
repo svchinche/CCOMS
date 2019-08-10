@@ -1,15 +1,16 @@
 pipeline {
 
+	environment {
+                // ##### Defining the variable
+		//def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+                rtMaven = Artifactory.newMavenBuild()
+                buildInfo
+   	}
+
+
 	agent any
 
 	stages {
-
-        	script {
-                	// ##### Defining the variable
-                	//def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
-                	def rtMaven = Artifactory.newMavenBuild()
-                	def buildInfo
-        	}
 
 
    		stage('Preparation') { // for display purposes
