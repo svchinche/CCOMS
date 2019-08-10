@@ -24,7 +24,9 @@ pipeline {
 
 		stage('Build') {
       			steps {
-				rtMaven.run pom: 'java_project/pom.xml', goals: 'clean test install'
+				script{
+					rtMaven.run pom: 'java_project/pom.xml', goals: 'clean test install'
+				}
       			}
 			post {
                 		success {
