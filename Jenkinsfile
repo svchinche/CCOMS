@@ -1,25 +1,20 @@
 node {
-   def mvnHome
+   
+    //def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
+    def rtMaven = Artifactory.newMavenBuild()
+    def buildInfo
+    
    stage('Preparation') { // for display purposes
       // Get some code from a GitHub repository
       git 'https://github.com/suyogchinche/pipeline_code.git'
       // Get the Maven tool.
       // ** NOTE: This 'M3' Maven tool must be configured
       // **       in the global configuration.           
-      mvnHome = tool 'maven'
+      rtMaven.tool = 'maven'
    }
    stage('Build') {
-      // Run the maven build
-      withEnv(["MVN_HOME=$mvnHome"]) {
-         if (isUnix()) {
-            sh '"$MVN_HOME/bin/mvn" -Dmaven.test.failure.ignore clean package'
-         } else {
-            bat(/"%MVN_HOME%\bin\mvn" -Dmaven.test.failure.ignore clean package/)
-         }
-      }
-   }
-   stage('Results') {
-      junit '**/target/surefire-reports/TEST-*.xml'
-      archiveArtifacts 'target/*.jar'
+       
+      rtMaven.run pom: 'java_project/pom.xml', goals: 'clean install'
+     
    }
 }
