@@ -24,16 +24,26 @@ pipeline {
 		stage('Build') {
       			steps {
 				script{
-					rtMaven.run pom: 'java_project/pom.xml', goals: 'clean test install'
+					rtMaven.run pom: 'java_project/pom.xml', goals: 'clean install'
 				}
       			}
 			post {
                 		success {
-                    			junit 'java_project/target/surefire-reports/*.xml' 
+                    			//junit 'java_project/target/surefire-reports/*.xml' 
+					echo "Done"
                 		}
       			}
      
    		}
+
+		stage('Generate code coverage report'){
+			steps {
+				script {
+                                      rtMaven.run pom: 'java_project/pom.xml', goals: 'test'
+				}
+			}
+
+		}
 
  	}
 
