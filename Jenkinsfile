@@ -44,6 +44,14 @@ pipeline {
 			}
 
 		}
+		stage('Deploy'){
+			steps {
+                                script {
+                                      rtMaven.run pom: 'java_project/pom.xml', goals: 'deploy'
+                                }
+                        }
+
+		}
 
  	}
 
