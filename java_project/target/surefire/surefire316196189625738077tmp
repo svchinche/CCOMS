@@ -1,0 +1,25 @@
+#surefire
+#Sun Aug 11 05:58:45 PDT 2019
+testClassesDirectory=/root/my_workspace/pipeline_code/java_project/target/test-classes
+classPathUrl.3=/root/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+classPathUrl.2=/root/.m2/repository/junit/junit/4.11/junit-4.11.jar
+useManifestOnlyJar=true
+classPathUrl.1=/root/my_workspace/pipeline_code/java_project/target/classes
+reportsDirectory=/root/my_workspace/pipeline_code/java_project/target/surefire-reports
+classPathUrl.0=/root/my_workspace/pipeline_code/java_project/target/test-classes
+providerConfiguration=org.apache.maven.surefire.junit4.JUnit4Provider
+testSuiteDefinitionTestSourceDirectory=/root/my_workspace/pipeline_code/java_project/src/test/java
+surefireClassPathUrl.1=/root/.m2/repository/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar
+surefireClassPathUrl.0=/root/.m2/repository/org/apache/maven/surefire/surefire-junit4/2.12.4/surefire-junit4-2.12.4.jar
+runOrder=filesystem
+useSystemClassLoader=true
+excludes0=**/*$*
+isTrimStackTrace=true
+tc.0=com.vogella.maven.quickstart.TestEmployeeDetails
+enableAssertions=true
+includes2=**/*TestCase.java
+failIfNoTests=false
+includes1=**/*Test.java
+runStatisticsFile=/root/my_workspace/pipeline_code/java_project/.surefire-1339FB0711A016779439374719CF00F8E81216CA
+includes0=**/Test*.java
+childDelegation=false
