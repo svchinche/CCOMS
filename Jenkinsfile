@@ -35,7 +35,7 @@ pipeline {
 
                 stage('Check code covergare') {
                         steps {
-                               sh 'mvn -f java_project/ test verfify'
+                               sh 'mvn -f java_project/ test verify'
                         }
                         post {
                                 success {
