@@ -22,7 +22,7 @@ pipeline {
 
 		stage('Building -- Clening and compiling Phase') {
       			steps {
-				sh 'mvn clean compile'
+				sh 'mvn -f java_project/ clean compile'
       			}
 			post {
                 		success {
@@ -35,7 +35,7 @@ pipeline {
 
                 stage('Check code covergare') {
                         steps {
-                               sh 'mvn test verfify'
+                               sh 'mvn -f java_project/ test verfify'
                         }
                         post {
                                 success {
@@ -48,13 +48,13 @@ pipeline {
 
 		stage('Verify code on sonar cube'){
 			steps {
-			      sh 'mvn sonar:sonar'
+			      sh 'mvn -f java_project/ sonar:sonar'
 			}
 
 		}
 		stage('Deploy') {
 			steps {
-                               sh 'mvn -X deploy'
+                               sh 'mvn -X -f java_project/ deploy'
                         }
 
 		}
