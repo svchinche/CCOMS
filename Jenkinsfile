@@ -21,10 +21,10 @@ pipeline {
 			}
    		}
 
-		stage('Build') {
+		stage('Building -- Clening and compiling') {
       			steps {
 				script{
-					rtMaven.run pom: 'java_project/pom.xml', goals: 'clean install'
+					rtMaven.run pom: 'java_project/pom.xml', goals: 'clean compile'
 				}
       			}
 			post {
@@ -36,10 +36,25 @@ pipeline {
      
    		}
 
-		stage('Generate code coverage report'){
+                stage('Check code covergare') {
+                        steps {
+                                script{
+                                        rtMaven.run pom: 'java_project/pom.xml', goals: 'test verify'
+                                }
+                        }
+                        post {
+                                success {
+                                        //junit 'java_project/target/surefire-reports/*.xml' 
+                                        echo "Done"
+                                }
+                        }
+     
+                }
+
+		stage('Verify code on sonar cube'){
 			steps {
 				script {
-                                      rtMaven.run pom: 'java_project/pom.xml', goals: 'test'
+                                      rtMaven.run pom: 'java_project/pom.xml', goals: 'sonar:sonar'
 				}
 			}
 
