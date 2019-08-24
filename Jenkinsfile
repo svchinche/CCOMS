@@ -3,29 +3,26 @@ def rtMaven = Artifactory.newMavenBuild()
 pipeline {
 
 	agent any
+	
+	tools {
+        maven 'maven'
+        //jdk 'jdk8'
+        }
 
 	stages {
 
 
-   		stage('Preparation') { // for display purposes
+   		stage('Preparation Phase') { // for display purposes
  			steps {
       				// Get some code from a GitHub repository
       				git 'https://github.com/suyogchinche/pipeline_code.git'
-      				// Get the Maven tool.
-      				// ** NOTE: This 'M3' Maven tool must be configured
-      				// **       in the global configuration.          
-				script{
-                                        rtMaven.tool = 'maven'
-                                }
- 
+      				
 			}
    		}
 
-		stage('Building -- Clening and compiling') {
+		stage('Building -- Clening and compiling Phase') {
       			steps {
-				script{
-					rtMaven.run pom: 'java_project/pom.xml', goals: 'clean compile'
-				}
+				sh 'mvn clean compile'
       			}
 			post {
                 		success {
@@ -38,9 +35,7 @@ pipeline {
 
                 stage('Check code covergare') {
                         steps {
-                                script{
-                                        rtMaven.run pom: 'java_project/pom.xml', goals: 'test verify'
-                                }
+                               sh 'mvn test verfify'
                         }
                         post {
                                 success {
@@ -53,17 +48,13 @@ pipeline {
 
 		stage('Verify code on sonar cube'){
 			steps {
-				script {
-                                      rtMaven.run pom: 'java_project/pom.xml', goals: 'sonar:sonar'
-				}
+			      sh 'mvn sonar:sonar'
 			}
 
 		}
 		stage('Deploy') {
 			steps {
-                                script {
-                                      rtMaven.run pom: 'java_project/pom.xml', goals: 'deploy'
-                                }
+                               sh 'mvn -X deploy'
                         }
 
 		}
