@@ -105,16 +105,16 @@
 
         
    <distributionManagement>
-  		<repostory>
-    		<id>artifactory_server</id>
-    		<!-- CHANGE HERE by your team nexus server -->
-    		<url>http://worker-node1:8081/repository/MAVEN_REL/</url>
-  		</repostory>
-  		<snapshtRepository>
-    		<id>artifactory_server</id>
-    		<!-- CHANGE HERE by your team nexus server -->
-    		<url>http://worker-node1:8081/repository/MAVEN_SNAP/</url>
-  		</snapshtRepository>
+  		<repository>
+    	     <id>artifactory_server</id>
+    	     <!-- CHANGE HERE by your team nexus server -->
+    	     <url>http://worker-node1:8081/repository/MAVEN_REL/</url>
+  		</repository>
+  		<snapshotRepository>
+    	     <id>artifactory_server</id>
+    	     <!-- CHANGE HERE by your team nexus server -->
+    	     <url>http://worker-node1:8081/repository/MAVEN_SNAP/</url>
+  		</snapshotRepository>
    </distributionManagement>
 
 </project>
