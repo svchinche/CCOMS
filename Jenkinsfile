@@ -1,9 +1,9 @@
-def rtMaven = Artifactory.newMavenBuild()
 
 pipeline {
 
 	agent any
-	
+
+
 	tools {
         maven 'maven'
         //jdk 'jdk8'
@@ -13,6 +13,7 @@ pipeline {
 
 
    		stage('Preparation Phase') { // for display purposes
+
  			steps {
       				// Get some code from a GitHub repository
       				git 'https://github.com/suyogchinche/pipeline_code.git'
@@ -20,7 +21,7 @@ pipeline {
 			}
    		}
 
-		stage('Building -- Clening and compiling Phase') {
+		stage('Building -- Cleaning and compiling Phase') {
       			steps {
 				sh 'mvn -f java_project/ clean compile'
       			}
@@ -33,7 +34,7 @@ pipeline {
      
    		}
 
-                stage('Check code covergare') {
+                stage('Checking-code-coverage') {
                         steps {
                                sh 'mvn -f java_project/ test verify'
                         }
@@ -46,7 +47,7 @@ pipeline {
      
                 }
 
-		stage('Verify code on sonar cube'){
+		stage('Publishing code on sonar cube for analysis'){
 			steps {
 			      sh 'mvn -f java_project/ sonar:sonar'
 			}
