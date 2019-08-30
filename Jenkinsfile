@@ -74,10 +74,10 @@ pipeline {
 		    when {
 			anyOf { 
 				branch 'develop'
-			}
-			allOf {
-				//tag "release-*" 
-				branch "Feature-*" 
+				allOf {
+					//tag "release-*" 
+					branch "Feature-*" 
+			  	}
 			}
 
 		    }
