@@ -9,57 +9,80 @@ pipeline {
         //jdk 'jdk8'
         }
 
+        environment {
+        	APP_NAME = 'pipeline_code'
+         	BUILD_NUMBER = "${env.BUILD_NUMBER}"
+         	IMAGE_VERSION="v_${BUILD_NUMBER}"
+         	GIT_URL="https://github.com/suyogchinche/"
+         	SBT_OPTS='-Xmx1024m -Xms512m'
+         	JAVA_OPTS='-Xmx1024m -Xms512m'
+
+     	}
+
+
 	stages {
 
-
-   		stage('Preparation Phase') { // for display purposes
+   		stage('Preparation Phase') {
 
  			steps {
-      				// Get some code from a GitHub repository
-      				git 'https://github.com/suyogchinche/pipeline_code.git'
+
+      			git 'https://github.com/suyogchinche/pipeline_code.git'
       				
 			}
    		}
 
 		stage('Building -- Cleaning and compiling Phase') {
       			steps {
-				sh 'mvn -f java_project/ clean compile'
+			    	sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" clean compile'
       			}
 			post {
                 		success {
-                    			//junit 'java_project/target/surefire-reports/*.xml' 
-					echo "Done"
-                		}
+
+				  	echo "Done"
+                			}
       			}
-     
    		}
 
-                stage('Checking-code-coverage') {
-                        steps {
-                               sh 'mvn -f java_project/ test verify'
-                        }
-                        post {
-                                success {
-                                        //junit 'java_project/target/surefire-reports/*.xml' 
-                                        echo "Done"
-                                }
-                        }
-     
-                }
+         	stage('Checking-code-coverage') {
+             		steps {
+                 		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test verify'
+			}
+
+             		post {
+                  		success {
+                     			echo "Done"
+                  		}
+             		}
+      		}
 
 		stage('Publishing code on sonar cube for analysis'){
+		    when {
+                  	branch 'develop'
+            	    }
 			steps {
-			      sh 'mvn -f java_project/ sonar:sonar'
+			      sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}_SNAPSHOT" sonar:sonar'
 			}
 
 		}
-		stage('Deploy') {
+
+
+
+		stage('Pushing artifacts to nexux repo - deploy') {
+
+		    when {
+			anyOf { 
+				branch 'develop'
+			allOf {
+				tag 'release-*'
+                                branch 'Feature*' 
+			}
+			}
+
+		    }
 			steps {
-                               sh 'mvn -X -f java_project/ deploy'
-                        }
+                    		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" deploy'
+			}
 
-		}
-
- 	}
-
+ 		}
+	}
 }
