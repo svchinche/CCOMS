@@ -46,12 +46,12 @@ pipeline {
          stage('Checking-code-coverage') {
              steps {
                  sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test verify'
+		}
 
              post {
                   success {
                      echo "Done"
                   }
-
              }
       }
 
@@ -78,5 +78,4 @@ pipeline {
 		}
 
  	}
-    }
 }
