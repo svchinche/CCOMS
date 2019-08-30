@@ -6,7 +6,7 @@
 
   <groupId>com.vogella.maven</groupId>
   <artifactId>quickstart</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>${revision}</version>
   <packaging>jar</packaging>
 
   <name>quickstart</name>
