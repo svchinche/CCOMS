@@ -56,9 +56,9 @@ pipeline {
       		}
 
 		stage('Publishing code on sonar cube for analysis'){
-		    when {
-                  	branch 'master'
-            	    }
+		    //when {
+                  //	branch 'master'
+            	    //}
 			steps {
 			      sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}_SNAPSHOT" sonar:sonar'
 			}
