@@ -53,6 +53,11 @@ pipeline {
                      			echo "Done"
 					echo "BRANCH_NAME is ${env.BRANCH_NAME}"
 					echo "TAG NAME is ${env.TAG_NAME}"
+					script{
+						for(e in env){
+        						echo e + " is " + ${e}
+    						}
+					}
                   		}
              		}
       		}
