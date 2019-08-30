@@ -10,7 +10,7 @@ pipeline {
         }
 
         environment {
-        	 APP_NAME = 'pipeline_code'
+        	APP_NAME = 'pipeline_code'
          	BUILD_NUMBER = "${env.BUILD_NUMBER}"
          	IMAGE_VERSION="v_${BUILD_NUMBER}"
          	GIT_URL="https://github.com/suyogchinche/"
@@ -56,9 +56,9 @@ pipeline {
       		}
 
 		stage('Publishing code on sonar cube for analysis'){
-		    //when {
-                  //	branch 'master'
-            	    //}
+		    when {
+                  	branch 'develop'
+            	    }
 			steps {
 			      sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}_SNAPSHOT" sonar:sonar'
 			}
@@ -67,9 +67,18 @@ pipeline {
 
 
 
-		stage('Deploy') {
+		stage('Pushing artifacts to nexux repo - deploy') {
 
-		    when { tag "release-*" }
+		    when {
+			anyOf { 
+				branch 'develop'
+			allOf {
+				tag 'release-*'
+                                branch 'Feature*' 
+			}
+			}
+
+		    }
 			steps {
                     		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" deploy'
 			}
