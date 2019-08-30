@@ -75,7 +75,8 @@ pipeline {
 			anyOf { 
 				branch 'develop'
 			allOf {
-				tag "release-*" ; branch "Feature-*" 
+				//tag "release-*" 
+				branch "Feature-*" 
 			}
 			}
 
