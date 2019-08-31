@@ -11,8 +11,8 @@ pipeline {
 
         environment {
         	APP_NAME = 'pipeline_code'
-         	BUILD_NUMBER = "${env.BUILD_NUMBER}"
-         	IMAGE_VERSION="v_${BUILD_NUMBER}"
+         	VERSION_PREFIX = "v1"
+		BUILD_NUMBER = '${VERSION_PREFIX}.${env.BUILD_MONTH}.${env.BUILD_NUMBER}'
          	GIT_URL="https://github.com/suyogchinche/"
          	SBT_OPTS='-Xmx1024m -Xms512m'
          	JAVA_OPTS='-Xmx1024m -Xms512m'
@@ -22,71 +22,69 @@ pipeline {
 
 	stages {
 
-   		stage('Preparation Phase') {
+   		stage('Cleaning Phase') {
 
  			steps {
-
-      			//git 'https://github.com/suyogchinche/pipeline_code.git'
-			echo "hi"
-      				
+				sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" clean'
 			}
    		}
 
-		stage('Building -- Cleaning and compiling Phase') {
+		stage('Compiling Phase') {
       			steps {
-			    	sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" clean compile'
-      			}
-			post {
-                		success {
-
-				  	echo "Done"
-                			}
+			    	sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" compile'
       			}
    		}
 
-         	stage('Checking-code-coverage') {
+         	stage('Generate Test Cases using Junit Surefire plugin') {
              		steps {
-                 		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test verify'
+                 		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test'
 			}
 
              		post {
                   		success {
                      			echo "Done"
-					echo "BRANCH_NAME is ${env.BRANCH_NAME}"
-					echo "TAG_NAME is ${env.TAG_NAME}"
-					sh 'printenv'
                   		}
              		}
       		}
+		
+		stage('Verify code coverage using jacoco') {
+                        steps {
+                                sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" verify'
+                        }
 
-		stage('Publishing code on sonar cube for analysis'){
+                        post {
+                                success {
+                                        echo "Done"
+                                }       
+                        }       
+                }
+
+		stage('Publishing code on sonar cube for analysis and send code analysis report using jacoco dataset'){
 		    when {
                   	branch 'develop'
             	    }
 			steps {
-			      sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}_SNAPSHOT" sonar:sonar'
+			      sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" sonar:sonar'
 			}
-
 		}
 
 
 
-		stage('Pushing artifacts to nexus repo - deploy') {
+		stage('Pushing artifacts to nexux repo - deploy') {
 
 		    when {
 			anyOf { 
 				branch 'develop'
 				allOf {
-					tag "*" 
-					//branch "Feature-*" 
+					//tag "release-*" 
+					branch "Feature-*" 
 			  	}
 			}
 
 		    }
 			steps {
-                    		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" deploy'
+                    		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" deploy'
 			}
-
  		}
 	}
 }
