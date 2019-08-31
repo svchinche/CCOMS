@@ -26,7 +26,8 @@ pipeline {
 
  			steps {
 
-      			git 'https://github.com/suyogchinche/pipeline_code.git'
+      			//git 'https://github.com/suyogchinche/pipeline_code.git'
+			echo "hi"
       				
 			}
    		}
@@ -69,7 +70,7 @@ pipeline {
 
 
 
-		stage('Pushing artifacts to nexux repo - deploy') {
+		stage('Pushing artifacts to nexus repo - deploy') {
 
 		    when {
 			anyOf { 
