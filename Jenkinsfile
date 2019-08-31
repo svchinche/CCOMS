@@ -52,6 +52,7 @@ pipeline {
                   		success {
                      			echo "Done"
 					echo "BRANCH_NAME is ${env.BRANCH_NAME}"
+					echo "TAG_NAME is ${env.TAG_NAME}"
                   		}
              		}
       		}
