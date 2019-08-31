@@ -35,7 +35,7 @@ pipeline {
       			}
    		}
 
-         	stage('Generate Test Cases using Junit Surefire plugin') {
+         	stage('Generate Test Cases - Surefire') {
              		steps {
                  		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test'
 			}
@@ -47,7 +47,7 @@ pipeline {
              		}
       		}
 		
-		stage('Verify code coverage using jacoco') {
+		stage('Verify code coverage - Jacoco') {
                         steps {
                                 sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" verify'
                         }
@@ -59,7 +59,7 @@ pipeline {
                         }       
                 }
 
-		stage('Publishing code on sonar cube for analysis and send code analysis report using jacoco dataset'){
+		stage('Publishing code on SONARQUBE'){
 		    when {
                   	branch 'develop'
             	    }
@@ -70,7 +70,7 @@ pipeline {
 
 
 
-		stage('Pushing artifacts to nexux repo - deploy') {
+		stage('Pushing artifacts to NEXUS') {
 
 		    when {
 			anyOf { 
@@ -87,42 +87,43 @@ pipeline {
 			}
  		   }
 		
-		  stage('Downloading artifact for deployment') {
+		  stage('Download artifact for deployment') {
 
                         steps {
 				echo "Downloading ...."
                         }
                   }
 
-		  stage('Installing/Updating the artifact on server QA or Staging or DEV/UAT') {
+		  stage('Install/Update artifact - QA/Stage/DEV-UAT') {
 
                         steps {
                                 echo "Installation is in Progress ...."
                         }
                   }     
 		
-		  parallel{
-
-		  stage('Integration Setting is progress') {
-
-                        steps {
-                                echo "Integration test is in Progress ...."
-                        }
-                  }     
+                  
+		  stage('Post depolyment ll stages') {
+		  	parallel {
+				stage('Integration Test') {
+	
+        	        	        steps {
+                	        	        echo "Integration test is in Progress ...."
+                        		}
+                  		}     
                        
-		  stage('Performance testing on Staging server') {
+		  		stage('Performance Test') {
 
-                        steps {
-                                echo "Performance test is in progress ...."
-                        }
-                  }     
+                        		steps {
+                                		echo "Performance test is in progress ...."
+                        		}
+                  		}     
 		
-   		  stage('Functional Test Phase') {
+   		  		stage('Functional Test') {
 
-                        steps {
-                                echo "Function test is in progress...."
-                        }
-                  }
+                        		steps {
+                                		echo "Function test is in progress...."
+                        		}
+                  		}
 		  }
      
 		  stage('Checklist report generation') {
