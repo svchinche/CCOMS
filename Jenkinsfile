@@ -1,88 +1,116 @@
-
 pipeline {
+      agent any
+      tools {
+      maven 'maven'
+      //jdk 'jdk8'
+      }
 
-	agent any
+      environment {
+           APP_NAME = 'pipeline_code'
+           VERSION_PREFIX = "v1"
+           BUILD_NUMBER = "${env.VERSION_PREFIX}.${env.BUILD_ID}.${env.BUILD_NUMBER}"
+           GIT_URL="https://github.com/suyogchinche/"
+           SBT_OPTS='-Xmx1024m -Xms512m'
+           JAVA_OPTS='-Xmx1024m -Xms512m'
+      }
+
+      stages {
+           stage('Cleaning Phase') {
+                steps {
+                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" clean'
+                }
+           }
+
+           stage('Compiling Phase') {
+                steps {
+                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" compile'
+                }
+           }
+
+           stage('Generate Test Cases - Surefire') {
+                steps {
+                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test'
+                }
+
+                post {
+                     success {
+                         echo "Done"
+                     }
+                }
+           }
+
+           stage('Verify code coverage - Jacoco') {
+                steps {
+                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" verify'
+                }
+                post {
+                    success {
+                        echo "Done"
+                    }
+                }
+           }
+           stage('Publishing code on SONARQUBE'){
+                when {
+                    branch 'develop'
+                }
+                steps {
+                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" sonar:sonar'
+                }
+           }
+           stage('Pushing artifacts to NEXUS') {
+                when {
+                     anyOf {
+                          branch 'develop'
+                                allOf {
+                                     //tag "release-*"
+                                     branch "Feature-*"
+                                }
+                          }
+                     }
+                steps {
+                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" deploy'
+                }
+           }
+
+           stage('Download artifact for deployment') {
+                steps {
+                     echo "Downloading ...."
+                }
+           }
+
+           stage('Install/Update artifact - QA/Stage/DEV-UAT') {
+                steps {
+                     echo "Installation is in Progress ...."
+                }
+           }
 
 
-	tools {
-        maven 'maven'
-        //jdk 'jdk8'
-        }
+           stage('Post Deployment ll stages') {
+                parallel {
+                     stage('Integration Test') {
+                           steps {
+                                  echo "Integration test is in Progress ...."
+                           }
+                     }
 
-        environment {
-        	APP_NAME = 'pipeline_code'
-         	BUILD_NUMBER = "${env.BUILD_NUMBER}"
-         	IMAGE_VERSION="v_${BUILD_NUMBER}"
-         	GIT_URL="https://github.com/suyogchinche/"
-         	SBT_OPTS='-Xmx1024m -Xms512m'
-         	JAVA_OPTS='-Xmx1024m -Xms512m'
+                     stage('Performance Test') {
+                           steps {
+                                 echo "Performance test is in progress ...."
+                           }
+                     }
 
-     	}
+                     stage('Functional Test') {
+                           steps {
+                                 echo "Function test is in progress...."
+                           }
+                     }
+                 }
+           }
 
-
-	stages {
-
-   		stage('Preparation Phase') {
-
- 			steps {
-
-      			git 'https://github.com/suyogchinche/pipeline_code.git'
-      				
-			}
-   		}
-
-		stage('Building -- Cleaning and compiling Phase') {
-      			steps {
-			    	sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" clean compile'
-      			}
-			post {
-                		success {
-
-				  	echo "Done"
-                			}
-      			}
-   		}
-
-         	stage('Checking-code-coverage') {
-             		steps {
-                 		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test verify'
-			}
-
-             		post {
-                  		success {
-                     			echo "Done"
-                  		}
-             		}
-      		}
-
-		stage('Publishing code on sonar cube for analysis'){
-		    when {
-                  	branch 'develop'
-            	    }
-			steps {
-			      sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}_SNAPSHOT" sonar:sonar'
-			}
-
-		}
-
-
-
-		stage('Pushing artifacts to nexux repo - deploy') {
-
-		    when {
-			anyOf { 
-				branch 'develop'
-			allOf {
-				tag 'release-*'
-                                branch 'Feature*' 
-			}
-			}
-
-		    }
-			steps {
-                    		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" deploy'
-			}
-
- 		}
-	}
+           stage('Checklist report generation') {
+                steps {
+                    echo "Generating checklist report"
+                }
+           }
+      }
 }
