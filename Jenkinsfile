@@ -12,7 +12,7 @@ pipeline {
         environment {
         	APP_NAME = 'pipeline_code'
          	VERSION_PREFIX = "v1"
-		BUILD_NUMBER = "${env.VERSION_PREFIX}.${env.BUILD_MONTH}.${env.BUILD_NUMBER}"
+		BUILD_NUMBER = "${env.VERSION_PREFIX}.${env.BUILD_ID}.${env.BUILD_NUMBER}"
          	GIT_URL="https://github.com/suyogchinche/"
          	SBT_OPTS='-Xmx1024m -Xms512m'
          	JAVA_OPTS='-Xmx1024m -Xms512m'
@@ -85,6 +85,51 @@ pipeline {
 			steps {
                     		sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" deploy'
 			}
- 		}
+ 		   }
+		
+		  stage('Downloading artifact for deployment') {
+
+                        steps {
+				echo "Downloading ...."
+                        }
+                  }
+
+		  stage('Installing/Updating the artifact on server QA or Staging or DEV/UAT') {
+
+                        steps {
+                                echo "Installation is in Progress ...."
+                        }
+                  }     
+		
+		  parallel{
+
+		  stage('Integration Setting is progress') {
+
+                        steps {
+                                echo "Integration test is in Progress ...."
+                        }
+                  }     
+                       
+		  stage('Performance testing on Staging server') {
+
+                        steps {
+                                echo "Performance test is in progress ...."
+                        }
+                  }     
+		
+   		  stage('Functional Test Phase') {
+
+                        steps {
+                                echo "Function test is in progress...."
+                        }
+                  }
+		  }
+     
+		  stage('Checklist report generation') {
+
+                        steps {
+                                echo "Generating checklist report"
+                        }
+                  }     
 	}
 }
