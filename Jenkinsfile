@@ -12,7 +12,7 @@ pipeline {
         environment {
         	APP_NAME = 'pipeline_code'
          	VERSION_PREFIX = "v1"
-		BUILD_NUMBER = '${env.VERSION_PREFIX}.${env.BUILD_MONTH}.${env.BUILD_NUMBER}'
+		BUILD_NUMBER = "${env.VERSION_PREFIX}.${env.BUILD_MONTH}.${env.BUILD_NUMBER}"
          	GIT_URL="https://github.com/suyogchinche/"
          	SBT_OPTS='-Xmx1024m -Xms512m'
          	JAVA_OPTS='-Xmx1024m -Xms512m'
