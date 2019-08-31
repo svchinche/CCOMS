@@ -1,6 +1,6 @@
 pipeline {
-     agent any
-     tools {
+      agent any
+      tools {
       maven 'maven'
       //jdk 'jdk8'
       }
@@ -12,7 +12,7 @@ pipeline {
            GIT_URL="https://github.com/suyogchinche/"
            SBT_OPTS='-Xmx1024m -Xms512m'
            JAVA_OPTS='-Xmx1024m -Xms512m'
-       }
+      }
 
       stages {
            stage('Cleaning Phase') {
@@ -104,6 +104,7 @@ pipeline {
                                  echo "Function test is in progress...."
                            }
                      }
+                 }
            }
 
            stage('Checklist report generation') {
