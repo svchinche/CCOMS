@@ -103,7 +103,7 @@
   </build>
 
 
-        
+<!-- This tag is required for pushing the artifacts to nexus-->        
    <distributionManagement>
       <repository>
           <id>artifactory_server</id>
