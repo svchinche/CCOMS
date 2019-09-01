@@ -34,7 +34,7 @@ pipeline {
 
                 post {
                      success {
-                         echo "Done"
+                          junit java_project/target/surefire-reports/*.xml
                      }
                 }
            }
@@ -44,9 +44,9 @@ pipeline {
                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" verify'
                 }
                 post {
-                    success {
-                        echo "Done"
-                    }
+                     success {
+                         echo "Done"
+                     }
                 }
            }
            stage('Publishing code on SONARQUBE'){
