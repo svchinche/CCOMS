@@ -114,12 +114,12 @@
       <repository>
           <id>artifactory_server</id>
           <!-- CHANGE HERE by your team nexus server -->
-          <url>http://worker-node1:8081/repository/MAVEN_REL/</url>
+          <url>http://worker-node1:8081/repository/maven-releases/</url>
       </repository>
       <snapshotRepository>
           <id>artifactory_server</id>
           <!-- CHANGE HERE by your team nexus server -->
-          <url>http://worker-node1:8081/repository/MAVEN_SNAP/</url>
+          <url>http://worker-node1:8081/repository/maven-snapshots/</url>
       </snapshotRepository>
    </distributionManagement>
 
