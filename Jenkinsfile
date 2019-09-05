@@ -1,5 +1,5 @@
 pipeline {
-      agent any
+      agent master
       tools {
       maven 'maven'
       //jdk 'jdk8'
@@ -23,13 +23,13 @@ pipeline {
 
            stage('Compiling Phase') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" compile'
+                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" compiler:compile'
                 }
            }
 
            stage('Generate Test Cases - Surefire') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test'
+                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" surefire:test'
                 }
 
                 post {
@@ -41,7 +41,7 @@ pipeline {
 
            stage('Verify code coverage - Jacoco') {
                 steps {
-                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" verify'
+                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
                      success {
@@ -68,7 +68,7 @@ pipeline {
                           }
                      }
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" deploy'
+                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" jar:jar deploy:deploy'
                 }
            }
 
