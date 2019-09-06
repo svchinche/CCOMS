@@ -15,6 +15,21 @@ pipeline {
       }
 
       stages {
+          stage('Preparation') {
+                steps {
+                        checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: '*/Feature-1234']],
+                        doGenerateSubmoduleConfigurations: false,
+                        extensions: [[$class: 'GitTagMessageExtension']],
+                        submoduleCfg: [],
+                        userRemoteConfigs: [[name: 'Feature-1234',
+                        refspec: '+refs/heads/*:refs/remotes/Feature-1234/*',
+                        url: 'https://github.com/suyogchinche/pipeline_code.git']]])
+                        
+                        sh 'printenv'
+                }
+           }
            stage('Cleaning Phase') {
                 steps {
                      sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" clean:clean'
