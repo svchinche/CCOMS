@@ -17,19 +17,19 @@ pipeline {
       stages {
            stage('Cleaning Phase') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" clean'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" clean:clean'
                 }
            }
 
            stage('Compiling Phase') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" compiler:compile'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" compiler:compile'
                 }
            }
 
            stage('Generate Test Cases - Surefire') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" surefire:test'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" surefire:test'
                 }
 
                 post {
@@ -41,7 +41,7 @@ pipeline {
 
            stage('Verify code coverage - Jacoco') {
                 steps {
-                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
+                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
                      success {
@@ -54,7 +54,7 @@ pipeline {
                     branch 'develop'
                 }
                 steps {
-                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" sonar:sonar'
+                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}-SNAPSHOT" sonar:sonar'
                 }
            }
            stage('Pushing artifacts to NEXUS') {
@@ -68,7 +68,7 @@ pipeline {
                           }
                      }
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" jar:jar deploy:deploy'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}-SNAPSHOT" jar:jar deploy:deploy'
                 }
            }
 
