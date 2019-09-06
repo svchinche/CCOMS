@@ -30,6 +30,8 @@ pipeline {
                         url: 'https://github.com/suyogchinche/pipeline_code.git']]])
                         
                         sh 'printenv'
+                        sh 'echo GIT TAG MESSGAE is ::: $GIT_TAG_MESSAGE'
+                        sh 'echo GIT TAG NAME is ::: $GIT_TAG_NAME'
                 }
            }
            stage('Cleaning Phase') {
