@@ -59,7 +59,6 @@ pipeline {
                      anyOf {
                           branch 'develop'
                           branch 'release'
-                          }
                      }
                 }
                 steps {
