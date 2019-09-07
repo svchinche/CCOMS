@@ -1,8 +1,10 @@
 pipeline {
-      agent any
+      agent {
+        label 'master'
+      }
       tools {
       maven 'maven'
-      //jdk 'jdk8'
+      jdk 'jdk8'
       }
 
       environment {
@@ -17,19 +19,21 @@ pipeline {
       stages {
            stage('Cleaning Phase') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" clean'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" clean:clean'
                 }
            }
-
+           
+           // Compile main and test classes
            stage('Compiling Phase') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" compile'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" compiler:compile compiler:testCompile'
                 }
            }
 
+           // Generate test cases using default surefire plugin in maven
            stage('Generate Test Cases - Surefire') {
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" test'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" surefire:test'
                 }
 
                 post {
@@ -38,10 +42,10 @@ pipeline {
                      }
                 }
            }
-
+          
            stage('Verify code coverage - Jacoco') {
                 steps {
-                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}" verify'
+                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
                      success {
@@ -49,26 +53,32 @@ pipeline {
                      }
                 }
            }
+    
            stage('Publishing code on SONARQUBE'){
                 when {
-                    branch 'develop'
+                     anyOf {
+                          branch 'develop'
+                          branch 'release'
+                          }
+                     }
                 }
                 steps {
-                    sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" sonar:sonar'
+                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" sonar:sonar'
                 }
            }
            stage('Pushing artifacts to NEXUS') {
                 when {
                      anyOf {
                           branch 'develop'
-                                allOf {
-                                     //tag "release-*"
+                          branch 'release'
+                          allOf {
                                      branch "Feature-*"
-                                }
+                                     tag "release-*"
                           }
                      }
+                }
                 steps {
-                     sh 'mvn -f java_project/ -Drevision="${BUILD_NUMBER}-SNAPSHOT" deploy'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" jar:jar deploy:deploy'
                 }
            }
 
