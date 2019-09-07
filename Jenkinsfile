@@ -4,7 +4,7 @@ pipeline {
       }
       tools {
       maven 'maven'
-      //jdk 'jdk8'
+      jdk 'jdk8'
       }
 
       environment {
@@ -17,35 +17,20 @@ pipeline {
       }
 
       stages {
-          stage('Preparation') {
-                steps {
-                        checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/Feature-1234']],
-                        doGenerateSubmoduleConfigurations: false,
-                        extensions: [[$class: 'GitTagMessageExtension']],
-                        submoduleCfg: [],
-                        userRemoteConfigs: [[name: 'Feature-1234',
-                        refspec: '+refs/heads/*:refs/remotes/Feature-1234/*',
-                        url: 'https://github.com/suyogchinche/pipeline_code.git']]])
-                        
-                        sh 'printenv'
-                        sh 'echo GIT TAG MESSGAE is ::: $GIT_TAG_MESSAGE'
-                        sh 'echo GIT TAG NAME is ::: $GIT_TAG_NAME'
-                }
-           }
            stage('Cleaning Phase') {
                 steps {
                      sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" clean:clean'
                 }
            }
-
+           
+           // Compile main and test classes
            stage('Compiling Phase') {
                 steps {
-                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" compiler:compile'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" compiler:compile compiler:testCompile'
                 }
            }
 
+           // Generate test cases using default surefire plugin in maven
            stage('Generate Test Cases - Surefire') {
                 steps {
                      sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" surefire:test'
@@ -57,7 +42,7 @@ pipeline {
                      }
                 }
            }
-
+          
            stage('Verify code coverage - Jacoco') {
                 steps {
                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
@@ -68,26 +53,32 @@ pipeline {
                      }
                 }
            }
+    
            stage('Publishing code on SONARQUBE'){
                 when {
-                    branch 'develop'
+                     anyOf {
+                          branch 'develop'
+                          branch 'release'
+                          }
+                     }
                 }
                 steps {
-                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}-SNAPSHOT" sonar:sonar'
+                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" sonar:sonar'
                 }
            }
            stage('Pushing artifacts to NEXUS') {
                 when {
                      anyOf {
                           branch 'develop'
-                                allOf {
-                                     tag "release-*"
+                          branch 'release'
+                          allOf {
                                      branch "Feature-*"
-                                }
+                                     tag "release-*"
                           }
                      }
+                }
                 steps {
-                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}-SNAPSHOT" jar:jar deploy:deploy'
+                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMBER}" jar:jar deploy:deploy'
                 }
            }
 
