@@ -35,9 +35,9 @@ pipeline {
         
            stage('Cleaning Phase') {
                 steps {
-                     script {
-                         env.BUILD_NUM = "${env.VERSION_NUMBER}"
-                     }
+                     //script {
+                     //    env.BUILD_NUM = "${env.VERSION_NUMBER}"
+                     //}
                      sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" clean:clean'
                 }
            }
@@ -64,7 +64,7 @@ pipeline {
           
            stage('Verify code coverage - Jacoco') {
                 steps {
-                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUMB}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
+                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
                      success {
