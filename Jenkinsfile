@@ -108,7 +108,7 @@ pipeline {
                            }
                      }
 
-                     stage('Functional Test') {
+                     stage('Functional Regression Test') {
                            steps {
                                  echo "Function test is in progress...."
                            }
