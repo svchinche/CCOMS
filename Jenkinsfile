@@ -71,7 +71,8 @@ pipeline {
                           branch 'develop'
                           branch 'release'
                           allOf {
-                                     branch "Feature-*"
+                                     // branch is not required .## at a time branch or tag works in multibranching project
+                                     //branch "Feature-*"
                                      tag "release-*"
                           }
                      }
