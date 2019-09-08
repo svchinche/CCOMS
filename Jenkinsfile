@@ -113,10 +113,13 @@ pipeline {
            }
 
            stage('Download artifact for deployment') {
+                environment{
+                       NEXUS_PATH= 'http://${NEXUS_URL}/service/rest/v1/search/assets/download?sort=${SORT_OPTION}&repository=maven-snapshots&name=${APP_NAME}&group=com.vogella.maven&version=${VERSION_NUMBER}&maven.extension=${PACKAGING}'
+                }
                 steps {
                      echo "Downloading ...."
                      withCredentials([usernamePassword(credentialsId: 'nexus_artifactory_repository_credentials', passwordVariable: 'password', usernameVariable: 'username')]) { 
-                         sh 'curl -u ${username}:${password} -X -L GET \'http://${NEXUS_URL}/service/rest/v1/search/assets/download?sort=${SORT_OPTION}&repository=maven-snapshots&name=${APP_NAME}&group=com.vogella.maven&version=${VERSION_NUMBER}&maven.extension=${PACKAGING}\' -o ${APP_NAME}.${PACKAGING}'
+                         sh 'curl -u ${username}:${password} -X -L GET ${NEXUS_PATH} -o ${APP_NAME}.${PACKAGING}'
                      }
                       
                 }
