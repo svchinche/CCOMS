@@ -8,17 +8,27 @@ pipeline {
       }
 
       environment {
-           APP_NAME = 'pipeline_code'
-           VERSION_PREFIX = "v1"
-           BUILD_NUMBER = "${env.VERSION_PREFIX}.${env.BUILD_ID}.${env.BUILD_NUMBER}"
-           GIT_URL="https://github.com/suyogchinche/"
-           SBT_OPTS='-Xmx1024m -Xms512m'
-           JAVA_OPTS='-Xmx1024m -Xms512m'
+           //application metadata related variables 
+           APP_NAME = "quickstart"
+           APP_AUTHOR = "Suyog Chinche"
+           PACKAGING  = "jar"
+           OUTPUT_FILE = "${APP_NAME}.${PACKAGING}" 
+           MAVEN_EXTENSION = "${PACKAGING}"
+           GIT_URL="https://github.com/suyogchinche/CICD_declarative_pipeline.git"
+
+           // Version specific variable
            VERSION_NUMBER=VersionNumber([
-               versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${BUILD_NUMBER}', 
-               projectStartDate : '2019-02-09', 
+               versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${BUILD_NUMBER}',
+               projectStartDate : '2019-02-09',
                versionPrefix : 'v'
            ])
+
+           //appn memory argument
+           SBT_OPTS='-Xmx1024m -Xms512m'
+           JAVA_OPTS='-Xmx1024m -Xms512m'
+
+           //All servers URL
+           NEXUS_URL = "worker-node1:8081"
       }
 
       stages {
@@ -104,6 +114,10 @@ pipeline {
            stage('Download artifact for deployment') {
                 steps {
                      echo "Downloading ...."
+                     withCredentials([usernamePassword(credentialsId: 'nexus_artifactory_repository_credentials', passwordVariable: 'password', usernameVariable: 'username')]) { 
+                         sh 'curl -u ${username}:${password} -X -L GET http://${NEXUS_URL}/service/rest/v1/search/assets/download?sort=${SORT_OPTION}&repository=maven-snapshots&name=${APP_NAME}&group=com.vogella.maven&version=${BUILD_NUM}*&maven.extension=${PACKAGING} -o ${APP_NAME}.${PACKAGING}'
+                     }
+                      
                 }
            }
 
