@@ -141,9 +141,28 @@ pipeline {
                      }
 
                      stage('Performance Test') {
+
+                          environment{
+                                JMETER_HOME="/u01/app/jmeter/apache-jmeter-5.1.1";
+                                JMX_FILE_LOC="java_project/jmeter_test_cases/buyer.jmx"
+                                JMX_RESULT_FILE_LOC="java_project/target/result.file"
+                                JMX_WEB_REP_LOC="java_project/target/jmxreport"
+                            }
+
                            steps {
                                  echo "Performance test is in progress ...."
+                                 sh script: ''' [ -d ${JMX_WEB_REP_LOC} ] &&  rm -rf  ${JMX_WEB_REP_LOC}
+                                                [ -f ${JMX_RESULT_FILE_LOC} ] &&  rm -rf  ${JMX_RESULT_FILE_LOC}
+                                                mkdir -p ${JMX_WEB_REP_LOC}
+                                                ${JMETER_HOME}/bin/jmeter.sh -n -t ${JMX_FILE_LOC} -l ${JMX_RESULT_FILE_LOC} -e -o ${JMX_WEB_REP_LOC}
+                                            '''
                            }
+                           post {
+                               success {
+                                   perfReport sourceDataFiles: env.JMX_RESULT_FILE_LOC
+                               }
+                           }
+
                      }
 
                      stage('Functional Regression Test') {
