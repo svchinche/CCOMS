@@ -35,7 +35,9 @@ public class NexusSuiteIT {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\schinche\\Desktop\\selenium\\chromedriver_win32\\chromedriver.exe");
+        // System.setProperty("webdriver.chrome.driver", "C:\\Users\\schinche\\Desktop\\selenium\\chromedriver_win32\\chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver","/root/my_workspace/CICD_declarative_pipeline/chrome_drivers/chromedriver");
+        System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();

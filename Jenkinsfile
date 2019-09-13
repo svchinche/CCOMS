@@ -75,7 +75,7 @@ pipeline {
           
            stage('Verify code coverage - Jacoco') {
                 steps {
-                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent jacoco:report jacoco:check@jacoco-check'
+                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
                      success {
@@ -149,6 +149,7 @@ pipeline {
                      stage('Functional Regression Test') {
                            steps {
                                  echo "Function test is in progress...."
+                                 mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" failsafe:integration-test
                            }
                      }
                  }
