@@ -79,9 +79,10 @@ pipeline {
                 }
                 post {
                      success {
-                         echo "Done"
+                         jacoco inclusionPattern: '**/**.exec'
                      }
                 }
+
            }
     
            stage('Publishing code on SONARQUBE'){
