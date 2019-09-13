@@ -24,6 +24,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,13 +34,25 @@ public class NexusSuiteIT {
     private WebDriver driver;
     private Map<String, Object> vars;
     JavascriptExecutor js;
+    private static DesiredCapabilities capabillities;
+    private static Wait<WebDriver> wait;
 
     @BeforeClass
-    public void setUp() {
+    public void setUp() throws Exception {
         // System.setProperty("webdriver.chrome.driver", "C:\\Users\\schinche\\Desktop\\selenium\\chromedriver_win32\\chromedriver.exe");
         //System.setProperty("webdriver.chrome.driver","/root/my_workspace/CICD_declarative_pipeline/chrome_drivers/chromedriver");
-        System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
-        driver = new ChromeDriver();
+        //System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
+    
+        capabillities = DesiredCapabilities.chrome();
+        driver = new RemoteWebDriver(new URL("http://worker-node1:4444/wd/hub"), capabillities);
+        capabillities.setBrowserName("chrome"); 
+        wait = new WebDriverWait(driver, 6000);
+            
+        //driver = new ChromeDriver();
+
+        //Set Chrome Headless mode as TRUE
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
     }
