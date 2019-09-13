@@ -149,7 +149,7 @@ pipeline {
                      stage('Functional Regression Test') {
                            steps {
                                  echo "Function test is in progress...."
-                                 mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" failsafe:integration-test
+                                 sh 'mvn -f java_project/ -Drevision="${BUILD_NUM}" failsafe:integration-test'
                            }
                      }
                  }
