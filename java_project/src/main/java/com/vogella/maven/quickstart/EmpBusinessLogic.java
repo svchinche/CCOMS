@@ -1,5 +1,6 @@
 package com.vogella.maven.quickstart;
 
+
 public class EmpBusinessLogic {
 	
 	  public double calculateYearlySalary(EmployeeDetails employeeDetails) {
