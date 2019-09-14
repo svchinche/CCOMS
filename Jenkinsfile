@@ -70,7 +70,7 @@ pipeline {
                 post {
                      success {
                           //junit 'java_project/target/surefire-reports/*.xml'
-                          publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '**/target/surefire-reports/', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: ''])
+                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'java_project/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit_test_report', reportTitles: 'Unit Test Result'])
                      }
                 }
            }
@@ -175,7 +175,7 @@ pipeline {
                            }
                            post {
                                 always {
-                                     publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '**/target/failsafe-reports/', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: ''])
+                                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'java_project/target/surefire-reports', reportFiles: 'index.html', reportName: 'Integration_test_report', reportTitles: 'IT Test Result'])
                                 }
                           }
                      }
