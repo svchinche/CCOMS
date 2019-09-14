@@ -1,126 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+     <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.vogella.maven</groupId>
-  <artifactId>quickstart</artifactId>
-  <version>${revision}</version>
-  <packaging>jar</packaging>
+     <groupId>com.vogella.maven</groupId>
+     <artifactId>quickstart</artifactId>
+     <version>${revision}</version>
+     <packaging>jar</packaging>
 
-  <name>quickstart</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+     <name>quickstart</name>
+     <!-- FIXME change it to the project's website -->
+     <url>http://www.example.com</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <jacoco.version>0.8.2</jacoco.version>
+     <properties>
+          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+          <maven.compiler.source>1.8</maven.compiler.source>
+          <maven.compiler.target>1.8</maven.compiler.target>
+          
+          <jacoco.version>0.8.2</jacoco.version>
+          <surefire.version>3.0.0-M3</surefire.version>
+          <failsafe.version>2.13</failsafe.version>
+          <testng.version>6.14.3</testng.version>
+          <selenium.version>3.141.59</selenium.version>
+          <hamcrest.version>2.1-rc3</hamcrest.version>
 
-    <sonar.sources>src/main</sonar.sources>
-    <sonar.tests>src/test</sonar.tests>
-    <!-- Below property indicates the pattern of the test suite --> 
-    <runSuite>**/*.class</runSuite>
-    <!-- Sonar-JaCoCo properties -->
-    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-    <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
-    <sonar.language>java</sonar.language>
+          <sonar.sources>src/main</sonar.sources>
+          <sonar.tests>src/test</sonar.tests>
+          <!-- Below property indicates the pattern of the test suite -->
+          <runSuite>**/*.class</runSuite>
+          <!-- Sonar-JaCoCo properties -->
+          <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+          <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+          <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
+          <sonar.language>java</sonar.language>
 
-  </properties>
+     </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+     <dependencies>
+          <!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId>
+               <version>4.12</version> <scope>test</scope> </dependency> -->
+          <!-- https://mvnrepository.com/artifact/org.testng/testng -->
 
+          <dependency>
+               <groupId>org.testng</groupId>
+               <artifactId>testng</artifactId>
+               <version>${testng.version}</version>
+               <scope>test</scope>
+          </dependency>
 
-  <build>
-     <plugins>
-		<!-- Below plugin ensures the execution of test cases during maven build-->
-		<plugin>
-		 	<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<configuration>
-				<includes>
-					<include>${runSuite}</include>
-				</includes>
-			</configuration>
-		</plugin>
-		
-		<plugin>
-          		<groupId>org.apache.maven.plugins</groupId>
-          		<artifactId>maven-surefire-plugin</artifactId>
-          		<version>3.0.0-M3</version>
-        	</plugin>
+          <!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-library -->
+          <dependency>
+               <groupId>org.hamcrest</groupId>
+               <artifactId>hamcrest-library</artifactId>
+               <version>${hamcrest.version}</version>
+               <scope>test</scope>
+          </dependency>
 
-		<!-- Sonar-JaCoCo integration plugin -->
-		<plugin>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.7.6.201602180812</version>
-			<configuration>
-				<destFile>${sonar.jacoco.reportPath}</destFile>
-				<append>true</append>
-			</configuration>
-			<executions>
-				<execution>
-					<goals>
-						<goal>prepare-agent</goal>
-					</goals>
-				</execution>
-				<execution>
-					<id>jacoco-report</id>
-					<phase>test</phase>
-					<goals>
-						<goal>report</goal>
-					</goals>
-				</execution>
-				<!-- Add this checking -->
-				<execution>
-					<id>jacoco-check</id>
-					<goals>
-						<goal>check</goal>
-					</goals>
-					<configuration>
-						<rules>
-							<rule>
-								<element>PACKAGE</element>
-								<limits>
-									<limit>
-										<counter>LINE</counter>
-										<value>COVEREDRATIO</value>
-										<minimum>0.7</minimum>
-									</limit>
-								</limits>
-							</rule>
-						</rules>
-					</configuration>
-				</execution>         
-			</executions>
-		</plugin>
-     </plugins>
-  </build>
+          <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+          <dependency>
+               <groupId>org.jacoco</groupId>
+               <artifactId>jacoco-maven-plugin</artifactId>
+               <version>${jacoco.version}</version>
+          </dependency>
 
 
-<!-- This tag is required for pushing the artifacts to nexus-->        
-   <distributionManagement>
-      <repository>
-          <id>artifactory_server</id>
-          <!-- CHANGE HERE by your team nexus server -->
-          <url>http://worker-node1:8081/repository/maven-releases/</url>
-      </repository>
-      <snapshotRepository>
-          <id>artifactory_server</id>
-          <!-- CHANGE HERE by your team nexus server -->
-          <url>http://worker-node1:8081/repository/maven-snapshots/</url>
-      </snapshotRepository>
-   </distributionManagement>
+
+          <dependency>
+               <groupId>org.seleniumhq.selenium</groupId>
+               <artifactId>selenium-java</artifactId>
+               <version>${selenium.version}</version>
+          </dependency>
+     </dependencies>
+
+
+
+
+     <build>
+          <plugins>
+
+               <!-- Failsafe plugin for integration-test -->
+               <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${failsafe.version}</version>
+                    <configuration>
+                         <includes>
+                              <include>**/*IT.java</include>
+                         </includes>
+                    </configuration>
+                    <executions>
+                         <execution>
+                              <id>failsafe-integration-tests</id>
+                              <phase>integration-test</phase>
+                              <goals>
+                                   <goal>integration-test</goal>
+                              </goals>
+                         </execution>
+                    </executions>
+               </plugin>
+
+
+               <!-- Surefire plugin for unitest -->
+               <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.version}</version>
+               </plugin>
+
+               <!-- Sonar-JaCoCo integration plugin -->
+               <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
+                    <configuration>
+                         <destFile>${sonar.jacoco.reportPath}</destFile>
+                         <append>true</append>
+                    </configuration>
+                    <executions>
+                         <execution>
+                              <goals>
+                                   <goal>prepare-agent</goal>
+                              </goals>
+                         </execution>
+                         <execution>
+                              <id>jacoco-report</id>
+                              <phase>test</phase>
+                              <goals>
+                                   <goal>report</goal>
+                              </goals>
+                         </execution>
+                         <!-- Add this checking -->
+                         <execution>
+                              <id>jacoco-check</id>
+                              <goals>
+                                   <goal>check</goal>
+                              </goals>
+                              <configuration>
+                                   <rules>
+                                        <rule>
+                                             <element>PACKAGE</element>
+                                             <limits>
+                                                  <limit>
+                                                       <counter>LINE</counter>
+                                                       <value>COVEREDRATIO</value>
+                                                       <minimum>0.7</minimum>
+                                                  </limit>
+                                             </limits>
+                                        </rule>
+                                   </rules>
+                              </configuration>
+                         </execution>
+                    </executions>
+               </plugin>
+          </plugins>
+     </build>
+
+
+     <!-- This tag is required for pushing the artifacts to nexus -->
+     <distributionManagement>
+          <repository>
+               <id>artifactory_server</id>
+               <!-- CHANGE HERE by your team nexus server -->
+               <url>http://worker-node1:8081/repository/maven-releases/</url>
+          </repository>
+          <snapshotRepository>
+               <id>artifactory_server</id>
+               <!-- CHANGE HERE by your team nexus server -->
+               <url>http://worker-node1:8081/repository/maven-snapshots/</url>
+          </snapshotRepository>
+     </distributionManagement>
 
 </project>
