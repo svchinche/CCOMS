@@ -18,7 +18,13 @@
           <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
           <maven.compiler.source>1.8</maven.compiler.source>
           <maven.compiler.target>1.8</maven.compiler.target>
+          
           <jacoco.version>0.8.2</jacoco.version>
+          <surefire.version>3.0.0-M3</surefire.version>
+          <failsafe.version>2.13</failsafe.version>
+          <testng.version>6.14.3</testng.version>
+          <selenium.version>3.141.59</selenium.version>
+          <hamcrest.version>2.1-rc3</hamcrest.version>
 
           <sonar.sources>src/main</sonar.sources>
           <sonar.tests>src/test</sonar.tests>
@@ -40,7 +46,7 @@
           <dependency>
                <groupId>org.testng</groupId>
                <artifactId>testng</artifactId>
-               <version>6.14.3</version>
+               <version>${testng.version}</version>
                <scope>test</scope>
           </dependency>
 
@@ -48,7 +54,7 @@
           <dependency>
                <groupId>org.hamcrest</groupId>
                <artifactId>hamcrest-library</artifactId>
-               <version>2.1-rc3</version>
+               <version>${hamcrest.version}</version>
                <scope>test</scope>
           </dependency>
 
@@ -56,7 +62,7 @@
           <dependency>
                <groupId>org.jacoco</groupId>
                <artifactId>jacoco-maven-plugin</artifactId>
-               <version>0.8.4</version>
+               <version>${jacoco.version}</version>
           </dependency>
 
 
@@ -64,7 +70,7 @@
           <dependency>
                <groupId>org.seleniumhq.selenium</groupId>
                <artifactId>selenium-java</artifactId>
-               <version>3.141.59</version>
+               <version>${selenium.version}</version>
           </dependency>
      </dependencies>
 
@@ -78,7 +84,7 @@
                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.13</version>
+                    <version>${failsafe.version}</version>
                     <configuration>
                          <includes>
                               <include>**/*IT.java</include>
@@ -100,14 +106,14 @@
                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M3</version>
+                    <version>${surefire.version}</version>
                </plugin>
 
                <!-- Sonar-JaCoCo integration plugin -->
                <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.7.6.201602180812</version>
+                    <version>${jacoco.version}</version>
                     <configuration>
                          <destFile>${sonar.jacoco.reportPath}</destFile>
                          <append>true</append>

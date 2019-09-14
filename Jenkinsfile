@@ -33,7 +33,8 @@ pipeline {
       }
 
       stages {
-
+           
+           // This should be a part of library rather than stage-- non standardise code --[code should be reusable]
            stage('Preparation phase') {
                 when { anyOf { branch 'develop'; branch 'Feature*' ; tag 'release*' } }
                 steps{
@@ -43,7 +44,7 @@ pipeline {
                      }
                 }
            }
-        
+           
            stage('Cleaning Phase') {
                 steps {
                      //script {
@@ -68,7 +69,8 @@ pipeline {
 
                 post {
                      success {
-                          junit 'java_project/target/surefire-reports/*.xml'
+                          //junit 'java_project/target/surefire-reports/*.xml'
+                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'java_project/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
                      }
                 }
            }
@@ -78,8 +80,8 @@ pipeline {
                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
-                     success {
-                         jacoco inclusionPattern: '**/**.exec'
+                     always {
+                         jacoco classPattern: '**/target/classes', execPattern: '**/target/**.exec'
                      }
                 }
 
@@ -171,6 +173,11 @@ pipeline {
                                  echo "Function test is in progress...."
                                  sh 'mvn -f java_project/ -Drevision="${BUILD_NUM}" failsafe:integration-test'
                            }
+                           post {
+                                always {
+                                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'java_project/target/failsafe-reports', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: 'IT Test Result'])
+                                }
+                          }
                      }
                  }
            }
