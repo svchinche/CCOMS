@@ -79,7 +79,7 @@ pipeline {
                 }
                 post {
                      success {
-                         jacoco inclusionPattern: '**/**.exec'
+                         jacoco classPattern: '**/target/classes', execPattern: '**/target/**.exec'
                      }
                 }
 
