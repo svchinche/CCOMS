@@ -37,7 +37,7 @@ pipeline {
            NEXUS_URL = "worker-node1:8081"
 
            //Used shared library to get the build no and tag name
-           BUILD_NUM = show_BuildId()
+           //BUILD_NUM = show_BuildId()
       }
 
 
@@ -45,6 +45,10 @@ pipeline {
            
            stage('Cleaning Phase') {
                 steps {
+                     // This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library
+                     script {
+                          env.BUILD_NUM = show_BuildId()
+                     }
                      sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" clean:clean'
                 }
            }
