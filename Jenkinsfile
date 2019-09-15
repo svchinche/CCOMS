@@ -7,6 +7,11 @@ pipeline {
       jdk 'jdk8'
       }
 
+      libraries {
+           lib('my-shared-library@master')
+      }
+
+
       environment {
            //application metadata related variables 
            APP_NAME = "quickstart"
@@ -30,26 +35,16 @@ pipeline {
 
            //All servers URL
            NEXUS_URL = "worker-node1:8081"
+
+           //Used shared library to get the build no and tag name
+           BUILD_NUM = show_BuildId()
       }
+
 
       stages {
            
-           // This should be a part of library rather than stage-- non standardise code --[code should be reusable]
-           stage('Preparation phase') {
-                when { anyOf { branch 'develop'; branch 'Feature*' ; tag 'release*' } }
-                steps{
-                    script{
-                        // Created new environment variable as environment varible value is immutable, through environment directive it updates but not persist its value across the stages
-                         env.BUILD_NUM = "${env.VERSION_NUMBER}-SNAPSHOT"
-                     }
-                }
-           }
-           
            stage('Cleaning Phase') {
                 steps {
-                     //script {
-                     //    env.BUILD_NUM = "${env.VERSION_NUMBER}"
-                     //}
                      sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" clean:clean'
                 }
            }
@@ -90,7 +85,6 @@ pipeline {
            stage('Publishing code on SONARQUBE'){
                 when {
                      anyOf {
-                          branch 'develop'
                           branch 'release'
                      }
                 }
@@ -104,8 +98,7 @@ pipeline {
                           branch 'develop'
                           branch 'release'
                           allOf {
-                                     // branch is not required .## at a time branch or tag works in multibranching project
-                                     //branch "Feature-*"
+                                     branch "Feature-*"
                                      tag "release-*"
                           }
                      }
