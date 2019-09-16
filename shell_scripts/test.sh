@@ -1,6 +1,4 @@
-
 #!/bin/bash
-
 
 ### Dependent packages for the script 
 ## 1. jq
