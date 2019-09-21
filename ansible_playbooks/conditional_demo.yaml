@@ -1,0 +1,25 @@
+--- 
+- name: This testing is for appservers
+  hosts: webservers
+  user: fsgbu_ormb
+  
+  vars:
+  - name: Suyog
+    age: 18
+    marks: 
+      - { English: 40, Hindi: 37, Marathi: 77, Math: 64 }
+      - { English: 41, Hindi: 31, Marathi: 71, Math: 61 }
+  
+  tasks:
+  - name: This is to print debug message
+    debug:
+      msg: You got {{ item.English }} marks in English and  {{ item.Math }} in Math
+    with_items:
+      - "{{ marks }}"
+    when: ( item['English'] == 40 and item['Hindi'] == 37 ) or ( item['English'] == 41 and item['Hindi'] == 31 )
+
+### Learn :: How to use or & and in conditions 
+
+...
+  
+  

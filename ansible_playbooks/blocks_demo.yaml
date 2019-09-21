@@ -1,0 +1,37 @@
+--- 
+- name: "This playbook is use for checking handler behaviour"
+  hosts: appservers
+  user: fsgbu_ormb
+  
+  vars:
+  - name: Suyog
+    age: 18
+  
+  tasks:
+
+  - name: This task doesnot need sudoer access
+    debug:
+       msg: "This task doesnot need sudoer access"
+  
+  - block:
+
+    - name: This task needs sudoer access
+      copy:
+        src: templates/index.html
+        dest: /root/index.html
+        mode: 0755
+      notify:
+      - restart service
+
+    become: true
+
+  handlers:
+  - name: restart service
+    debug:
+      msg: Service has been restarted
+
+   
+# Learn to print the variable
+...
+  
+  

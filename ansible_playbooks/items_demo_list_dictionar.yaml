@@ -1,0 +1,24 @@
+--- 
+- name: This testing is for appservers
+  hosts: webservers
+  user: fsgbu_ormb
+  
+  vars:
+  - name: Suyog
+    age: 18
+    marks: 
+      - { English: 40, Hindi: 37, Marathi: 77, Math: 64 }
+      - { English: 41, Hindi: 31, Marathi: 71, Math: 69 }
+  
+  tasks:
+  - name: This is to print debug message
+    debug:
+      msg: In {{ item.English }} you got {{ item.Marathi }} 
+    with_items: "{{ marks }}"
+    when: item['English'] == 40
+
+### Learning ::  Whenever we use single quote item in outout shows 'u' which indicates string literal
+###  (item={u'Marathi': 77, u'Hindi': 37, u'Math': 64, u'English': u'40'}) => 
+...
+  
+  

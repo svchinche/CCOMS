@@ -1,0 +1,24 @@
+--- 
+- name: This testing is for appservers
+  hosts: webservers
+  user: fsgbu_ormb
+  
+  vars:
+  - name: Suyog
+    age: 18
+    marks: 
+      { English: 40, Hindi: 37, Marathi: 77, Math: 64 }
+  
+  tasks:
+  - name: This is to print debug message
+    debug:
+      msg: In {{ item.key }} you got {{ item.value }} 
+    with_dict:
+      - "{{ marks }}"
+
+### Learning :: 
+## 1. Dictionary contains group of key and value pairs
+## 2. with_items is used for looping list whereas with_dict is used for iterating dictionary
+...
+  
+  

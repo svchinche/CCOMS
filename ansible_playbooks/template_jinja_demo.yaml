@@ -1,0 +1,26 @@
+---
+- name: "Templates changes verification"
+  hosts: webservers
+  user: fsgbu_ormb
+  become: true
+
+  vars:
+
+    Employees:
+      - name:  Suyog Chinche
+        age: 28
+        specialization: { Development: 80, Devops: 90, SecOps: 70, Support: 30, Testing: 40 }
+     
+      - name: Dhiraj Kumar
+        age: 29
+        specialization: { Developerment: 60, Devops: 30, SecOps: 40, Support: 20, Testing: 10 }
+  
+  tasks:
+    - name: "Cpoying template from source location to all host"
+      template:
+         src: templates/index_welcome.html
+         dest: /var/www/html/index.html
+
+## Learnt :: How to explore items from list and key and value from dictionary in jinja template
+
+...

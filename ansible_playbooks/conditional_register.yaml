@@ -1,0 +1,19 @@
+---
+- name: "Checking register with conditionals"
+  hosts: webservers
+  user: fsgbu_ormb
+  
+  tasks:
+    - name: "Executing false binary"
+      command: /bin/false
+      register: output
+      ignore_errors: true
+
+    - name: "Executing date command when above result is fail"
+      command: date
+      when: output is failed
+      #when: result is succeeded
+ 
+    - name: "Printing result value"
+      debug: msg {{ output }}
+...
