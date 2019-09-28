@@ -6,7 +6,7 @@
 
      <groupId>profesorp.countries-service</groupId>
      <artifactId>countries-service</artifactId>
-     <version>0.0.1-SNAPSHOT</version>
+     <version>${revision}</version>
      <packaging>jar</packaging>
 
      <name>countries-service</name>
@@ -37,7 +37,7 @@
                <artifactId>jackson-databind</artifactId>
                <version>2.9.7</version>
           </dependency>
-          
+
           <dependency>
                <groupId>org.springframework.cloud</groupId>
                <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -95,7 +95,39 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                </plugin>
+               <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>dockerfile-maven-plugin</artifactId>
+                    <version>1.4.9</version>
+                    <configuration>
+                         <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                    </configuration>
+               </plugin>
+               <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <executions>
+                         <execution>
+                              <id>unpack</id>
+                              <phase>package</phase>
+                              <goals>
+                                   <goal>unpack</goal>
+                              </goals>
+                              <configuration>
+                                   <artifactItems>
+                                        <artifactItem>
+                                             <groupId>${project.groupId}</groupId>
+                                             <artifactId>${project.artifactId}</artifactId>
+                                             <version>${project.version}</version>
+                                        </artifactItem>
+                                   </artifactItems>
+                              </configuration>
+                         </execution>
+                    </executions>
+               </plugin>
+
           </plugins>
+          <finalName>Countries-Service</finalName>
      </build>
 
      <repositories>
