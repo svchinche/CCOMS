@@ -1,6 +1,6 @@
 spring:
   application:
-    name: employee-microservice
+    name: department-microservice
   profiles:
     include:
     - default
@@ -8,5 +8,3 @@ spring:
 cloud:
   config:
     uri: http://localhost:8888
-    
-

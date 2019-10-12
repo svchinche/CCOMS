@@ -1,19 +1,11 @@
 package com.cloudcomp.ccoms.orgsvc.client;
-
-
-
 import java.util.List;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import com.cloudcomp.ccoms.orgsvc.model.*;
 
-
-
-
-@FeignClient(name = "department-service", url = "http://localhost:8081")
+@FeignClient(name = "department-service", url = "${dept.service.url: http://localhost:8081}")
 public interface DepartmentClient {
 
     @GetMapping("/department/org/{orgId}")

@@ -6,8 +6,9 @@
           <artifactId>spring-boot-starter-parent</artifactId>
           <version>2.0.6.RELEASE</version>
      </parent>
-     <groupId>com.cloudcomp.ccoms</groupId>
      <version>1.0-SNAPSHOT</version>
+     
+     
      
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,10 +31,6 @@
 		     <artifactId>jackson-annotations</artifactId>
 		</dependency>
 		<dependency>
-		     <groupId>org.springframework.cloud</groupId>
-		     <artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
-		<dependency>
 		     <groupId>org.springframework.boot</groupId>
 		     <artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
@@ -52,17 +49,12 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>Organization-MicroService</finalName>
+		<finalName>Employee-MicroService</finalName>
 	</build>
+	<groupId>com.cloudcomp.ccoms</groupId>
+	<artifactId>employee-service</artifactId>
 	<dependencyManagement>
 	     <dependencies>
-	          <dependency>
-	               <groupId>org.springframework.cloud</groupId>
-	               <artifactId>spring-cloud-dependencies</artifactId>
-	               <version>Finchley.SR4</version>
-	               <type>pom</type>
-	               <scope>import</scope>
-	          </dependency>
 	          <dependency>
 	               <groupId>io.pivotal.spring.cloud</groupId>
 	               <artifactId>
@@ -72,8 +64,13 @@
 	               <type>pom</type>
 	               <scope>import</scope>
 	          </dependency>
+	          <dependency>
+	               <groupId>org.springframework.cloud</groupId>
+	               <artifactId>spring-cloud-dependencies</artifactId>
+	               <version>Finchley.SR4</version>
+	               <type>pom</type>
+	               <scope>import</scope>
+	          </dependency>
 	     </dependencies>
 	</dependencyManagement>
-	<artifactId>organization-service</artifactId>
-	<packaging>war</packaging>
 </project>

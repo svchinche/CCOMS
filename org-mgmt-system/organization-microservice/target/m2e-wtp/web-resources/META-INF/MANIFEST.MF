@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: organization-service
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: schinche
+Implementation-Vendor-Id: com.cloudcomp.ccoms
+Build-Jdk: 1.8.0_221
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/organization-service
+Created-By: Maven Integration for Eclipse
+
