@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: countryms
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: countryms
+    spec:
+      containers:
+      - name: countryms
+
+        image: worker-node1:5000/countries-service
+        imagePullPolicy: IfNotPresent
+
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: claim-for-eureka
+          mountPath: /tmp
+
+      volumes:
+      - name: claim-for-eureka
+        persistentVolumeClaim:
+          claimName: claim-for-eureka
+

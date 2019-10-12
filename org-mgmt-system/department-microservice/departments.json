@@ -1,0 +1,42 @@
+[
+	{
+		"deptId": 11,
+		"deptName": "ORMB",
+		"orgId": 1
+	},
+	{
+		"deptId": 12,
+		"deptName": "I-Flex",
+		"orgId": 1
+	},
+	{
+		"deptId": 13,
+		"deptName": "Flex-Cube",
+		"orgId": 1
+	},
+	{
+		"deptId": 14,
+		"deptName": "Consulting",
+		"orgId": 1
+	},
+	{
+		"deptId": 21,
+		"deptName": "HYDRASTOR",
+		"orgId": 2
+	},
+	{
+		"deptId": 22,
+		"deptName": "ESMpro",
+		"orgId": 2
+	},
+	{
+		"deptId": 23,
+		"deptName": "SAP",
+		"orgId": 2
+	},
+	{
+		"deptId": 24,
+		"deptName": "HYNNA",
+		"orgId": 2
+	}
+]

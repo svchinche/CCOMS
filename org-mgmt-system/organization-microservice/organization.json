@@ -1,0 +1,12 @@
+[
+	{
+		"orgId": 1,
+		"name": "ORACLE",
+		"address": "Pune"
+	},
+	{
+		"orgId": 2,
+		"name": "NEC",
+		"address": "Noida"
+	}
+]
