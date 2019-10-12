@@ -1,0 +1,8 @@
+Below command used when pod was not able to start. Pod was giving below error message
+"default-server-secret" is forbidden: User "system:serviceaccount:nginx-ingress:nginx-ingress" cannot get resource "secrets" in API group "" in the namespace "nginx-ingress"
+
+Decision of fix :: It was clearly showing that some account is missing
+
+Solution ::
+
+kubectl create clusterrolebinding nginx-ingress-admin -n nginx-ingress  --clusterrole=cluster-admin  --serviceaccount=nginx-ingress:nginx-ingress

@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: employee-microservice
+  profiles:
+    include:
+    - default
+    
+cloud:
+  config:
+    uri: http://localhost:8888
+    
+
