@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <docker.image.prefix>worker-node1:5000</docker.image.prefix>
     </properties>
 
     <dependencyManagement>
@@ -139,7 +140,7 @@
         </plugins>
 
         <finalName>Department-MicroService</finalName>
-        
+
     </build>
 
 
