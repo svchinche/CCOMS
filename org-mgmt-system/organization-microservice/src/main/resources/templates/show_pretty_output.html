@@ -80,14 +80,14 @@ td {
 				<td colspan="2">Information of employee is not available</td>
 			</tr>
 			<tr th:each="org : ${orgs}">
-				<td><span th:text="${org.orgId}"> OrgID </span></td>
+				<td><span th:text="${org.id}"> OrgID </span></td>
 				<td><span th:text="${org.name}"> OrgName </span></td>
 				<td><span th:text="${org.address}"> Address </span></td>
 				<td>
 					<table>
 						<tr th:each="dept : ${org.depts}">
-							<td><span th:text="${dept.deptId}"> Dept_ID </span></td>
-							<td><span th:text="${dept.deptName}"> Dept_Name </span></td>
+							<td><span th:text="${dept.id}"> Dept_ID </span></td>
+							<td><span th:text="${dept.name}"> Dept_Name </span></td>
 							<td>
 								<table>
 									<tr th:each="emp : ${dept.emps}">

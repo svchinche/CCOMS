@@ -1,6 +1,6 @@
 package com.cloudcomp.ccoms.empsvc.repository;
 
-import java.math.BigInteger;
+
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.Query;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.cloudcomp.ccoms.empsvc.model.Employee;
 
 @Repository
-public interface EmployeeRepository extends CrudRepository<Employee, BigInteger>{
+public interface EmployeeRepository extends CrudRepository<Employee, Long>{
 
     
     @Query("{ 'orgId' : ?0 }")
@@ -19,8 +19,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, BigInteger>
     
     @Query("{ 'deptId' : ?0 }")
     public List<Employee> findEmpsByDeptId(int deptId);
-    
-
     
 
 }

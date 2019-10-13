@@ -1,42 +1,42 @@
 [
 	{
-		"deptId": 11,
-		"deptName": "ORMB",
+		"id": 11,
+		"name": "ORMB",
 		"orgId": 1
 	},
 	{
-		"deptId": 12,
-		"deptName": "I-Flex",
+		"id": 12,
+		"name": "I-Flex",
 		"orgId": 1
 	},
 	{
-		"deptId": 13,
-		"deptName": "Flex-Cube",
+		"id": 13,
+		"name": "Flex-Cube",
 		"orgId": 1
 	},
 	{
-		"deptId": 14,
-		"deptName": "Consulting",
+		"id": 14,
+		"name": "Consulting",
 		"orgId": 1
 	},
 	{
-		"deptId": 21,
-		"deptName": "HYDRASTOR",
+		"id": 21,
+		"name": "HYDRASTOR",
 		"orgId": 2
 	},
 	{
-		"deptId": 22,
-		"deptName": "ESMpro",
+		"id": 22,
+		"name": "ESMpro",
 		"orgId": 2
 	},
 	{
-		"deptId": 23,
-		"deptName": "SAP",
+		"id": 23,
+		"name": "SAP",
 		"orgId": 2
 	},
 	{
-		"deptId": 24,
-		"deptName": "HYNNA",
+		"id": 24,
+		"name": "HYNNA",
 		"orgId": 2
 	}
 ]

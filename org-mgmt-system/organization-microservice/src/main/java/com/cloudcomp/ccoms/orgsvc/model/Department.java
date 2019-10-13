@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Department {
 
     
-    private int deptId;
-    private String deptName;
+    private int id;
+    private String name;
     private int orgId;
     private List<Employee> emps;
 
@@ -20,35 +20,33 @@ public class Department {
 
     public Department(int deptId , int orgId , String deptName) {        
         super();
-        this.deptId=deptId;
+        this.id=deptId;
         this.orgId=orgId;
-        this.deptName = deptName;
+        this.name = deptName;
     }
 
     public String getDeptName() {
-        return deptName;
+        return name;
     }
 
     public void setDeptName(String deptName) {
-        this.deptName = deptName;
+        this.name = deptName;
     }
 
-
-    public int getDeptId() {
-        return deptId;
+    public int getId() {
+        return id;
     }
 
-    public void setDeptId(int deptId) {
-        this.deptId = deptId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setEmps(List<Employee> emps) {
-        this.emps = emps;
+    public String getName() {
+        return name;
     }
 
-
-    public List<Employee> getEmps() {
-        return emps;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getOrgId() {
@@ -59,5 +57,12 @@ public class Department {
         this.orgId = orgId;
     }
 
+    public List<Employee> getEmps() {
+        return emps;
+    }
 
+    public void setEmps(List<Employee> emps) {
+        this.emps = emps;
+    }   
+  
 }

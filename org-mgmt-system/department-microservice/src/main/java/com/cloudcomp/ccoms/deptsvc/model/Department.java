@@ -1,58 +1,69 @@
 package com.cloudcomp.ccoms.deptsvc.model;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 
 
 @Document(collection = "department")
 @JsonInclude(value = Include.NON_EMPTY)
-
-
-
 public class Department {
 
     @Id
-    private BigInteger deptId;
-    private String deptName;
+    @Indexed
+    private Long id;
+    private String name;
     private int orgId;
     private List<Employee> emps = new ArrayList<>();
 
-    public Department() {
-    }
-
     
-    public Department(BigInteger deptId , int orgId , String deptName) {        
+
+
+    public Department() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public Department(Long deptId , int orgId , String name) {        
         super();
-        this.deptId=deptId;
+        this.id=deptId;
         this.orgId=orgId;
-        this.deptName = deptName;
+        this.name = name;
     }
 
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
+    public Long getId() {
+        return id;
     }
 
 
-    public BigInteger getDeptId() {
-        return deptId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setDeptId(BigInteger deptId) {
-        this.deptId = deptId;
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public int getOrgId() {
+        return orgId;
+    }
+
+
+    public void setOrgId(int orgId) {
+        this.orgId = orgId;
     }
 
 
@@ -63,15 +74,6 @@ public class Department {
 
     public void setEmps(List<Employee> emps) {
         this.emps = emps;
-    }
-
-    public int getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(int orgId) {
-        this.orgId = orgId;
-    }
-
+    } 
 
 }

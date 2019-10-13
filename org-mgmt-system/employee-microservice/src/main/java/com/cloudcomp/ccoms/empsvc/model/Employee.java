@@ -1,6 +1,6 @@
 package com.cloudcomp.ccoms.empsvc.model;
 
-import java.math.BigInteger;
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -13,7 +13,7 @@ public class Employee {
 
     @Id
     @Indexed
-    private BigInteger id;
+    private Long id;
     
     private String name;
     private int age;
@@ -27,11 +27,11 @@ public class Employee {
 
     }
     
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
     

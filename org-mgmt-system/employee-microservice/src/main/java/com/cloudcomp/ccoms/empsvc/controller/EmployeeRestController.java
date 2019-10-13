@@ -43,9 +43,10 @@ public class EmployeeRestController {
         return "Please give url as hostname/employee/get";
 
     }
-        
+     
+    // Swagger doesnt support biginteger
     @GetMapping("/{id}")
-    public Optional<Employee> getEmpById( @PathVariable("id") BigInteger id) {     
+    public Optional<Employee> getEmpById( @PathVariable("id") Long id) {     
         Optional<Employee> tasks= empRepository.findById(id);
         return tasks;
 
@@ -90,14 +91,14 @@ public class EmployeeRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Employee> deleteEmployee(@PathVariable("id") BigInteger id){
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable("id") Long id){
       
         empRepository.deleteById(id);
         return new ResponseEntity<Employee>(HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployeePartially(@PathVariable("id") BigInteger id, @RequestBody Employee currentEmployee){
+    public ResponseEntity<Employee> updateEmployeePartially(@PathVariable("id") Long id, @RequestBody Employee currentEmployee){
         Optional<Employee> emp = empRepository.findById(id);
         
         

@@ -1,10 +1,8 @@
 package com.cloudcomp.ccoms.deptsvc.controller;
 
-import java.math.BigInteger;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +31,6 @@ import com.cloudcomp.ccoms.deptsvc.repository.DepartmentRepository;
 
 @RestController
 @RequestMapping(value = { "/", "/department" })
-
-
 public class DepartmentRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentRestController.class);
@@ -61,7 +57,7 @@ public class DepartmentRestController {
     @PostMapping("/adddept")
     public ResponseEntity<Void> createDepartment(@RequestBody Department dept, UriComponentsBuilder ucBuilder) {
 
-        LOGGER.info("Creating Department " + dept.getDeptName());
+        LOGGER.info("Creating Department " + dept.getName());
         deptRepository.save(dept);
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
@@ -87,14 +83,14 @@ public class DepartmentRestController {
 
 
     @GetMapping("/dept/{deptId}")
-    public Optional<Department> getDepartmentById(@PathVariable("deptId") BigInteger deptId) {
+    public Optional<Department> getDepartmentById(@PathVariable("deptId") Long deptId) {
         LOGGER.info(" Department with id " + deptId);
         Optional<Department> depts = deptRepository.findById(deptId);
         return depts;
     }
 
     @GetMapping("/org/{orgId}")
-    public List<Department> getDeptsByOrgId(@PathVariable("orgId") int orgId) {
+    public List<Department> getDeptsByOrgId(@PathVariable("orgId") Long orgId) {
         LOGGER.info("Fetching Department with id " + orgId);
         List<Department> depts = deptRepository.findDeptByOrgId(orgId);
         return depts;
@@ -102,7 +98,7 @@ public class DepartmentRestController {
     }
 
     @GetMapping("/org/{orgId}/withemp")
-    public List<Department> getDeptswithEmpsUsingOrgid(@PathVariable("orgId") int orgId) {
+    public List<Department> getDeptswithEmpsUsingOrgid(@PathVariable("orgId") Long orgId) {
         LOGGER.info("Department find: orgId={}", orgId);
 
         List<Department> final_depts = new ArrayList<Department>();
@@ -110,10 +106,10 @@ public class DepartmentRestController {
 
         for (Department dept : depts) {
             Department tmp = new Department();
-            tmp.setDeptId(dept.getDeptId());
+            tmp.setId(dept.getId());
             tmp.setOrgId(dept.getOrgId());
-            tmp.setDeptName(dept.getDeptName());
-            tmp.setEmps(employeeClient.findEmpsByDeptId(dept.getDeptId()));
+            tmp.setName(dept.getName());
+            tmp.setEmps(employeeClient.findEmpsByDeptId(dept.getId()));
             final_depts.add(tmp);
         }
 
@@ -125,7 +121,7 @@ public class DepartmentRestController {
         
         List<Department> final_depts  = new ArrayList<Department>();
         for (Department dept: deptRepository.findAll()) {
-            dept.setEmps(employeeClient.findEmpsByDeptId(dept.getDeptId()));
+            dept.setEmps(employeeClient.findEmpsByDeptId(dept.getId()));
             final_depts.add(dept);
         }
         return final_depts;
