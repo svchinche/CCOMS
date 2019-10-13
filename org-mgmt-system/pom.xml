@@ -12,5 +12,6 @@
           <module>department-microservice</module>
           <module>employee-microservice</module>
           <module>organization-microservice</module>
+          <module>proxy-server-microservice</module>
      </modules>
 </project>
