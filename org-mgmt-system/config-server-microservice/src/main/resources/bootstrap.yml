@@ -10,15 +10,21 @@ logging:
         web: DEBUG
          
 
+
+
 spring:
   profiles:
     include: default
   cloud:
     config:
       server:
+        bootstrap: true
         git:
           uri: 'https://github.com/svchinche/org-mgmt-conf-files.git'
           search-paths:
-          - 'config-files'  
+          - 'config-files/default/'
+          - 'config-files/dev/'
+          - 'config-files/prod/'
+            
          
 

@@ -3,7 +3,7 @@ spring:
     name: organization-microservice
   profiles:
     include:
-    - default
+    - ${app.profile}
     
 cloud:
   config:
