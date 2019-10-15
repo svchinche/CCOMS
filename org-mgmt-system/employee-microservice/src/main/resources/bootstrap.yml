@@ -5,6 +5,10 @@ spring:
     include:
     - ${app.profile}
     
+server:
+  servlet:
+    path: /employee
+    
 cloud:
   config:
     uri: http://localhost:8888

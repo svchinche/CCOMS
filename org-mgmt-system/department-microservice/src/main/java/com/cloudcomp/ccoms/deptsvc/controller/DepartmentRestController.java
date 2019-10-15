@@ -1,6 +1,5 @@
 package com.cloudcomp.ccoms.deptsvc.controller;
 
-
 import java.util.ArrayList;
 
 import java.util.List;
@@ -29,8 +28,12 @@ import com.cloudcomp.ccoms.deptsvc.controller.DepartmentRestController;
 import com.cloudcomp.ccoms.deptsvc.model.Department;
 import com.cloudcomp.ccoms.deptsvc.repository.DepartmentRepository;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Department Management System", description = "Operations pertaining to department in Department Management System")
 @RestController
-@RequestMapping(value = { "/", "/department" })
+@RequestMapping(value = { "/api" })
 public class DepartmentRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentRestController.class);
@@ -46,6 +49,7 @@ public class DepartmentRestController {
 
     }
 
+    @ApiOperation(value = "List all departments")
     @GetMapping("/depts")
     public List<Department> getAllDepartments() {
 
@@ -54,6 +58,7 @@ public class DepartmentRestController {
 
     }
 
+    @ApiOperation(value = "Add single department")
     @PostMapping("/adddept")
     public ResponseEntity<Void> createDepartment(@RequestBody Department dept, UriComponentsBuilder ucBuilder) {
 
@@ -63,6 +68,7 @@ public class DepartmentRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "Add multiple departments at same time")
     @PostMapping("/adddepts")
     public ResponseEntity<Void> createDepartments(@RequestBody List<Department> depts, UriComponentsBuilder ucBuilder) {
 
@@ -72,7 +78,7 @@ public class DepartmentRestController {
         return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
     }
 
-
+    @ApiOperation(value = "delete all departments")
     @DeleteMapping("/deleteall")
     public ResponseEntity<Department> deleteAllDepartments() {
 
@@ -80,8 +86,7 @@ public class DepartmentRestController {
         return new ResponseEntity<Department>(HttpStatus.NO_CONTENT);
     }
 
-
-
+    @ApiOperation(value = "Get department by departmet id")
     @GetMapping("/dept/{deptId}")
     public Optional<Department> getDepartmentById(@PathVariable("deptId") Long deptId) {
         LOGGER.info(" Department with id " + deptId);
@@ -89,6 +94,7 @@ public class DepartmentRestController {
         return depts;
     }
 
+    @ApiOperation(value = "Get department using organization id")
     @GetMapping("/org/{orgId}")
     public List<Department> getDeptsByOrgId(@PathVariable("orgId") Long orgId) {
         LOGGER.info("Fetching Department with id " + orgId);
@@ -97,6 +103,7 @@ public class DepartmentRestController {
 
     }
 
+    @ApiOperation(value = "Get departments with employee using organizaation id")
     @GetMapping("/org/{orgId}/withemp")
     public List<Department> getDeptswithEmpsUsingOrgid(@PathVariable("orgId") Long orgId) {
         LOGGER.info("Department find: orgId={}", orgId);
@@ -115,17 +122,18 @@ public class DepartmentRestController {
 
         return final_depts;
     }
-    
+
+    @ApiOperation(value = "Get all department and organization")
     @GetMapping("/org/withemp")
     public List<Department> getDeptswithEmps() {
-        
-        List<Department> final_depts  = new ArrayList<Department>();
-        for (Department dept: deptRepository.findAll()) {
+
+        List<Department> final_depts = new ArrayList<Department>();
+        for (Department dept : deptRepository.findAll()) {
             dept.setEmps(employeeClient.findEmpsByDeptId(dept.getId()));
             final_depts.add(dept);
         }
         return final_depts;
-        
+
     }
 
 }

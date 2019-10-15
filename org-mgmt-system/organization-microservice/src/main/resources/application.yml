@@ -4,7 +4,10 @@ spring:
   profiles:
     include:
     - ${app.profile}
-    
+
+server:
+  servlet:
+    path: /organization    
 cloud:
   config:
     uri: http://localhost:8888

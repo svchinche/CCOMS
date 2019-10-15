@@ -1,16 +1,16 @@
 package com.cloudcomp.ccoms.deptsvc.model;
 
-
 public class Employee {
 
     private Long id;
     private String name;
     private int age;
     private String position;
-    
-    public Employee(){
-        
+
+    public Employee() {
+
     }
+
     public Employee(Long id, String name, int age, String position) {
         super();
         this.id = id;

@@ -9,11 +9,14 @@ zuul:
     employee:
       path: /employee/**
       url: http://localhost:8080/employee/
+      serviceId: employee-service
       
     department:
       path: /department/**
       url: http://localhost:8081/department/
+      serviceId: department-service
       
     organization:
       path: /organization/**
       url: http://localhost:8082/organization
+      serviceId: organization-service

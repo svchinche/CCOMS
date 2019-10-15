@@ -1,6 +1,5 @@
 package com.cloudcomp.ccoms.orgsvc.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +24,16 @@ import com.cloudcomp.ccoms.orgsvc.model.Department;
 import com.cloudcomp.ccoms.orgsvc.model.Organization;
 import com.cloudcomp.ccoms.orgsvc.repository.OrganizationRepository;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
-@RequestMapping(value = { "/", "/organization" })
+@RequestMapping(value = { "/api" })
+@Api(value = "Organization Management System", description = "Operations pertaining to organization in Organization Management System")
 public class OrganizationRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationRestController.class);
-    
+
     @Autowired
     OrganizationRepository repository;
     @Autowired
@@ -38,41 +41,39 @@ public class OrganizationRestController {
     @Autowired
     EmployeeClient employeeClient;
 
-    @PostMapping("/addorg")
-    public Organization addorg(@RequestBody Organization organization) {
-        LOGGER.info("Organization add: {}", organization);
-        return repository.save(organization);
-
-    }
-
+    @ApiOperation(value = "Add one ore more organization at a time")
     @PostMapping("/addorgs")
     public List<Organization> addorgs(@RequestBody List<Organization> organization) {
         LOGGER.info("Organization add: {}", organization);
         return (List<Organization>) repository.saveAll(organization);
     }
 
+    @ApiOperation(value = "Get all organization details")
     @GetMapping("/get")
     public List<Organization> findAllOrganizations() {
         LOGGER.info("Organization find");
-        return   (List<Organization>) repository.findAll();
+        return (List<Organization>) repository.findAll();
     }
 
+    @ApiOperation(value = "Get organization information by id ")
     @GetMapping("/{id}")
     public Optional<Organization> findById(@PathVariable("id") Long id) {
         LOGGER.info("Organization find: id={}", id);
         return repository.findById(id);
     }
 
+    @ApiOperation(value = "Get organization info using organization id")
     @GetMapping("/{id}/withdepts")
     public Organization findOrgUsingId(@PathVariable("id") long id) {
         LOGGER.info("Organization find: id={}", id);
         Organization org = repository.findById(id).get();
         org.setDepts(departmentClient.findDeptsUsingOrgId(id));
-        
+
         return org;
 
     }
 
+    @ApiOperation(value = "Get organization, depts and employees information using organization id")
     @GetMapping("/{id}/withdeptsandemps")
     public Organization findByIdWithDepartmentsAndEmployees(@PathVariable("id") Long id) {
 
@@ -83,6 +84,7 @@ public class OrganizationRestController {
         return org;
     }
 
+    @ApiOperation(value = "Get organization and employees information using organization id")
     @GetMapping("/{id}/withemps")
     public Organization findByIdWithEmployees(@PathVariable("id") Long id) {
         LOGGER.info("Organization find: id={}", id);
@@ -91,6 +93,7 @@ public class OrganizationRestController {
         return organization;
     }
 
+    @ApiOperation(value = "Get organization, depts and employees information")
     @GetMapping("/getall")
     public List<Organization> getDeptsEmpsAndOrgsInfo() {
 
