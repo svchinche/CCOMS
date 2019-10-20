@@ -1,7 +1,5 @@
 server:
   port: 8888
-
-
   
 logging:
   level:
@@ -9,8 +7,6 @@ logging:
       springframework:
         web: DEBUG
          
-
-
 
 spring:
   profiles:
@@ -26,5 +22,3 @@ spring:
           - 'config-files/dev/'
           - 'config-files/prod/'
             
-         
-
