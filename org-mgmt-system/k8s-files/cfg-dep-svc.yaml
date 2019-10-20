@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: cfg-ms
-        image: compucomm/organization-mgmt-system:config-server-microservice
+        image: compucomm/organization-mgmt-system:config-server-service
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8888

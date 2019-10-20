@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: proxy-ms
-        image: compucomm/proxyanization-mgmt-system:proxy-server-service
+        image: compucomm/organization-mgmt-system:proxy-server-service
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8111
