@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <docker.image.prefix>compucomm/proxyanization-mgmt-system</docker.image.prefix>
+        <docker.image.prefix>compucomm/organization-mgmt-system</docker.image.prefix>
     </properties>
 
     <dependencyManagement>
