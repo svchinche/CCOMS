@@ -14,7 +14,7 @@
     <groupId>com.cloudcomp.ccoms</groupId>
     <artifactId>config-server-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>config-server-microservice</name>
+    <name>config-server-service</name>
     <description>ConfigServer for CCOM </description>
     <packaging>war</packaging>
 
