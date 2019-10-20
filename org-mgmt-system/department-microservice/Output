@@ -1,0 +1,9 @@
+http://localhost:8081/depts
+http://localhost:8081/dept/1
+http://localhost:8081/org/2
+http://localhost:8081/delete/2
+http://localhost:8081/deleteall
+
+[{"deptId":1,"deptName":"ORMB","orgId":2,"employees":[]},{"deptId":2,"deptName":"IFLEX","orgId":2,"employees":[]},{"deptId":3,"deptName":"FlexCube","orgId":2,"employees":[]},{"deptId":4,"deptName":"RIA","orgId":2,"employees":[]},{"deptId":5,"deptName":"Consulting","orgId":2,"employees":[]},{"deptId":6,"deptName":"Test","orgId":2,"employees":[]}]
+	
+ 

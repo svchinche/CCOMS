@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: department-microservice
+  profiles:
+    include:
+    - ${app.profile}
+  cloud:
+    config:
+      uri: http://cfg.ccoms.com:8888
+
+server:
+  servlet:
+    path: /department    
+

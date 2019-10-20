@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+   name: ccoms
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: org-ms
+  namespace: ccoms
+  labels:
+    app: org-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: org-ms
+  template:
+    metadata:
+      labels:
+        app: org-ms
+    spec:
+      containers:
+      - name: org-ms
+        image: compucomm/organization-mgmt-system:organization-service
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8082
+        env:
+        - name: app.profile
+          value: prod
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: org
+  namespace: ccoms
+  labels:
+    app: org-svc
+spec:
+  ports:
+  - port: 8082
+    protocol: TCP
+  selector:
+    app: org-ms

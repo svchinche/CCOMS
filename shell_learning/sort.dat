@@ -1,0 +1,15 @@
+cat employee.txt | sort -k2n
+sed 's/,/ /g' emp.csv | sort -k4n -o mydata.txt
+[root@k8s-workernode shell_learning]# cat emp.csv | sort -t, -k4n
+3,amit,15000,500
+1,suyog,20000,1000
+4,Suraj,21000,1100
+12,Sanchit,22000,1150
+7,Sachin,27000,1300
+[root@k8s-workernode shell_learning]# cat emp.csv | sort --field-separator=, -k4n
+3,amit,15000,500
+1,suyog,20000,1000
+4,Suraj,21000,1100
+12,Sanchit,22000,1150
+7,Sachin,27000,1300
+
