@@ -86,9 +86,9 @@ tbody {
 				<td colspan="2">Information of employee is not available</td>
 			</tr>
 			<tr th:each="dept : ${depts}">
-				<td><span th:text="${dept.deptId}"> DeptID </span></td>
-				<td><span th:text="${dept.deptName}"> DeptName </span></td>
-				<td><span th:text="${dept.orgId}"> OrgId </span></td>
+				<td><span th:text="${dept.id}"> DeptID </span></td>
+				<td><span th:text="${dept.name}"> DeptName </span></td>
+				<td><span th:text="${dept.id}"> OrgId </span></td>
 				<td>
 					<table>
 						<tr th:each="emp : ${dept.emps}">

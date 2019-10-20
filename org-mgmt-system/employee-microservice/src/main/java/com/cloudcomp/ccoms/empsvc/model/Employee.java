@@ -1,40 +1,37 @@
 package com.cloudcomp.ccoms.empsvc.model;
 
-import java.math.BigInteger;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.swagger.annotations.ApiModel;
 
+@ApiModel(description = "All details about the Employee. ")
 @Document(collection = "employee")
-
 public class Employee {
 
     @Id
     @Indexed
-    private BigInteger id;
-    
+    private Long id;
+
     private String name;
     private int age;
     private String position;
- 
+
     int deptId;
     int orgId;
-   
 
     public Employee() {
 
     }
-    
-    public BigInteger getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
-    
 
     public String getName() {
         return name;
@@ -76,6 +73,4 @@ public class Employee {
         this.orgId = orgId;
     }
 
-    
-    
 }

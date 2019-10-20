@@ -1,23 +1,25 @@
 package com.cloudcomp.ccoms.orgsvc.model;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
+
+
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 
-
-@JsonInclude(value = Include.NON_EMPTY)
 @Document(collection = "organization")
+@JsonInclude(value = Include.NON_EMPTY)
+
 public class Organization {
 
     @Id
-    private BigInteger orgId;
+    @Indexed
+    private Long id;
     private String name;
     private String address;
     private List<Department> depts;
@@ -29,19 +31,22 @@ public class Organization {
         
     }
     
-    Organization(BigInteger orgId,String name, String address){
-        this.orgId=orgId;
+    Organization(Long orgId,String name, String address){
+        this.id=orgId;
         this.name=name;
         this.address=address;
     }
      
     
-    public BigInteger getOrgId() {
-        return orgId;
+
+    public Long getId() {
+        return id;
     }
-    public void setOrgId(BigInteger orgId) {
-        this.orgId = orgId;
+
+    public void setId(Long id) {
+        this.id = id;
     }
+
     public String getName() {
         return name;
     }

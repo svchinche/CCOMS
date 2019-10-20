@@ -1,21 +1,17 @@
 package com.cloudcomp.ccoms.deptsvc.model;
 
-
-import org.springframework.data.mongodb.core.mapping.Document;
-
-
-@Document(collection = "employee")
 public class Employee {
 
-    private int id;
+    private Long id;
     private String name;
     private int age;
     private String position;
-    
-    public Employee(){
-        
+
+    public Employee() {
+
     }
-    public Employee(int id, String name, int age, String position) {
+
+    public Employee(Long id, String name, int age, String position) {
         super();
         this.id = id;
         this.name = name;
@@ -23,11 +19,11 @@ public class Employee {
         this.position = position;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,8 +50,4 @@ public class Employee {
     public void setPosition(String position) {
         this.position = position;
     }
-    
-    
-   
-    
 }

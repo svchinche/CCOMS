@@ -3,10 +3,12 @@ spring:
     name: employee-microservice
   profiles:
     include:
-    - default
+    - ${app.profile}
+  cloud:
+    config:
+      uri: http://cfg.ccoms.com:8888
     
-cloud:
-  config:
-    uri: http://localhost:8888
+server:
+  servlet:
+    path: /employee
     
-

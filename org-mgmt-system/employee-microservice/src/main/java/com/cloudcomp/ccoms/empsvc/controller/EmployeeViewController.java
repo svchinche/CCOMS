@@ -8,17 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cloudcomp.ccoms.empsvc.repository.EmployeeRepository;
 
+import springfox.documentation.annotations.ApiIgnore;
 
+@ApiIgnore
 @Controller
-@RequestMapping(value={"/","/employee"})
+@RequestMapping(value = { "/" })
 public class EmployeeViewController {
 
     @Autowired
     EmployeeRepository empRep;
+
     @GetMapping("/pretty")
     public String showSignUpForm(Model model) {
         model.addAttribute("emps", empRep.findAll());
         return "show_pretty_output";
     }
-    
+
 }

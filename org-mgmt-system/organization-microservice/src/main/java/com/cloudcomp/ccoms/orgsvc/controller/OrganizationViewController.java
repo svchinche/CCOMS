@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cloudcomp.ccoms.orgsvc.repository.OrganizationRepository;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @Controller
-@RequestMapping(value = { "/", "/organization" })
+@RequestMapping(value = { "/" })
 public class OrganizationViewController {
 
     @Autowired
