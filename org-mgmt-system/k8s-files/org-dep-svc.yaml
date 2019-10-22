@@ -23,7 +23,7 @@ spec:
       containers:
       - name: org-ms
         image: compucomm/organization-mgmt-system:organization-service
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8082
         env:

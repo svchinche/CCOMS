@@ -23,7 +23,7 @@ spec:
       containers:
       - name: emp-ms
         image: compucomm/organization-mgmt-system:employee-service
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:

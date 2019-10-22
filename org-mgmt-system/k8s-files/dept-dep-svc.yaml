@@ -23,7 +23,7 @@ spec:
       containers:
       - name: dept-ms
         image: compucomm/organization-mgmt-system:department-service
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8081
         env:
