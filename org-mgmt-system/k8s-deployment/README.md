@@ -1,14 +1,15 @@
- For dns related changes, edit below system config map
+# For dns related changes, edit below system config map
 
 kubectl edit cm coredns -n kube-system
 
-* rewrite name cfg.ccoms.com cfg.ccoms.svc.cluster.local
-* rewrite name dept.ccoms.com dept.ccoms.svc.cluster.local
-* rewrite name org.ccoms.com org.ccoms.svc.cluster.local
-* rewrite name emp.ccoms.com emp.ccoms.svc.cluster.local
-* rewrite name proxy.ccoms.com proxy.ccoms.svc.cluster.local
-* rewrite name db.mongo.com db.mongo.svc.cluster.local
-
+```
+rewrite name cfg.ccoms.com cfg.ccoms.svc.cluster.local
+rewrite name dept.ccoms.com dept.ccoms.svc.cluster.local
+rewrite name org.ccoms.com org.ccoms.svc.cluster.local
+rewrite name emp.ccoms.com emp.ccoms.svc.cluster.local
+rewrite name proxy.ccoms.com proxy.ccoms.svc.cluster.local
+rewrite name db.mongo.com db.mongo.svc.cluster.local
+```
 
 
 # Cleanup Steps :: Just delete the namespaces. 
@@ -26,6 +27,7 @@ Error from server (NotFound): error when deleting "ccoms-namespace.yaml": namesp
 # Get information using get command
 
   kubectl get po,svc,deploy -n mongo -n ccoms -o wide
+  
 ```
 [root@k8s-master k8s-files]# kubectl get po,svc,deploy -n mongo -n ccoms -o wide
 NAME                            READY   STATUS    RESTARTS   AGE    IP            NODE             NOMINATED NODE
