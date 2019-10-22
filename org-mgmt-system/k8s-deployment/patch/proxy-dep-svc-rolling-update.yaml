@@ -1,8 +1,3 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-   name: ccoms
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,7 +6,14 @@ metadata:
   labels:
     app: proxy-ms
 spec:
-  replicas: 1
+  replicas: 2
+  
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 25%
+  
   selector:
     matchLabels:
       app: proxy-ms
@@ -23,12 +25,20 @@ spec:
       containers:
       - name: proxy-ms
         image: compucomm/organization-mgmt-system:proxy-server-service
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8111
         env:
         - name: app.profile
           value: prod
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8111
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
 ---
 apiVersion: v1
 kind: Service
