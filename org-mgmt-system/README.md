@@ -1,7 +1,19 @@
-#Centralize REST-API documentation available 
+# Pretty urls output
+- http://k8s-master:8111/organization/pretty
+- http://k8s-master:8111/employee/pretty
+- http://k8s-master:8111/department/pretty
 
-<http://k8s-master:8111/swagger-ui.html>
 
+#Get urls
+- http://k8s-master:8111/employee/api/get
+- http://k8s-master:8111/department/api/depts
+- http://k8s-master:8111/organization/api/get
+
+#Swagger Urls::
+- http://localhost:8111/swagger-ui.html
+- http://k8s-master:8111/employee/v2/api-docs
+- http://k8s-master:8111/organization/v2/api-docs
+- http://k8s-master:8111/department/v2/api-docs
 
 Note :: For this i have used centralized swagger and spring boot zull proxy server 
 
