@@ -11,9 +11,17 @@ kubectl edit cm coredns -n kube-system
 
 
 
-# Cleanup Steps :: Just delete the namespaces.
+# Cleanup Steps :: Just delete the namespaces. 
 
  kubectl delete  namespaces mongo ccoms
+
+```
+[root@k8s-master k8s-deployment]# kubectl delete namespaces ccoms
+namespace "ccoms" deleted
+[root@k8s-master k8s-deployment]# kubectl delete -f ccoms-namespace.yaml
+Error from server (NotFound): error when deleting "ccoms-namespace.yaml": namespaces "ccoms" not found
+
+```
 
 # Get information using get command
 
@@ -41,7 +49,22 @@ deployment.extensions/emp-ms     1         1         1            1           33
 deployment.extensions/org-ms     1         1         1            1           33m    org-ms       compucomm/organization-mgmt-system:organization-service    app=org-ms
 deployment.extensions/proxy-ms   1         1         1            1           109s   proxy-ms     compucomm/organization-mgmt-system:proxy-server-service    app=proxy-ms
 ```
-# Create deployment using create/apply command
+# Create Service, Namespace and Deployments using create/apply command
 
- kubectl apply -f cfg-dep-svc.yaml -f emp-dep-svc.yaml -f dept-dep-svc.yaml -f org-dep-svc.yaml -f proxy-dep-svc.yaml 
+kubectl apply -f ccoms-namespace.yaml -f ccoms-svc.yaml -f ccoms-deployment.yaml
+
+```
+[root@k8s-master k8s-deployment]# kubectl apply -f ccoms-namespace.yaml -f ccoms-svc.yaml -f ccoms-deployment.yaml
+namespace/ccoms created
+service/cfg created
+service/emp created
+service/dept created
+service/org created
+service/proxy created
+deployment.apps/cfg-ms created
+deployment.apps/emp-ms created
+deployment.apps/dept-ms created
+deployment.apps/org-ms created
+deployment.apps/proxy-ms created
+``` 
 

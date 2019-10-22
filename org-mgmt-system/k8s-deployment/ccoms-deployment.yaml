@@ -1,0 +1,134 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cfg-ms
+  namespace: ccoms
+  labels:
+    app: cfg-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cfg-ms
+  template:
+    metadata:
+      labels:
+        app: cfg-ms
+    spec:
+      containers:
+      - name: cfg-ms
+        image: compucomm/organization-mgmt-system:config-server-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+        env:
+        - name: app.profile
+          value: prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emp-ms
+  namespace: ccoms
+  labels:
+    app: emp-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emp-ms
+  template:
+    metadata:
+      labels:
+        app: emp-ms
+    spec:
+      containers:
+      - name: emp-ms
+        image: compucomm/organization-mgmt-system:employee-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: app.profile
+          value: prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dept-ms
+  namespace: ccoms
+  labels:
+    app: dept-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dept-ms
+  template:
+    metadata:
+      labels:
+        app: dept-ms
+    spec:
+      containers:
+      - name: dept-ms
+        image: compucomm/organization-mgmt-system:department-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: app.profile
+          value: prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: org-ms
+  namespace: ccoms
+  labels:
+    app: org-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: org-ms
+  template:
+    metadata:
+      labels:
+        app: org-ms
+    spec:
+      containers:
+      - name: org-ms
+        image: compucomm/organization-mgmt-system:organization-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8082
+        env:
+        - name: app.profile
+          value: prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-ms
+  namespace: ccoms
+  labels:
+    app: proxy-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proxy-ms
+  template:
+    metadata:
+      labels:
+        app: proxy-ms
+    spec:
+      containers:
+      - name: proxy-ms
+        image: compucomm/organization-mgmt-system:proxy-server-service
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8111
+        env:
+        - name: app.profile
+          value: prod
