@@ -1,3 +1,31 @@
+#Cloud Comp Organization Management System.
+Topics to cover.
+- Why microservices ?
+- How, my journey started with microservices ?
+- Components involved ?
+- How project is built ?
+- How deployment is done on kubernetes ?
+
+
+
+#Monolythic Application ::
+- All the code resides in one big app and separate database is used to store database. 
+- at the end of the day all one big program does your work
+- Easy when your team and project is small, what if your project grows.
+
+#Monolythic Application ::
+- Microservices are Awesomesome
+- Agility
+- speed
+
+Disadvantage:: 
+- Microservice make terribe to analyze the issue 
+
+single command is used for compiling, building , unit testing, building and pushing image on docker hub.
+```mvn clean install```
+![Alt text](.info/images/mvn-allinone.PNG?raw=true "Json-op")
+ 
+
 # Pretty urls output
 - http://k8s-master:8111/organization/pretty
 - http://k8s-master:8111/employee/pretty
