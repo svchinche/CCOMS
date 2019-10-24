@@ -55,3 +55,11 @@ url is: http://k8s-master:8111/employee/api/addemps
 
 
 ![Alt text](.info/images/json_op_pretty.PNG?raw=true "Json-op")
+
+
+
+# Proxy setting at Oracle
+
+jvm argument
+
+-Dhttp.proxyHost=www-proxy.us.oracle.com -Dhttp.proxyPort=80 -Dhttp.nonProxyHosts="localhost|127.0.0.1"

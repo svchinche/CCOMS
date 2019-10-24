@@ -33,7 +33,14 @@ metadata:
   labels:
     app: emp-ms
 spec:
-  replicas: 1
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+
   selector:
     matchLabels:
       app: emp-ms
@@ -51,6 +58,23 @@ spec:
         env:
         - name: app.profile
           value: prod
+          
+        readinessProbe:
+          httpGet:
+            path: /employee/pretty
+            port: 8080
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
+
+
+        livenessProbe:
+          httpGet:
+            path: /employee/pretty
+            port: 8080
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -60,7 +84,14 @@ metadata:
   labels:
     app: dept-ms
 spec:
-  replicas: 1
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+
   selector:
     matchLabels:
       app: dept-ms
@@ -78,6 +109,22 @@ spec:
         env:
         - name: app.profile
           value: prod
+          
+        readinessProbe:
+          httpGet:
+            path: /departmemt/pretty
+            port: 8081
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
+
+        livenessProbe:
+          httpGet:
+            path: /department/pretty
+            port: 8081
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -87,7 +134,14 @@ metadata:
   labels:
     app: org-ms
 spec:
-  replicas: 1
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+
   selector:
     matchLabels:
       app: org-ms
@@ -105,6 +159,22 @@ spec:
         env:
         - name: app.profile
           value: prod
+          
+        readinessProbe:
+          httpGet:
+            path: /organization/pretty
+            port: 8082
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
+
+        livenessProbe:
+          httpGet:
+            path: /organization/pretty
+            port: 8082
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -114,7 +184,14 @@ metadata:
   labels:
     app: proxy-ms
 spec:
-  replicas: 1
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+
   selector:
     matchLabels:
       app: proxy-ms
@@ -132,3 +209,19 @@ spec:
         env:
         - name: app.profile
           value: prod
+          
+        readinessProbe:
+          httpGet:
+            path: /employee/pretty
+            port: 8111
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
+
+        livenessProbe:
+          httpGet:
+            path: /employee/pretty
+            port: 8111
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
