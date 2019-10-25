@@ -14,4 +14,3 @@ spring:
 server:
   servlet:
     path: /employee
-    
