@@ -1,4 +1,4 @@
-#Cloud Comp Organization Management System.
+# Cloud Comp Organization Management System.
 Topics to cover.
 - Why microservices ?
 - How, my journey started with microservices ?
@@ -8,12 +8,12 @@ Topics to cover.
 
 
 
-#Monolythic Application ::
+# Monolythic application ::
 - All the code resides in one big app and separate database is used to store database. 
 - at the end of the day all one big program does your work
 - Easy when your team and project is small, what if your project grows.
 
-#Monolythic Application ::
+# Microservice based application ::
 - Microservices are Awesomesome
 - Agility
 - speed
@@ -22,7 +22,7 @@ Disadvantage::
 - Microservice make terribe to analyze the issue 
 
 single command is used for compiling, building , unit testing, building and pushing image on docker hub.
-```mvn clean install```
+``` mvn clean install ```
 ![Alt text](.info/images/mvn-allinone.PNG?raw=true "Json-op")
  
 
@@ -32,12 +32,12 @@ single command is used for compiling, building , unit testing, building and push
 - http://k8s-master:8111/department/pretty
 
 
-#Get urls
+# Get urls
 - http://k8s-master:8111/employee/api/get
 - http://k8s-master:8111/department/api/depts
 - http://k8s-master:8111/organization/api/get
 
-#Swagger Urls::
+# Swagger Urls::
 - http://localhost:8111/swagger-ui.html
 - http://k8s-master:8111/employee/v2/api-docs
 - http://k8s-master:8111/organization/v2/api-docs
@@ -51,12 +51,9 @@ url is: http://k8s-master:8111/employee/api/addemps
 
 ![Alt text](.info/images/adsemps.PNG?raw=true "Postman utility for POST method")
 
-#Json output on browser
-
+# Json output on browser
 
 ![Alt text](.info/images/json_op_pretty.PNG?raw=true "Json-op")
-
-
 
 # Proxy setting at Oracle
 
