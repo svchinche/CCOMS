@@ -48,8 +48,8 @@ pip show module_name to verify the installation . pip show kubernetes
 
 
 # Run roles in ansible
-ansible-playbook ccoms_role.yaml 
-where role yaml file contains roles information.
+ansible-playbook ccoms_role.yaml </br>
+where role yaml file contains roles which you want to run
 ```
 ---
 - name: This is CCOMS role
