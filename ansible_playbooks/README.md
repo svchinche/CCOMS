@@ -1,9 +1,10 @@
 # Installing ansible on linux system
+
+```
 yum search epel-release
-yum info epel-release
 yum install epel-release
 yum install ansible
-
+```
 
 # Default inventory location, we can specify our own inventory using -i option
 [root@mum00aqm ~]# cat /etc/ansible/hosts | tail -n 2
