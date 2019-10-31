@@ -38,13 +38,17 @@ ansible-galaxy init ccoms
 9 directories
 ```
 
-Steps for installing kubernetes python client to use it as a module in Ansible.
+# Steps for installing kubernetes python client to use it as a module in Ansible.
+
 yum search python-setuptools
 
-to installl kubenetes module in python 
+# installl kubenetes module in python 
+
+```
 pip install kubernetes
 pip install --upgrade openshift
-pip show module_name to verify the installation . pip show kubernetes
+```
+pip show module_name to verify the installation . pip show kubernetes </br>
 
 
 # Run roles in ansible
