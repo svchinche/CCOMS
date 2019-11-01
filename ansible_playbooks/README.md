@@ -64,3 +64,57 @@ where role yaml file contains roles which you want to run
   - ccoms
 
 ```
+
+Sharing variables within environments
+- create file </br>
+  touch 000_cross_env_vars 
+Go to all directory of each environment and create soft link for sharing all environments variables within all environments. </br>
+cd environments/dev/group_vars/all/
+ln -s ../../../000_cross_env_vars .
+
+Final directory structure will be look like below
+```
+[root@mum00aqm ansible_first_role]# tree environments/
+environments/
+├── 000_cross_env_vars
+├── ansible.cfg
+├── dev
+│   ├── group_vars
+│   │   ├── all
+│   │   │   ├── 000_cross_env_vars -> ../../../000_cross_env_vars
+│   │   │   └── env_specific
+│   │   ├── db
+│   │   └── web
+│   └── hosts
+├── prod
+│   ├── group_vars
+│   │   ├── all
+│   │   │   ├── 000_cross_env_vars -> ../../../000_cross_env_vars
+│   │   │   └── env_specific
+│   │   ├── db
+│   │   └── web
+│   └── hosts
+└── uat
+    ├── group_vars
+    │   ├── all
+    │   │   ├── 000_cross_env_vars -> ../../../000_cross_env_vars
+    │   │   └── env_specific
+    │   ├── db
+    │   └── web
+    └── hosts
+
+21 directories, 5 files
+```
+
+Its recommended that your development env as the default directory</br>
+```
+[root@mum00aqm environments]# cat ansible.cfg
+[defaults]
+inventory = ./environments/dev
+```
+
+Run ansible plays using 
+
+ansible -i environments/dev -m ping // no need to provide since its default
+
+ansible -m ping
