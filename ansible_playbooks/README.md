@@ -1,4 +1,5 @@
-### Learning Ansible 
+Learning Ansible 
+================
 
 
 Table of contents
@@ -10,10 +11,10 @@ Table of contents
    * [Modules](#modules)
       * [Shell module](#shell-module)
    * [Roles](#roles)
-      * [Creating a roles](#create-roles)
+      * [Creating a roles](#creating-a-roles)
       * [Run roles](#run-roles)
    * [Kubernetes python client](#kubernetes-python-client)
-   * [Multistage environment variables](#multistage-env-var)
+   * [Multistage environment variables](#multistage-environment-variables)
 <!--te-->
 
 Installing Ansible
