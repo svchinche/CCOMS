@@ -65,12 +65,21 @@ where role yaml file contains roles which you want to run
 
 ```
 
-Sharing variables within environments
-- create file </br>
-  touch 000_cross_env_vars 
+# Multistage environment variables
+- Create below directory structure for multistage environment variables in ansible.
+```
+mkdir -p environments/{dev,prod,uat}/{group_vars/{all/env_specific,db,web},hosts}
+```
+- Sharing variables within environments
+
+Create file</br> 
+touch 000_cross_env_vars </br> 
+
 Go to all directory of each environment and create soft link for sharing all environments variables within all environments. </br>
+```
 cd environments/dev/group_vars/all/
 ln -s ../../../000_cross_env_vars .
+```
 
 Final directory structure will be look like below
 ```
@@ -106,15 +115,15 @@ environments/
 21 directories, 5 files
 ```
 
-Its recommended that your development env as the default directory</br>
+- Its recommended that your development env as the default directory
+
 ```
 [root@mum00aqm environments]# cat ansible.cfg
 [defaults]
 inventory = ./environments/dev
 ```
 
-Run ansible plays using 
+- Run ansible plays using 
 
-ansible -i environments/dev -m ping // no need to provide since its default
-
+ansible -i environments/dev -m ping // no need to provide since its default</br>
 ansible -m ping
