@@ -1,17 +1,22 @@
+
+
 # Installing ansible on linux system
 
+- Install ansible using yum
 ```
 yum search epel-release
 yum install epel-release
 yum install ansible
 ```
 
-# Default inventory location, we can specify our own inventory using -i option
+- Default inventory location is /etc/ansible/hosts, we can specify our own inventory using -i option
+```
 [root@mum00aqm ~]# cat /etc/ansible/hosts | tail -n 2
 [k8s-master]
 mum00aqm
+```
 
-# run comman on nodes using shell module
+- Run command on nodes using shell module
 ```
 [root@mum00aqm ~]# ansible -m shell -a date all
 mum00aqm | CHANGED | rc=0 >>
@@ -39,19 +44,6 @@ ansible-galaxy init ccoms
 9 directories
 ```
 
-# Steps for installing kubernetes python client to use it as a module in Ansible.
-
-yum search python-setuptools
-
-# installl kubenetes module in python 
-
-```
-pip install kubernetes
-pip install --upgrade openshift
-```
-pip show module_name to verify the installation . pip show kubernetes </br>
-
-
 # Run roles in ansible
 ansible-playbook ccoms_role.yaml </br>
 where role yaml file contains roles which you want to run
@@ -64,6 +56,22 @@ where role yaml file contains roles which you want to run
   - ccoms
 
 ```
+# Steps for installing kubernetes python client to use it as a module in Ansible.
+
+- Install python-setuptools package using yum
+
+yum search python-setuptools
+
+- installl kubenetes module in python 
+
+```
+pip install kubernetes
+pip install --upgrade openshift
+```
+pip show module_name to verify the installation . pip show kubernetes </br>
+
+
+
 
 # Multistage environment variables
 - Create below directory structure for multistage environment variables in ansible.
