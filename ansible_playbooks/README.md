@@ -7,14 +7,16 @@ Table of contents
 <!--ts-->
    * [Installing Ansible](#installing-ansible)
    * [Inventory](#inventory)
-   * [modules](#modules)
-      * [shell module](#shell-module)
-   * [roles](#roles)
-   * [kubernetes python client](#kubernetes-python-client)
+   * [Modules](#modules)
+      * [Shell module](#shell-module)
+   * [Roles](#roles)
+      * [Creating a roles]
+      * [Run roles]
+   * [Kubernetes python client](#kubernetes-python-client)
    * [Multistage environment variables](#multistage-env-var)
 <!--te-->
 
-Installing ansible on linux system
+Installing Ansible
 ==================================
 
 - Install ansible using yum
@@ -46,8 +48,8 @@ or you can run ansible -m shell -a date k8s-master
 
 Roles
 =====
-Creating a role in ansible
---------------------------
+Creating a roles
+----------------
 
 ansible-galaxy init ccoms
 ```
@@ -66,8 +68,8 @@ ansible-galaxy init ccoms
 9 directories
 ```
 
-Run roles in ansible
---------------------
+Run roles
+---------
 ansible-playbook ccoms_role.yaml </br>
 where role yaml file contains roles which you want to run
 ```
@@ -80,8 +82,8 @@ where role yaml file contains roles which you want to run
 
 ```
 
-Installing kubernetes python client to use it as a module in Ansible.
-===============================================================================
+Kubernetes python client
+========================
 
 Install python-setuptools package using yum
 
