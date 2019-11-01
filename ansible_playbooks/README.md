@@ -10,8 +10,8 @@ Table of contents
    * [Modules](#modules)
       * [Shell module](#shell-module)
    * [Roles](#roles)
-      * [Creating a roles]
-      * [Run roles]
+      * [Creating a roles](#create-roles)
+      * [Run roles](#run-roles)
    * [Kubernetes python client](#kubernetes-python-client)
    * [Multistage environment variables](#multistage-env-var)
 <!--te-->
@@ -37,6 +37,8 @@ mum00aqm
 
 Modules
 =======
+Shell module
+------------
 Run command on nodes using shell module
 ```
 [root@mum00aqm ~]# ansible -m shell -a date all
