@@ -1,6 +1,21 @@
+### Learning Ansible 
 
 
-# Installing ansible on linux system
+Table of contents
+=================
+
+<!--ts-->
+   * [Installing Ansible](#installing-ansible)
+   * [Inventory](#inventory)
+   * [modules](#modules)
+      * [shell module](#shell-module)
+   * [roles](#roles)
+   * [kubernetes python client](#kubernetes-python-client)
+   * [Multistage environment variables](#multistage-env-var)
+<!--te-->
+
+Installing ansible on linux system
+==================================
 
 - Install ansible using yum
 ```
@@ -9,14 +24,18 @@ yum install epel-release
 yum install ansible
 ```
 
-- Default inventory location is /etc/ansible/hosts, we can specify our own inventory using -i option
+Inventory
+=================================================================================================
+Default iventory location is /etc/ansible/hosts, we can specify our own inventory using -i option
 ```
 [root@mum00aqm ~]# cat /etc/ansible/hosts | tail -n 2
 [k8s-master]
 mum00aqm
 ```
 
-- Run command on nodes using shell module
+Modules
+=======
+Run command on nodes using shell module
 ```
 [root@mum00aqm ~]# ansible -m shell -a date all
 mum00aqm | CHANGED | rc=0 >>
@@ -25,7 +44,10 @@ Wed Oct 30 04:52:20 PDT 2019
 or you can run ansible -m shell -a date k8s-master
 
 
-# Creating a role in ansible
+Roles
+=====
+Creating a role in ansible
+--------------------------
 
 ansible-galaxy init ccoms
 ```
@@ -44,7 +66,8 @@ ansible-galaxy init ccoms
 9 directories
 ```
 
-# Run roles in ansible
+Run roles in ansible
+--------------------
 ansible-playbook ccoms_role.yaml </br>
 where role yaml file contains roles which you want to run
 ```
@@ -56,13 +79,15 @@ where role yaml file contains roles which you want to run
   - ccoms
 
 ```
-# Steps for installing kubernetes python client to use it as a module in Ansible.
 
-- Install python-setuptools package using yum
+Installing kubernetes python client to use it as a module in Ansible.
+===============================================================================
+
+Install python-setuptools package using yum
 
 yum search python-setuptools
 
-- installl kubenetes module in python 
+installl kubenetes module in python 
 
 ```
 pip install kubernetes
@@ -72,8 +97,8 @@ pip show module_name to verify the installation . pip show kubernetes </br>
 
 
 
-
-# Multistage environment variables
+Multistage environment variables
+================================
 - Create below directory structure for multistage environment variables in ansible.
 ```
 mkdir -p environments/{dev,prod,uat}/{group_vars/{all/env_specific,db,web},hosts}
