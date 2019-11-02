@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: org
+   namespace: ccoms
+   labels:
+      app: org-svc
+spec:
+   ports:
+   -  port: {{ APPS.ORGANIZATION.CONTAINERPORT }}
+      protocol: TCP
+   selector:
+      app: org-ms
+

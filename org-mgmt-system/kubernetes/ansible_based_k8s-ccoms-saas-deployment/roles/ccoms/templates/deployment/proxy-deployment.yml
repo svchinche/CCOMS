@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-ms
+  namespace: ccoms
+  labels:
+    app: proxy-ms
+spec:
+  replicas: {{ APPS.PROXY.REPLICA }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: proxy-ms
+  template:
+    metadata:
+      labels:
+        app: proxy-ms
+    spec:
+      containers:
+      - name: proxy-ms
+        image: "{{ IMAGEPREFIX }}:{{ APPS.PROXY.IMAGE }}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ APPS.PROXY.CONTAINERPORT }}
+        env:
+        - name: app.profile
+          value: {{ PROFILE }}
+        readinessProbe:
+          httpGet:
+            path: {{ APPS.PROXY.READYNESSPROBEHTTPPATH }}
+            port: {{ APPS.PROXY.CONTAINERPORT }}
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: {{ APPS.PROXY.LIVENESSPROBEHTTPPATH }}
+            port: {{ APPS.PROXY.CONTAINERPORT }}
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1

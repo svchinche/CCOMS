@@ -29,6 +29,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+   name: dept
+   namespace: ccoms
+   labels:
+      app: dept-svc
+spec:
+   ports:
+   -  port: 8081
+      protocol: TCP
+   selector:
+      app: dept-ms
+---
+apiVersion: v1
+kind: Service
+metadata:
    name: org
    namespace: ccoms
    labels:

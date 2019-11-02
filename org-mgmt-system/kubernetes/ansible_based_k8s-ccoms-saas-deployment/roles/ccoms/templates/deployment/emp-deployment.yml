@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emp-ms
+  namespace: ccoms
+  labels:
+    app: emp-ms
+spec:
+  replicas: {{ APPS.EMPLOYEE.REPLICA }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: emp-ms
+  template:
+    metadata:
+      labels:
+        app: emp-ms
+    spec:
+      containers:
+      - name: emp-ms
+        image: "{{ IMAGEPREFIX }}:{{ APPS.EMPLOYEE.IMAGE }}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ APPS.EMPLOYEE.CONTAINERPORT }}
+        env:
+        - name: app.profile
+          value: {{ PROFILE }}
+        readinessProbe:
+          httpGet:
+            path: {{ APPS.EMPLOYEE.READYNESSPROBEHTTPPATH }}
+            port: {{ APPS.EMPLOYEE.CONTAINERPORT }}
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: {{ APPS.EMPLOYEE.LIVENESSPROBEHTTPPATH }}
+            port: {{ APPS.EMPLOYEE.CONTAINERPORT }}
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+
