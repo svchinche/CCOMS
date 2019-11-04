@@ -32,3 +32,8 @@ APPS:
     READYNESSPROBEHTTPPATH: /employee/pretty
     LIVENESSPROBEHTTPPATH: /employee/pretty
     CONTAINERPORT: 8111
+
+DB:
+  MONGO:
+    PORT: 27017
+    REPLICA: 2

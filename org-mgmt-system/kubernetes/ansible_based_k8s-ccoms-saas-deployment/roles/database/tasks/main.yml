@@ -1,0 +1,29 @@
+---
+# tasks file for database
+
+
+- import_tasks: db-namespace.yml
+  tags:
+  - db
+  - db:namespace
+
+- import_tasks: db-service.yml
+  tags:
+  - db
+  - db:service
+
+- import_tasks: db-configmap.yml
+  tags:
+  - db
+  - db:cm
+
+- import_tasks: db-secret.yml
+  tags:
+  - db
+  - db:secret
+
+
+- import_tasks: db-deployment.yml
+  tags:
+  - db
+  - db:deployment

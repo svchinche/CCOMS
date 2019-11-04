@@ -1,17 +1,17 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-   name: mongo
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
-  namespace: mongo
+  namespace: {{ namespace }}
   labels:
     app: mongodb
 spec:
-  replicas: 1
+  replicas: {{ DB.MONGO.REPLICA }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
   selector:
     matchLabels:
       app: mongodb
@@ -22,10 +22,10 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: mongo:latest
-        imagePullPolicy: IfNotPresent
+        image: 'mongo:latest'
+        imagePullPolicy: Always
         ports:
-        - containerPort: 27017
+        - containerPort: {{ DB.MONGO.PORT }}
         env:
         - name: MONGO_INITDB_DATABASE
           valueFrom:
@@ -41,34 +41,4 @@ spec:
           valueFrom:
             secretKeyRef:
               name: mongodb
-              key: database-password        
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: db
-  namespace: mongo
-  labels:
-    app: mongodb
-spec:
-  ports:
-  - port: 27017
-    protocol: TCP
-  selector:
-    app: mongodb
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ext-mongodb
-  namespace: mongo
-  labels:
-    app: mongodb
-spec:
-  ports:
-  - port: 27017
-    protocol: TCP
-  selector:
-    app: mongodb
-  externalIPs:
-  - 192.168.43.165
+              key: database-password

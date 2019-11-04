@@ -1,0 +1,178 @@
+2019-11-04 03:53:34,055 p=13551 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 04:33:13,645 p=3634 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 04:34:00,411 p=4004 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 04:36:37,069 p=5588 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 04:56:28,667 p=16939 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 04:57:53,528 p=17739 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 05:03:14,573 p=20676 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 05:03:31,245 p=20779 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 05:04:29,409 p=21835 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 05:05:05,113 p=22597 u=root |  ERROR! The vault-ids dev,dev are available to encrypt. Specify the vault-id to encrypt with --encrypt-vault-id
+2019-11-04 05:05:24,045 p=22774 u=root |  ERROR! The vault-ids dev,dev are available to encrypt. Specify the vault-id to encrypt with --encrypt-vault-id
+2019-11-04 05:06:15,913 p=23232 u=root |  ERROR! The vault-ids dev,dev are available to encrypt. Specify the vault-id to encrypt with --encrypt-vault-id
+2019-11-04 05:06:42,495 p=23498 u=root |  ERROR! The vault-ids dev,dev are available to encrypt. Specify the vault-id to encrypt with --encrypt-vault-id
+2019-11-04 05:08:59,134 p=24839 u=root |  ERROR! The vault-ids dev,dev are available to encrypt. Specify the vault-id to encrypt with --encrypt-vault-id
+2019-11-04 05:26:27,304 p=2065 u=root |  ERROR! Vault requires at least one filename as a parameter
+2019-11-04 05:26:33,681 p=2142 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 06:29:59,506 p=5904 u=root |  ERROR! the playbook: dev could not be found
+2019-11-04 06:30:29,847 p=6237 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 06:31:57,843 p=7076 u=root |  [DEPRECATION WARNING]: The TRANSFORM_INVALID_GROUP_CHARS settings is set to allow bad characters in group names by default, this will change,
+ but still be user configurable on deprecation. This feature will be removed in version 2.10. Deprecation warnings can be disabled by setting
+ deprecation_warnings=False in ansible.cfg.
+2019-11-04 06:31:57,843 p=7076 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 06:31:58,711 p=7076 u=root |   [WARNING]: While constructing a mapping from /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml, line 5,
+column 5, found a duplicate dict key (msg). Using last defined value only.
+
+2019-11-04 06:31:59,123 p=7076 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 06:31:59,141 p=7076 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 06:32:09,981 p=7076 u=root |  ok: [k8s-master]
+2019-11-04 06:32:10,418 p=7076 u=root |  TASK [common : debug] ************************************************************************************************************************
+2019-11-04 06:32:10,435 p=7076 u=root |  fatal: [k8s-master]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'common' is undefined\n\nThe error appears to be in '/root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 4, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- debug:\n  ^ here\n"}
+2019-11-04 06:32:10,437 p=7076 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 06:32:10,437 p=7076 u=root |  k8s-master                 : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-04 06:35:03,038 p=9363 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 06:35:03,895 p=9363 u=root |   [WARNING]: While constructing a mapping from /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml, line 5,
+column 5, found a duplicate dict key (msg). Using last defined value only.
+
+2019-11-04 06:35:04,304 p=9363 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 06:35:04,321 p=9363 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 06:35:15,252 p=9363 u=root |  ok: [k8s-master]
+2019-11-04 06:35:15,695 p=9363 u=root |  TASK [common : debug] ************************************************************************************************************************
+2019-11-04 06:35:15,712 p=9363 u=root |  fatal: [k8s-master]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'common' is undefined\n\nThe error appears to be in '/root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 4, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- debug:\n  ^ here\n"}
+2019-11-04 06:35:15,713 p=9363 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 06:35:15,713 p=9363 u=root |  k8s-master                 : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-04 06:40:53,749 p=13436 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 06:40:54,593 p=13436 u=root |   [WARNING]: While constructing a mapping from /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml, line 5,
+column 5, found a duplicate dict key (msg). Using last defined value only.
+
+2019-11-04 06:40:55,002 p=13436 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 06:40:55,021 p=13436 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 06:41:07,188 p=13436 u=root |  ok: [k8s-master]
+2019-11-04 06:41:07,616 p=13436 u=root |  TASK [common : debug] ************************************************************************************************************************
+2019-11-04 06:41:07,632 p=13436 u=root |  fatal: [k8s-master]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'common' is undefined\n\nThe error appears to be in '/root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 4, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- debug:\n  ^ here\n"}
+2019-11-04 06:41:07,633 p=13436 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 06:41:07,634 p=13436 u=root |  k8s-master                 : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-04 06:42:01,704 p=14699 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 06:42:02,540 p=14699 u=root |   [WARNING]: While constructing a mapping from /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml, line 5,
+column 5, found a duplicate dict key (msg). Using last defined value only.
+
+2019-11-04 06:42:02,959 p=14699 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 06:42:03,012 p=14699 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 06:42:13,696 p=14699 u=root |  ok: [k8s-master]
+2019-11-04 06:42:14,123 p=14699 u=root |  TASK [common : debug] ************************************************************************************************************************
+2019-11-04 06:42:14,143 p=14699 u=root |  ok: [k8s-master] => {
+    "msg": "admin"
+}
+2019-11-04 06:42:14,145 p=14699 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 06:42:14,146 p=14699 u=root |  k8s-master                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-04 06:49:52,609 p=19700 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 06:49:53,445 p=19700 u=root |   [WARNING]: While constructing a mapping from /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml, line 5,
+column 5, found a duplicate dict key (msg). Using last defined value only.
+
+2019-11-04 06:49:53,841 p=19700 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 06:49:53,895 p=19700 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 06:50:05,080 p=19700 u=root |  ok: [k8s-master]
+2019-11-04 06:50:05,520 p=19700 u=root |  TASK [common : debug] ************************************************************************************************************************
+2019-11-04 06:50:05,539 p=19700 u=root |  ok: [k8s-master] => {
+    "msg": "admin"
+}
+2019-11-04 06:50:05,541 p=19700 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 06:50:05,542 p=19700 u=root |  k8s-master                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-04 10:20:51,064 p=11397 u=root |  ERROR! The vault password file /root/kubernetes/ansible_based_k8s-ccoms-saas-deployment/dev was not found
+2019-11-04 10:21:08,552 p=11586 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 10:21:09,944 p=11586 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 10:21:10,023 p=11586 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 10:21:20,442 p=11586 u=root |  ok: [k8s-master]
+2019-11-04 10:21:20,875 p=11586 u=root |  TASK [database : Create K8S Namespace for mongo database] ************************************************************************************
+2019-11-04 10:21:22,710 p=11586 u=root |  changed: [k8s-master]
+2019-11-04 10:21:23,155 p=11586 u=root |  TASK [database : Creating MONGO db service"] *************************************************************************************************
+2019-11-04 10:21:23,179 p=11586 u=root |   [WARNING]: Unable to find 'service/db-service.yml' in expected paths (use -vvvvv to see paths)
+
+2019-11-04 10:21:23,182 p=11586 u=root |  fatal: [k8s-master]: FAILED! => {"msg": "An unhandled exception occurred while running the lookup plugin 'template'. Error was a <class 'ansible.errors.AnsibleError'>, original message: the template file service/db-service.yml could not be found for the lookup"}
+2019-11-04 10:21:23,183 p=11586 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 10:21:23,183 p=11586 u=root |  k8s-master                 : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-04 10:31:26,706 p=18185 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 10:31:28,068 p=18185 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 10:31:28,147 p=18185 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 10:31:39,025 p=18185 u=root |  ok: [k8s-master]
+2019-11-04 10:31:39,456 p=18185 u=root |  TASK [database : Create K8S Namespace for mongo database] ************************************************************************************
+2019-11-04 10:31:41,306 p=18185 u=root |  ok: [k8s-master]
+2019-11-04 10:31:41,742 p=18185 u=root |  TASK [database : Creating MONGO db service"] *************************************************************************************************
+2019-11-04 10:31:41,766 p=18185 u=root |   [WARNING]: Unable to find 'service/db-service.yaml' in expected paths (use -vvvvv to see paths)
+
+2019-11-04 10:31:41,769 p=18185 u=root |  fatal: [k8s-master]: FAILED! => {"msg": "An unhandled exception occurred while running the lookup plugin 'template'. Error was a <class 'ansible.errors.AnsibleError'>, original message: the template file service/db-service.yaml could not be found for the lookup"}
+2019-11-04 10:31:41,770 p=18185 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 10:31:41,771 p=18185 u=root |  k8s-master                 : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-04 10:33:38,451 p=20195 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 10:33:39,865 p=20195 u=root |  PLAY [Cloud Comp OMS role] *******************************************************************************************************************
+2019-11-04 10:33:39,944 p=20195 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 10:33:50,445 p=20195 u=root |  ok: [k8s-master]
+2019-11-04 10:33:50,869 p=20195 u=root |  TASK [database : Create K8S Namespace for mongo database] ************************************************************************************
+2019-11-04 10:33:52,724 p=20195 u=root |  ok: [k8s-master]
+2019-11-04 10:33:53,155 p=20195 u=root |  TASK [database : Creating MONGO db service"] *************************************************************************************************
+2019-11-04 10:33:54,799 p=20195 u=root |  changed: [k8s-master]
+2019-11-04 10:33:55,251 p=20195 u=root |  TASK [database : Create K8S Namespace for mongo database namespace] **************************************************************************
+2019-11-04 10:33:56,881 p=20195 u=root |  ok: [k8s-master]
+2019-11-04 10:33:57,306 p=20195 u=root |  TASK [database : Create K8S Mongo db secret] *************************************************************************************************
+2019-11-04 10:33:58,932 p=20195 u=root |  changed: [k8s-master]
+2019-11-04 10:33:59,364 p=20195 u=root |  TASK [database : Creating MONGO DB deployment"] **********************************************************************************************
+2019-11-04 10:34:01,004 p=20195 u=root |  changed: [k8s-master]
+2019-11-04 10:34:01,007 p=20195 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 10:34:01,007 p=20195 u=root |  k8s-master                 : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-04 10:39:52,631 p=25286 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 10:39:54,017 p=25286 u=root |  PLAY [Cloud Comp OMS Database role] **********************************************************************************************************
+2019-11-04 10:39:54,092 p=25286 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 10:40:04,680 p=25286 u=root |  ok: [k8s-master]
+2019-11-04 10:40:05,130 p=25286 u=root |  TASK [database : Create K8S MONGO DB Namespace] **********************************************************************************************
+2019-11-04 10:40:06,980 p=25286 u=root |  ok: [k8s-master]
+2019-11-04 10:40:07,415 p=25286 u=root |  TASK [database : Create K8S MONGO DB Service] ************************************************************************************************
+2019-11-04 10:40:09,042 p=25286 u=root |  ok: [k8s-master]
+2019-11-04 10:40:09,490 p=25286 u=root |  TASK [database : Create K8S MONGO DB ConfigMap] **********************************************************************************************
+2019-11-04 10:40:11,137 p=25286 u=root |  ok: [k8s-master]
+2019-11-04 10:40:11,561 p=25286 u=root |  TASK [database : Create K8S MONGO DB Secret] *************************************************************************************************
+2019-11-04 10:40:13,208 p=25286 u=root |  ok: [k8s-master]
+2019-11-04 10:40:13,648 p=25286 u=root |  TASK [database : Create K8S MONGO DB Deployment] *********************************************************************************************
+2019-11-04 10:40:15,339 p=25286 u=root |  ok: [k8s-master]
+2019-11-04 10:40:15,342 p=25286 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 10:40:15,342 p=25286 u=root |  k8s-master                 : ok=6    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-04 10:45:29,243 p=30201 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 10:45:30,640 p=30201 u=root |  PLAY [Cloud Comp OMS Database role] **********************************************************************************************************
+2019-11-04 10:45:30,717 p=30201 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 10:45:41,460 p=30201 u=root |  ok: [k8s-master]
+2019-11-04 10:45:41,878 p=30201 u=root |  TASK [database : Create K8S MONGO DB Namespace] **********************************************************************************************
+2019-11-04 10:45:43,698 p=30201 u=root |  ok: [k8s-master]
+2019-11-04 10:45:44,131 p=30201 u=root |  TASK [database : Create K8S MONGO DB Service] ************************************************************************************************
+2019-11-04 10:45:45,763 p=30201 u=root |  ok: [k8s-master]
+2019-11-04 10:45:46,207 p=30201 u=root |  TASK [database : Create K8S MONGO DB ConfigMap] **********************************************************************************************
+2019-11-04 10:45:46,231 p=30201 u=root |   [WARNING]: Unable to find 'namespace/db-configmap.yaml' in expected paths (use -vvvvv to see paths)
+
+2019-11-04 10:45:46,235 p=30201 u=root |  fatal: [k8s-master]: FAILED! => {"msg": "An unhandled exception occurred while running the lookup plugin 'template'. Error was a <class 'ansible.errors.AnsibleError'>, original message: the template file namespace/db-configmap.yaml could not be found for the lookup"}
+2019-11-04 10:45:46,237 p=30201 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 10:45:46,237 p=30201 u=root |  k8s-master                 : ok=3    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-04 10:46:22,321 p=31633 u=root |   [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2019-11-04 10:46:23,679 p=31633 u=root |  PLAY [Cloud Comp OMS Database role] **********************************************************************************************************
+2019-11-04 10:46:23,755 p=31633 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-04 10:46:33,921 p=31633 u=root |  ok: [k8s-master]
+2019-11-04 10:46:34,347 p=31633 u=root |  TASK [database : Create K8S MONGO DB Namespace] **********************************************************************************************
+2019-11-04 10:46:36,190 p=31633 u=root |  ok: [k8s-master]
+2019-11-04 10:46:36,614 p=31633 u=root |  TASK [database : Create K8S MONGO DB Service] ************************************************************************************************
+2019-11-04 10:46:38,223 p=31633 u=root |  ok: [k8s-master]
+2019-11-04 10:46:38,654 p=31633 u=root |  TASK [database : Create K8S MONGO DB ConfigMap] **********************************************************************************************
+2019-11-04 10:46:40,273 p=31633 u=root |  changed: [k8s-master]
+2019-11-04 10:46:40,707 p=31633 u=root |  TASK [database : Create K8S MONGO DB Secret] *************************************************************************************************
+2019-11-04 10:46:42,376 p=31633 u=root |  ok: [k8s-master]
+2019-11-04 10:46:42,813 p=31633 u=root |  TASK [database : Create K8S MONGO DB Deployment] *********************************************************************************************
+2019-11-04 10:46:44,427 p=31633 u=root |  ok: [k8s-master]
+2019-11-04 10:46:44,429 p=31633 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-04 10:46:44,430 p=31633 u=root |  k8s-master                 : ok=6    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

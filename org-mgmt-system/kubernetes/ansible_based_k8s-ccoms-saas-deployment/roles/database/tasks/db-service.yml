@@ -1,0 +1,5 @@
+- name: "Create K8S MONGO DB Service" 
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'service/db-service.yaml') | from_yaml }}"
+
