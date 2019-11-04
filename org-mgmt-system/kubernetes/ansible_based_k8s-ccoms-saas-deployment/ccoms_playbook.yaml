@@ -1,0 +1,6 @@
+---
+- name: Cloud Comp Common OMS role
+  hosts: all
+  user: root
+  roles:
+  - ccoms

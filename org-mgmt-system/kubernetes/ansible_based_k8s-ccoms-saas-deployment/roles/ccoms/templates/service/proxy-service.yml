@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: proxy
+   namespace: ccoms
+   labels:
+      app: proxy-svc
+spec:
+   ports:
+   -  port: {{ APPS.PROXY.CONTAINERPORT }}
+      protocol: TCP
+   selector:
+      app: proxy-ms
+

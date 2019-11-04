@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -11,7 +10,7 @@
         <relativePath />
     </parent>
 
-    
+
     <groupId>com.cloudcomp.ccoms</groupId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -33,9 +32,7 @@
             </dependency>
             <dependency>
                 <groupId>io.pivotal.spring.cloud</groupId>
-                <artifactId>
-                         spring-cloud-services-dependencies
-                    </artifactId>
+                <artifactId>spring-cloud-services-dependencies</artifactId>
                 <version>2.0.3.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -58,10 +55,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-openfeign-core</artifactId>
         </dependency>
-
-
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -80,7 +73,6 @@
                     spring-cloud-services-starter-config-client
                </artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
@@ -106,9 +98,13 @@
             <version>1.5.21</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>1.2.4.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
+        </dependency>
+
     </dependencies>
-
-
 
     <build>
         <plugins>
@@ -171,7 +167,5 @@
         <finalName>Department-MicroService</finalName>
 
     </build>
-
-
 
 </project>

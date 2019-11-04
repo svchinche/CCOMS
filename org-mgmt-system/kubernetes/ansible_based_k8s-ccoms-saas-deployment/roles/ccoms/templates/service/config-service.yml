@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: cfg
+   namespace: ccoms
+   labels:
+      app: cfg-svc
+spec:
+   ports:
+   -  port: {{ APPS.CONFIG.CONTAINERPORT }}
+      protocol: TCP
+   selector:
+      app: cfg-ms
+

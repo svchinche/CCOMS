@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: db
+   namespace: {{ namespace }}
+   labels:
+      app: mongodb
+spec:
+   ports:
+   -  port: {{ DB.MONGO.PORT }}
+      protocol: TCP
+   selector:
+      app: mongodb
+
