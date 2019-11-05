@@ -21,7 +21,12 @@
   - ccoms
   - ccoms:namespace
 
-- import_tasks: ccoms-service.yml
+- import_tasks: ccoms-secrets.yml
+  tags:
+  - ccoms
+  - ccoms:secrets
+
+- import_tasks: ccoms-secrets.yml
   tags:
   - ccoms
   - ccoms:service
