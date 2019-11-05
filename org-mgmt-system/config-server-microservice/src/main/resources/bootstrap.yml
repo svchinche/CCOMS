@@ -21,4 +21,5 @@ spring:
           - 'config-files/default/'
           - 'config-files/dev/'
           - 'config-files/prod/'
+          - 'config-files/uat/'
             
