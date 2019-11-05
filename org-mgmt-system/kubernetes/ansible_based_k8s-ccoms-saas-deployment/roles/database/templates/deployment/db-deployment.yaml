@@ -29,7 +29,7 @@ spec:
         env:
         - name: MONGO_INITDB_DATABASE
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: mongodb
               key: database-name
         - name: MONGO_INITDB_ROOT_USERNAME

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
    name: org
-   namespace: ccoms
+   namespace: {{ namespace }}
    labels:
       app: org-svc
 spec:

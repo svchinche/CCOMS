@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: emp-ms
-  namespace: ccoms
+  namespace: {{ namespace }}
   labels:
     app: emp-ms
 spec:
@@ -29,6 +29,25 @@ spec:
         env:
         - name: app.profile
           value: {{ PROFILE }}
+        - name: CCOMS_DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: ccoms
+              key: database-user
+        - name: CCOMS_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ccoms
+              key: database-password
+        - name: CCOMS_DATABASE_SERVICENAME
+          valueFrom:
+            secretKeyRef:
+              name: ccoms
+              key: database-servicename
+        - name: CCOMS_DATABASE_PORT
+          value: {{ DB.MONGO.PORT }}
+        - name: CCOMS_EMP_PORT
+          value: {{ APPS.EMPLOYEE.CONTAINERPORT }}
         readinessProbe:
           httpGet:
             path: {{ APPS.EMPLOYEE.READYNESSPROBEHTTPPATH }}

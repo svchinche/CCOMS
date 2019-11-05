@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
    name: cfg
-   namespace: ccoms
+   namespace: {{ namespace }}
    labels:
       app: cfg-svc
 spec:

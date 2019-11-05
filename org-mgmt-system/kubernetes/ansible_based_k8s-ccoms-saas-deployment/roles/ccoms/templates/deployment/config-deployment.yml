@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cfg-ms
-  namespace: ccoms
+  namespace: {{ namespace }}
   labels:
     app: cfg-ms
 spec:
