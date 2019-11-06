@@ -3,4 +3,4 @@
 
 IMAGEPREFIX: compucomm/organization-mgmt-system
 LOGLEVEL: DEBUG
-PROFILE: dev
+PROFILE: prod

@@ -1,6 +1,51 @@
 ---
-# tasks file for common
 
-- debug:
-    msg: "{{ PROFILE }}"
-    msg: "{{ common.servicename }}"
+## tasks for CCOMS
+
+
+
+- name: "Ensure Pip is installed on Proxy Based Env"
+  package:
+    name: python-pip
+    state: present
+  tags:
+  - common
+  - common:prereq
+  environment: "{{ proxy_env }}"
+  when: PROFILE == 'dev'
+
+- name: "Ensure OpenShift client is installed on Proxy Based Env."
+  pip:
+    name: openshift
+    state: present
+  tags:
+  - common
+  - common:prereq
+  environment: "{{ proxy_env }}"
+  when: PROFILE == 'dev'
+
+- name: "Ensure Pip is installed"
+  package:
+    name: python-pip
+    state: present
+  tags:
+  - common
+  - common:prereq
+  environment: "{{ proxy_env }}"
+  when: PROFILE == 'prod' or PROFILE == 'uat'
+
+- name: "Ensure OpenShift client is installed."
+  pip:
+    name: openshift
+    state: present
+  tags:
+  - common
+  - common:prereq
+  environment: "{{ proxy_env }}"
+  when: PROFILE == 'prod' or PROFILE == 'uat'
+
+- import_tasks: kube-system-coredns.yml
+  tags:
+  - common
+  - common:cordens
+

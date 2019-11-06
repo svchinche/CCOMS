@@ -1,2 +1,7 @@
 ---
 # vars file for common
+
+## to set proxy in dev mode
+proxy_env:
+  http_proxy: "http://www-proxy.us.oracle.com:80"
+  https_proxy: "https://www-proxy.us.oracle.com:80" 

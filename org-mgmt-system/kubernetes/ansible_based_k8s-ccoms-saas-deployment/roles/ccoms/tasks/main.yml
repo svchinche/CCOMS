@@ -2,20 +2,6 @@
 
 ## tasks for CCOMS
 
-- name: "Ensure Pip is installed."
-  package:
-    name: python-pip
-    state: present
-  tags:
-  - preccoms
-
-- name: "Ensure OpenShift client is installed."
-  pip:
-    name: openshift
-    state: present
-  tags:
-  - preccoms
-
 - import_tasks: ccoms-namespace.yml
   tags:
   - ccoms

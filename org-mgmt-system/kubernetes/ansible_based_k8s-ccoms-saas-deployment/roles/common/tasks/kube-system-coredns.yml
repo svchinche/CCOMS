@@ -1,0 +1,5 @@
+- name: "Updating existing Coredns ConfigMap" 
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'configmap/kube-system-coredns.yaml') | from_yaml }}"
+
