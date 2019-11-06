@@ -1,27 +1,27 @@
-- name: Creating CCOMS Config service" 
+- name: "Create CCOMS Service for Config" 
   k8s:
     state: present
     definition: "{{ lookup('template', 'service/config-service.yml') | from_yaml }}"
 
-- name: Creating CCOMS Employee service"
+- name: "Create CCOMS Service for Employee"
   k8s:
     state: present     
     definition: "{{ lookup('template', 'service/emp-service.yml') | from_yaml }}"
 
 
-- name: Creating CCOMS Department service"
+- name: "Create CCOMS Service for Departemnt"
   k8s:
     state: present
     definition: "{{ lookup('template', 'service/dept-service.yml') | from_yaml }}"
 
 
-- name: Creating CCOMS Organization service"
+- name: "Create CCOMS Service for Organization"
   k8s:
     state: present
     definition: "{{ lookup('template', 'service/org-service.yml') | from_yaml }}"
 
 
-- name: Creating CCOMS Proxy service"
+- name: "Create CCOMS Service for Proxy"
   k8s:
     state: present
     definition: "{{ lookup('template', 'service/proxy-service.yml') | from_yaml }}"

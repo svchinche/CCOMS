@@ -1,4 +1,4 @@
-- name: "Create K8S MONGO DB ConfigMap"
+- name: "Create MONGO DB ConfigMap"
   k8s:
     state: present
     definition: "{{ lookup('template', 'configmap/db-configmap.yaml') | from_yaml }}"

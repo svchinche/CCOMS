@@ -1,4 +1,4 @@
-- name: "Create K8S MONGO DB Deployment"
+- name: "Create MONGO DB Deployment"
   k8s:
     state: present
     definition: "{{ lookup('template', 'deployment/db-deployment.yaml') | from_yaml }}"

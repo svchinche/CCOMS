@@ -1,4 +1,4 @@
-- name: Create K8S Namespace for Organization Micro Service
+- name: "Create CCOMS Namespace"
   k8s:
     state: present
     definition: "{{ lookup('template', 'namespace/ccoms-namespace.yml') | from_yaml }}"

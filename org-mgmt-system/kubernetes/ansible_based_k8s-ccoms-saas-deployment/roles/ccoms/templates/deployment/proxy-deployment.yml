@@ -30,13 +30,13 @@ spec:
         - name: app.profile
           value: {{ PROFILE }}
         - name: CCOMS_EMP_PORT
-          value: {{ APPS.EMPLOYEE.CONTAINERPORT }}
+          value: "{{ APPS.EMPLOYEE.CONTAINERPORT }}"
         - name: CCOMS_DEPT_PORT
-          value: {{ APPS.DEPARTMENT.CONTAINERPORT }}
+          value: "{{ APPS.DEPARTMENT.CONTAINERPORT }}"
         - name: CCOMS_ORG_PORT
-          value: {{ APPS.ORGANIZATION.CONTAINERPORT }}
+          value: "{{ APPS.ORGANIZATION.CONTAINERPORT }}"
         - name: CCOMS_ZUUL_PORT
-          value: {{ APPS.PROXY.CONTAINERPORT }}
+          value: "{{ APPS.PROXY.CONTAINERPORT }}"
         readinessProbe:
           httpGet:
             path: {{ APPS.PROXY.READYNESSPROBEHTTPPATH }}

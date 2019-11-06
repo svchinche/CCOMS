@@ -45,9 +45,9 @@ spec:
               name: ccoms
               key: database-servicename
         - name: CCOMS_DATABASE_PORT
-          value: {{ DB.MONGO.PORT }}
+          value: "{{ DB.MONGO.PORT }}"
         - name: CCOMS_EMP_PORT
-          value: {{ APPS.EMPLOYEE.CONTAINERPORT }}
+          value: "{{ APPS.EMPLOYEE.CONTAINERPORT }}"
         readinessProbe:
           httpGet:
             path: {{ APPS.EMPLOYEE.READYNESSPROBEHTTPPATH }}

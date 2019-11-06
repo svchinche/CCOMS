@@ -1,24 +1,24 @@
-- name: Creating CCOMS Config deployment"
+- name: "Create CCOMS Deployment for Config"
   k8s:
     state: present
     definition: "{{ lookup('template', 'deployment/config-deployment.yml') | from_yaml }}"
 
-- name: Creating CCOMS Employee deployment"
+- name: "Create CCOMS Deployment for Employee"
   k8s:
     state: present
     definition: "{{ lookup('template', 'deployment/emp-deployment.yml') | from_yaml }}"
 
-- name: Creating CCOMS Department deployment""
+- name: "Create CCOMS Deployment for Department"
   k8s:
     state: present
     definition: "{{ lookup('template', 'deployment/dept-deployment.yml') | from_yaml }}"
 
-- name: Creating CCOMS Organization deployment""
+- name: "Create CCOMS Deployment for Organization"
   k8s:
     state: present
     definition: "{{ lookup('template', 'deployment/org-deployment.yml') | from_yaml }}"
 
-- name: Creating CCOMS Proxy deployment"
+- name: "Create CCOMS Deployment for Proxy"
   k8s:
     state: present
     definition: "{{ lookup('template', 'deployment/proxy-deployment.yml') | from_yaml }}"

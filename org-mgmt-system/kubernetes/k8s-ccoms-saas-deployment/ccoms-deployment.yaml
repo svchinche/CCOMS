@@ -61,6 +61,16 @@ spec:
             env:
             -  name: app.profile
                value: prod
+            - name: CCOMS_DATABASE_USERNAME
+              value: admin
+            - name: CCOMS_DATABASE_PASSWORD
+              value: admin123
+            - name: CCOMS_DATABASE_SERVICENAME
+              value: admin
+            - name: CCOMS_DATABASE_PORT
+              value: 27017
+            - name: CCOMS_EMP_PORT
+              value: 8080
             readinessProbe:
                httpGet:
                   path: /employee/pretty
