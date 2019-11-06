@@ -1,5 +1,5 @@
 ---
-- name: Cloud Comp OMS Deployment on kunernetes Cluster
+- name: "Cloud Comp OMS Deployment on kunernetes Cluster"
   hosts: all
   user: root
   roles:

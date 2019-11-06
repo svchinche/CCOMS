@@ -3,3 +3,6 @@
     state: present
     definition: "{{ lookup('template', 'configmap/kube-system-coredns.yaml') | from_yaml }}"
 
+- name: "Removing pods to reload newly created CoreDNS ConfigMap"
+  command:  kubectl delete pod --namespace kube-system -l k8s-app=kube-dns
+

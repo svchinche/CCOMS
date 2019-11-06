@@ -2,8 +2,6 @@
 
 ## tasks for CCOMS
 
-
-
 - name: "Ensure Pip is installed on Proxy Based Env"
   package:
     name: python-pip
