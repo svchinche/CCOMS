@@ -1,0 +1,896 @@
+2019-11-09 07:15:05,001 p=19670 u=root |   [WARNING]: Platform linux on host ansible_node is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 07:15:05,002 p=19670 u=root |  ansible_node | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+2019-11-09 07:20:04,949 p=20385 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 07:20:04,997 p=20385 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 07:20:18,234 p=20385 u=root |  ok: [ansible_node]
+2019-11-09 07:20:18,713 p=20385 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 07:20:36,452 p=20385 u=root |  changed: [ansible_node]
+2019-11-09 07:20:36,875 p=20385 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 07:20:48,323 p=20385 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Downloading https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n    Complete output from command python setup.py egg_info:\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-build-3nunfq/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    \n    ----------------------------------------\n\n:stderr: Command \"python setup.py egg_info\" failed with error code 1 in /tmp/pip-build-3nunfq/openshift/\nYou are using pip version 8.1.2, however version 19.3.1 is available.\nYou should consider upgrading via the 'pip install --upgrade pip' command.\n"}
+2019-11-09 07:20:48,325 p=20385 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 07:20:48,325 p=20385 u=root |  ansible_node               : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 07:22:39,388 p=21550 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 07:22:39,437 p=21550 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 07:22:49,457 p=21550 u=root |  ok: [ansible_node]
+2019-11-09 07:22:49,915 p=21550 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 07:22:51,497 p=21550 u=root |  ok: [ansible_node]
+2019-11-09 07:22:51,926 p=21550 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 07:22:57,119 p=21550 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Using cached https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support\n    ERROR: Command errored out with exit status 1:\n     command: /usr/bin/python2 -c 'import sys, setuptools, tokenize; sys.argv[0] = '\"'\"'/tmp/pip-install-6r03EL/openshift/setup.py'\"'\"'; __file__='\"'\"'/tmp/pip-install-6r03EL/openshift/setup.py'\"'\"';f=getattr(tokenize, '\"'\"'open'\"'\"', open)(__file__);code=f.read().replace('\"'\"'\\r\\n'\"'\"', '\"'\"'\\n'\"'\"');f.close();exec(compile(code, __file__, '\"'\"'exec'\"'\"'))' egg_info --egg-base /tmp/pip-install-6r03EL/openshift/pip-egg-info\n         cwd: /tmp/pip-install-6r03EL/openshift/\n    Complete output (5 lines):\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-install-6r03EL/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    ----------------------------------------\nERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.\n"}
+2019-11-09 07:22:57,121 p=21550 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 07:22:57,121 p=21550 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 07:28:19,783 p=22943 u=root |   [WARNING]: Platform linux on host ansible_node is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 07:28:19,784 p=22943 u=root |  ansible_node | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "msg": "", 
+    "rc": 0, 
+    "results": [
+        "python-2.7.5-79.0.1.el7_6.x86_64 providing python is already installed"
+    ]
+}
+2019-11-09 07:28:22,682 p=22943 u=root |   [WARNING]: Platform linux on host k8s_master is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 07:28:22,682 p=22943 u=root |  k8s_master | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "msg": "", 
+    "rc": 0, 
+    "results": [
+        "python-2.7.5-86.0.1.el7.x86_64 providing python is already installed"
+    ]
+}
+2019-11-09 07:29:41,417 p=23451 u=root |  ERROR! Extraneous options or arguments
+2019-11-09 07:29:57,291 p=23465 u=root |   [WARNING]: Platform linux on host ansible_node is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 07:29:57,293 p=23465 u=root |  ansible_node | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "changes": {
+        "installed": [], 
+        "updated": []
+    }, 
+    "msg": "", 
+    "obsoletes": {
+        "python-cheetah": {
+            "dist": "x86_64", 
+            "repo": "@Snapshot_OL7_addons", 
+            "version": "2.4.1-1.el7"
+        }, 
+        "python-markdown": {
+            "dist": "noarch", 
+            "repo": "@Snapshot_OL7_addons", 
+            "version": "2.0.1-3.1.el7"
+        }
+    }, 
+    "rc": 0, 
+    "results": [
+        "All packages providing python are up to date", 
+        ""
+    ]
+}
+2019-11-09 07:31:07,058 p=23465 u=root |   [ERROR]: User interrupted execution
+
+2019-11-09 07:43:50,837 p=25297 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 07:43:50,887 p=25297 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 07:44:01,085 p=25297 u=root |  ok: [ansible_node]
+2019-11-09 07:44:01,546 p=25297 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 07:44:03,115 p=25297 u=root |  ok: [ansible_node]
+2019-11-09 07:44:03,536 p=25297 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 07:44:07,017 p=25297 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Using cached https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support\n    ERROR: Command errored out with exit status 1:\n     command: /usr/bin/python2 -c 'import sys, setuptools, tokenize; sys.argv[0] = '\"'\"'/tmp/pip-install-qDGNa6/openshift/setup.py'\"'\"'; __file__='\"'\"'/tmp/pip-install-qDGNa6/openshift/setup.py'\"'\"';f=getattr(tokenize, '\"'\"'open'\"'\"', open)(__file__);code=f.read().replace('\"'\"'\\r\\n'\"'\"', '\"'\"'\\n'\"'\"');f.close();exec(compile(code, __file__, '\"'\"'exec'\"'\"'))' egg_info --egg-base /tmp/pip-install-qDGNa6/openshift/pip-egg-info\n         cwd: /tmp/pip-install-qDGNa6/openshift/\n    Complete output (5 lines):\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-install-qDGNa6/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    ----------------------------------------\nERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.\n"}
+2019-11-09 07:44:07,019 p=25297 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 07:44:07,019 p=25297 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 08:12:41,512 p=29678 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 08:12:41,559 p=29678 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 08:12:51,702 p=29678 u=root |  ok: [ansible_node]
+2019-11-09 08:12:52,173 p=29678 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 08:12:53,750 p=29678 u=root |  ok: [ansible_node]
+2019-11-09 08:12:54,174 p=29678 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 08:12:57,539 p=29678 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Using cached https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support\n    ERROR: Command errored out with exit status 1:\n     command: /usr/bin/python2 -c 'import sys, setuptools, tokenize; sys.argv[0] = '\"'\"'/tmp/pip-install-ryaK__/openshift/setup.py'\"'\"'; __file__='\"'\"'/tmp/pip-install-ryaK__/openshift/setup.py'\"'\"';f=getattr(tokenize, '\"'\"'open'\"'\"', open)(__file__);code=f.read().replace('\"'\"'\\r\\n'\"'\"', '\"'\"'\\n'\"'\"');f.close();exec(compile(code, __file__, '\"'\"'exec'\"'\"'))' egg_info --egg-base /tmp/pip-install-ryaK__/openshift/pip-egg-info\n         cwd: /tmp/pip-install-ryaK__/openshift/\n    Complete output (5 lines):\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-install-ryaK__/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    ----------------------------------------\nERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.\n"}
+2019-11-09 08:12:57,541 p=29678 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 08:12:57,541 p=29678 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 08:37:10,253 p=1339 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 08:37:10,301 p=1339 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 08:37:11,672 p=1339 u=root |  fatal: [ansible_node]: FAILED! => {"ansible_facts": {}, "changed": false, "failed_modules": {"setup": {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "failed": true, "msg": "Ansible requires a minimum of Python2 version 2.6 or Python3 version 3.5. Current version: 3.4.10 (default, Oct  4 2019, 19:14:13) [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]"}}, "msg": "The following modules failed to execute: setup\n"}
+2019-11-09 08:37:11,674 p=1339 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 08:37:11,674 p=1339 u=root |  ansible_node               : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 09:08:28,910 p=16209 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 09:08:28,959 p=16209 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 09:08:39,417 p=16209 u=root |  ok: [ansible_node]
+2019-11-09 09:08:39,887 p=16209 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 09:08:40,857 p=16209 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "msg": "The Python 2 bindings for rpm are needed for this module. If you require Python 3 support use the `dnf` Ansible module instead.. The Python 2 yum module is needed for this module. If you require Python 3 support use the `dnf` Ansible module instead."}
+2019-11-09 09:08:40,859 p=16209 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 09:08:40,859 p=16209 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 09:34:20,816 p=20164 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 09:34:20,864 p=20164 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 09:34:31,227 p=20164 u=root |  ok: [ansible_node]
+2019-11-09 09:34:31,704 p=20164 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 09:34:32,647 p=20164 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "msg": "The Python 2 bindings for rpm are needed for this module. If you require Python 3 support use the `dnf` Ansible module instead.. The Python 2 yum module is needed for this module. If you require Python 3 support use the `dnf` Ansible module instead."}
+2019-11-09 09:34:32,648 p=20164 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 09:34:32,648 p=20164 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:07:00,618 p=24678 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:07:00,665 p=24678 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:07:10,793 p=24678 u=root |  ok: [ansible_node]
+2019-11-09 10:07:11,268 p=24678 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:07:12,351 p=24678 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "msg": "The Python 2 bindings for rpm are needed for this module. If you require Python 3 support use the `dnf` Ansible module instead.. The Python 2 yum module is needed for this module. If you require Python 3 support use the `dnf` Ansible module instead."}
+2019-11-09 10:07:12,354 p=24678 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:07:12,354 p=24678 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:12:10,698 p=26045 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:12:10,747 p=26045 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:12:20,928 p=26045 u=root |  ok: [ansible_node]
+2019-11-09 10:12:21,388 p=26045 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:12:22,987 p=26045 u=root |  ok: [ansible_node]
+2019-11-09 10:12:23,421 p=26045 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:12:26,966 p=26045 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Using cached https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support\n    ERROR: Command errored out with exit status 1:\n     command: /usr/bin/python2 -c 'import sys, setuptools, tokenize; sys.argv[0] = '\"'\"'/tmp/pip-install-TzwS3d/openshift/setup.py'\"'\"'; __file__='\"'\"'/tmp/pip-install-TzwS3d/openshift/setup.py'\"'\"';f=getattr(tokenize, '\"'\"'open'\"'\"', open)(__file__);code=f.read().replace('\"'\"'\\r\\n'\"'\"', '\"'\"'\\n'\"'\"');f.close();exec(compile(code, __file__, '\"'\"'exec'\"'\"'))' egg_info --egg-base /tmp/pip-install-TzwS3d/openshift/pip-egg-info\n         cwd: /tmp/pip-install-TzwS3d/openshift/\n    Complete output (5 lines):\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-install-TzwS3d/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    ----------------------------------------\nERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.\n"}
+2019-11-09 10:12:26,968 p=26045 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:12:26,968 p=26045 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:22:16,556 p=28216 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:22:16,604 p=28216 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:22:26,604 p=28216 u=root |  ok: [ansible_node]
+2019-11-09 10:22:27,073 p=28216 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:22:28,663 p=28216 u=root |  ok: [ansible_node]
+2019-11-09 10:22:29,079 p=28216 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:22:32,490 p=28216 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Using cached https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support\n    ERROR: Command errored out with exit status 1:\n     command: /usr/bin/python2 -c 'import sys, setuptools, tokenize; sys.argv[0] = '\"'\"'/tmp/pip-install-RG_y2o/openshift/setup.py'\"'\"'; __file__='\"'\"'/tmp/pip-install-RG_y2o/openshift/setup.py'\"'\"';f=getattr(tokenize, '\"'\"'open'\"'\"', open)(__file__);code=f.read().replace('\"'\"'\\r\\n'\"'\"', '\"'\"'\\n'\"'\"');f.close();exec(compile(code, __file__, '\"'\"'exec'\"'\"'))' egg_info --egg-base /tmp/pip-install-RG_y2o/openshift/pip-egg-info\n         cwd: /tmp/pip-install-RG_y2o/openshift/\n    Complete output (5 lines):\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-install-RG_y2o/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    ----------------------------------------\nERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.\n"}
+2019-11-09 10:22:32,492 p=28216 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:22:32,492 p=28216 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:27:18,033 p=29730 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:27:18,080 p=29730 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:27:28,186 p=29730 u=root |  ok: [ansible_node]
+2019-11-09 10:27:28,651 p=29730 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:27:30,200 p=29730 u=root |  ok: [ansible_node]
+2019-11-09 10:27:30,619 p=29730 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:27:33,935 p=29730 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Using cached https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support\n    ERROR: Command errored out with exit status 1:\n     command: /usr/bin/python2 -c 'import sys, setuptools, tokenize; sys.argv[0] = '\"'\"'/tmp/pip-install-Y_XSGy/openshift/setup.py'\"'\"'; __file__='\"'\"'/tmp/pip-install-Y_XSGy/openshift/setup.py'\"'\"';f=getattr(tokenize, '\"'\"'open'\"'\"', open)(__file__);code=f.read().replace('\"'\"'\\r\\n'\"'\"', '\"'\"'\\n'\"'\"');f.close();exec(compile(code, __file__, '\"'\"'exec'\"'\"'))' egg_info --egg-base /tmp/pip-install-Y_XSGy/openshift/pip-egg-info\n         cwd: /tmp/pip-install-Y_XSGy/openshift/\n    Complete output (5 lines):\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-install-Y_XSGy/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    ----------------------------------------\nERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.\n"}
+2019-11-09 10:27:33,938 p=29730 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:27:33,938 p=29730 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:29:32,805 p=30846 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:29:32,852 p=30846 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:29:42,861 p=30846 u=root |  ok: [ansible_node]
+2019-11-09 10:29:43,335 p=30846 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:29:44,911 p=30846 u=root |  ok: [ansible_node]
+2019-11-09 10:29:45,324 p=30846 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:29:48,747 p=30846 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "cmd": ["/usr/bin/pip2", "install", "openshift"], "msg": "stdout: Collecting openshift\n  Using cached https://files.pythonhosted.org/packages/fd/df/ac9cfd29499fdb5c73e28590af4dca5ad3e03f8fd8e84612d9ff2fc40e26/openshift-0.10.0.tar.gz\n\n:stderr: DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support\n    ERROR: Command errored out with exit status 1:\n     command: /usr/bin/python2 -c 'import sys, setuptools, tokenize; sys.argv[0] = '\"'\"'/tmp/pip-install-bnDR92/openshift/setup.py'\"'\"'; __file__='\"'\"'/tmp/pip-install-bnDR92/openshift/setup.py'\"'\"';f=getattr(tokenize, '\"'\"'open'\"'\"', open)(__file__);code=f.read().replace('\"'\"'\\r\\n'\"'\"', '\"'\"'\\n'\"'\"');f.close();exec(compile(code, __file__, '\"'\"'exec'\"'\"'))' egg_info --egg-base /tmp/pip-install-bnDR92/openshift/pip-egg-info\n         cwd: /tmp/pip-install-bnDR92/openshift/\n    Complete output (5 lines):\n    Traceback (most recent call last):\n      File \"<string>\", line 1, in <module>\n      File \"/tmp/pip-install-bnDR92/openshift/setup.py\", line 50, in <module>\n        packages=find_packages(include='openshift.*'),\n    TypeError: find_packages() got an unexpected keyword argument 'include'\n    ----------------------------------------\nERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.\n"}
+2019-11-09 10:29:48,748 p=30846 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:29:48,748 p=30846 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:30:25,788 p=31888 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:30:25,842 p=31888 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:30:35,898 p=31888 u=root |  ok: [ansible_node]
+2019-11-09 10:30:36,362 p=31888 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:30:37,373 p=31888 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "msg": "The Python 2 bindings for rpm are needed for this module. If you require Python 3 support use the `dnf` Ansible module instead.. The Python 2 yum module is needed for this module. If you require Python 3 support use the `dnf` Ansible module instead."}
+2019-11-09 10:30:37,375 p=31888 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:30:37,375 p=31888 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:31:22,514 p=440 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:31:22,565 p=440 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:31:32,489 p=440 u=root |  ok: [ansible_node]
+2019-11-09 10:31:32,947 p=440 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:31:33,973 p=440 u=root |  fatal: [ansible_node]: FAILED! => {"changed": false, "msg": "The Python 2 bindings for rpm are needed for this module. If you require Python 3 support use the `dnf` Ansible module instead.. The Python 2 yum module is needed for this module. If you require Python 3 support use the `dnf` Ansible module instead."}
+2019-11-09 10:31:33,975 p=440 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:31:33,975 p=440 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:32:48,687 p=1468 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:32:48,734 p=1468 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:32:58,817 p=1468 u=root |  ok: [ansible_node]
+2019-11-09 10:32:59,284 p=1468 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:32:59,302 p=1468 u=root |  skipping: [ansible_node]
+2019-11-09 10:32:59,733 p=1468 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:33:01,701 p=1468 u=root |  ok: [ansible_node]
+2019-11-09 10:33:02,138 p=1468 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 10:33:02,156 p=1468 u=root |  skipping: [ansible_node]
+2019-11-09 10:33:02,583 p=1468 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 10:33:02,612 p=1468 u=root |  skipping: [ansible_node]
+2019-11-09 10:33:02,634 p=1468 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 10:33:02,657 p=1468 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:33:18,591 p=1468 u=root |  ok: [k8s_master]
+2019-11-09 10:33:18,594 p=1468 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:33:18,594 p=1468 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 10:33:18,595 p=1468 u=root |  k8s_master                 : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:34:44,513 p=2595 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:34:44,561 p=2595 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:34:54,684 p=2595 u=root |  ok: [ansible_node]
+2019-11-09 10:34:55,162 p=2595 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:34:55,181 p=2595 u=root |  skipping: [ansible_node]
+2019-11-09 10:34:55,606 p=2595 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:34:57,568 p=2595 u=root |  ok: [ansible_node]
+2019-11-09 10:34:57,993 p=2595 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 10:34:58,010 p=2595 u=root |  skipping: [ansible_node]
+2019-11-09 10:34:58,447 p=2595 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 10:34:58,476 p=2595 u=root |  skipping: [ansible_node]
+2019-11-09 10:34:58,491 p=2595 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 10:34:58,514 p=2595 u=root |  TASK [Gathering Facts] ***********************************************************************************************************************
+2019-11-09 10:35:08,010 p=2595 u=root |  ok: [k8s_master]
+2019-11-09 10:35:08,013 p=2595 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:35:08,013 p=2595 u=root |  ansible_node               : ok=2    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 10:35:08,014 p=2595 u=root |  k8s_master                 : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:37:25,232 p=3631 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:37:25,281 p=3631 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:37:25,302 p=3631 u=root |  skipping: [ansible_node]
+2019-11-09 10:37:25,310 p=3631 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:37:27,643 p=3631 u=root |  ok: [ansible_node]
+2019-11-09 10:37:27,654 p=3631 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 10:37:27,671 p=3631 u=root |  skipping: [ansible_node]
+2019-11-09 10:37:27,677 p=3631 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 10:37:27,693 p=3631 u=root |  skipping: [ansible_node]
+2019-11-09 10:37:27,703 p=3631 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 10:37:27,721 p=3631 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:37:27,721 p=3631 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 10:37:46,647 p=3917 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:37:46,695 p=3917 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:37:46,715 p=3917 u=root |  skipping: [ansible_node]
+2019-11-09 10:37:46,723 p=3917 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:37:48,944 p=3917 u=root |  ok: [ansible_node]
+2019-11-09 10:37:48,951 p=3917 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 10:37:48,969 p=3917 u=root |  skipping: [ansible_node]
+2019-11-09 10:37:48,976 p=3917 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 10:37:48,993 p=3917 u=root |  skipping: [ansible_node]
+2019-11-09 10:37:49,003 p=3917 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 10:37:49,027 p=3917 u=root |  TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
+2019-11-09 10:37:52,272 p=3917 u=root |   [WARNING]: Platform linux on host k8s_master is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 10:37:52,272 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:37:52,280 p=3917 u=root |  TASK [preccoms : Removing pods to reload newly created CoreDNS ConfigMap] ********************************************************************
+2019-11-09 10:38:05,378 p=3917 u=root |  changed: [k8s_master]
+2019-11-09 10:38:05,387 p=3917 u=root |  TASK [database : Create MONGO DB Namespace] **************************************************************************************************
+2019-11-09 10:38:06,861 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:06,868 p=3917 u=root |  TASK [database : Create MONGO DB Service] ****************************************************************************************************
+2019-11-09 10:38:08,344 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:08,351 p=3917 u=root |  TASK [database : Create MONGO DB ConfigMap] **************************************************************************************************
+2019-11-09 10:38:09,744 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:09,752 p=3917 u=root |  TASK [database : Create MONGO DB Secret] *****************************************************************************************************
+2019-11-09 10:38:10,990 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:10,998 p=3917 u=root |  TASK [database : Create MONGO DB Deployment] *************************************************************************************************
+2019-11-09 10:38:12,281 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:12,290 p=3917 u=root |  TASK [ccoms : Create CCOMS Namespace] ********************************************************************************************************
+2019-11-09 10:38:13,576 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:13,583 p=3917 u=root |  TASK [ccoms : Create CCOMS Service for Config] ***********************************************************************************************
+2019-11-09 10:38:14,843 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:14,850 p=3917 u=root |  TASK [ccoms : Create CCOMS Service for Employee] *********************************************************************************************
+2019-11-09 10:38:16,132 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:16,139 p=3917 u=root |  TASK [ccoms : Create CCOMS Service for Departemnt] *******************************************************************************************
+2019-11-09 10:38:17,397 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:17,407 p=3917 u=root |  TASK [ccoms : Create CCOMS Service for Organization] *****************************************************************************************
+2019-11-09 10:38:18,679 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:18,687 p=3917 u=root |  TASK [ccoms : Create CCOMS Service for Proxy] ************************************************************************************************
+2019-11-09 10:38:19,980 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:19,987 p=3917 u=root |  TASK [ccoms : Create CCOMS Secrets] **********************************************************************************************************
+2019-11-09 10:38:21,294 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:21,301 p=3917 u=root |  TASK [ccoms : Create CCOMS Deployment for Config] ********************************************************************************************
+2019-11-09 10:38:22,617 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:22,623 p=3917 u=root |  TASK [ccoms : Create CCOMS Deployment for Employee] ******************************************************************************************
+2019-11-09 10:38:23,902 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:23,909 p=3917 u=root |  TASK [ccoms : Create CCOMS Deployment for Department] ****************************************************************************************
+2019-11-09 10:38:25,171 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:25,177 p=3917 u=root |  TASK [ccoms : Create CCOMS Deployment for Organization] **************************************************************************************
+2019-11-09 10:38:26,457 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:26,465 p=3917 u=root |  TASK [ccoms : Create CCOMS Deployment for Proxy] *********************************************************************************************
+2019-11-09 10:38:27,714 p=3917 u=root |  ok: [k8s_master]
+2019-11-09 10:38:27,716 p=3917 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:38:27,716 p=3917 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 10:38:27,716 p=3917 u=root |  k8s_master                 : ok=19   changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:40:37,915 p=5036 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:40:37,996 p=5036 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:40:38,013 p=5036 u=root |  skipping: [ansible_node]
+2019-11-09 10:40:38,021 p=5036 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:40:38,036 p=5036 u=root |  skipping: [ansible_node]
+2019-11-09 10:40:38,042 p=5036 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 10:40:40,508 p=5036 u=root |  fatal: [ansible_node]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "msg": "The Python 2 bindings for rpm are needed for this module. If you require Python 3 support use the `dnf` Ansible module instead.. The Python 2 yum module is needed for this module. If you require Python 3 support use the `dnf` Ansible module instead."}
+2019-11-09 10:40:40,509 p=5036 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:40:40,509 p=5036 u=root |  ansible_node               : ok=0    changed=0    unreachable=0    failed=1    skipped=2    rescued=0    ignored=0   
+2019-11-09 10:43:30,445 p=6007 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 10:43:30,529 p=6007 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 10:43:30,548 p=6007 u=root |  skipping: [ansible_node]
+2019-11-09 10:43:30,556 p=6007 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 10:43:30,571 p=6007 u=root |  skipping: [ansible_node]
+2019-11-09 10:43:30,577 p=6007 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 10:43:30,593 p=6007 u=root |  skipping: [ansible_node]
+2019-11-09 10:43:30,600 p=6007 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 10:43:32,904 p=6007 u=root |  ok: [ansible_node]
+2019-11-09 10:43:32,914 p=6007 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 10:43:32,937 p=6007 u=root |  TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
+2019-11-09 10:43:34,937 p=6007 u=root |   [WARNING]: Platform linux on host k8s_master is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 10:43:34,937 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:34,945 p=6007 u=root |  TASK [preccoms : Removing pods to reload newly created CoreDNS ConfigMap] ********************************************************************
+2019-11-09 10:43:48,628 p=6007 u=root |  changed: [k8s_master]
+2019-11-09 10:43:48,636 p=6007 u=root |  TASK [database : Create MONGO DB Namespace] **************************************************************************************************
+2019-11-09 10:43:50,116 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:50,123 p=6007 u=root |  TASK [database : Create MONGO DB Service] ****************************************************************************************************
+2019-11-09 10:43:51,533 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:51,540 p=6007 u=root |  TASK [database : Create MONGO DB ConfigMap] **************************************************************************************************
+2019-11-09 10:43:52,959 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:52,967 p=6007 u=root |  TASK [database : Create MONGO DB Secret] *****************************************************************************************************
+2019-11-09 10:43:54,457 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:54,464 p=6007 u=root |  TASK [database : Create MONGO DB Deployment] *************************************************************************************************
+2019-11-09 10:43:55,848 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:55,855 p=6007 u=root |  TASK [ccoms : Create CCOMS Namespace] ********************************************************************************************************
+2019-11-09 10:43:57,142 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:57,149 p=6007 u=root |  TASK [ccoms : Create CCOMS Service for Config] ***********************************************************************************************
+2019-11-09 10:43:58,412 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:58,420 p=6007 u=root |  TASK [ccoms : Create CCOMS Service for Employee] *********************************************************************************************
+2019-11-09 10:43:59,727 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:43:59,734 p=6007 u=root |  TASK [ccoms : Create CCOMS Service for Departemnt] *******************************************************************************************
+2019-11-09 10:44:01,049 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:44:01,056 p=6007 u=root |  TASK [ccoms : Create CCOMS Service for Organization] *****************************************************************************************
+2019-11-09 10:44:02,330 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:44:02,337 p=6007 u=root |  TASK [ccoms : Create CCOMS Service for Proxy] ************************************************************************************************
+2019-11-09 10:44:03,638 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:44:03,645 p=6007 u=root |  TASK [ccoms : Create CCOMS Secrets] **********************************************************************************************************
+2019-11-09 10:44:05,133 p=6007 u=root |  ok: [k8s_master]
+2019-11-09 10:44:05,141 p=6007 u=root |  TASK [ccoms : Create CCOMS Deployment for Config] ********************************************************************************************
+2019-11-09 10:44:06,523 p=6007 u=root |  changed: [k8s_master]
+2019-11-09 10:44:06,529 p=6007 u=root |  TASK [ccoms : Create CCOMS Deployment for Employee] ******************************************************************************************
+2019-11-09 10:44:08,049 p=6007 u=root |  changed: [k8s_master]
+2019-11-09 10:44:08,056 p=6007 u=root |  TASK [ccoms : Create CCOMS Deployment for Department] ****************************************************************************************
+2019-11-09 10:44:09,439 p=6007 u=root |  changed: [k8s_master]
+2019-11-09 10:44:09,446 p=6007 u=root |  TASK [ccoms : Create CCOMS Deployment for Organization] **************************************************************************************
+2019-11-09 10:44:10,767 p=6007 u=root |  changed: [k8s_master]
+2019-11-09 10:44:10,775 p=6007 u=root |  TASK [ccoms : Create CCOMS Deployment for Proxy] *********************************************************************************************
+2019-11-09 10:44:12,100 p=6007 u=root |  changed: [k8s_master]
+2019-11-09 10:44:12,102 p=6007 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 10:44:12,102 p=6007 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 10:44:12,102 p=6007 u=root |  k8s_master                 : ok=19   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 10:54:02,905 p=7450 u=root |  ansible_node | FAILED! => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "msg": "value of state must be one of: absent, directory, file, hard, link, touch, got: present"
+}
+2019-11-09 10:55:01,102 p=7741 u=root |  ansible_node | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": true, 
+    "gid": 0, 
+    "group": "root", 
+    "mode": "0755", 
+    "owner": "root", 
+    "path": "test", 
+    "size": 4096, 
+    "state": "directory", 
+    "uid": 0
+}
+2019-11-09 11:01:56,983 p=8891 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 11:01:57,065 p=8891 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 11:01:57,083 p=8891 u=root |  skipping: [ansible_node]
+2019-11-09 11:01:57,091 p=8891 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 11:01:57,108 p=8891 u=root |  skipping: [ansible_node]
+2019-11-09 11:01:57,114 p=8891 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 11:01:57,130 p=8891 u=root |  skipping: [ansible_node]
+2019-11-09 11:01:57,137 p=8891 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 11:01:59,482 p=8891 u=root |  ok: [ansible_node]
+2019-11-09 11:01:59,493 p=8891 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 11:01:59,516 p=8891 u=root |  TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
+2019-11-09 11:02:01,393 p=8891 u=root |   [WARNING]: Platform linux on host k8s_master is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 11:02:01,394 p=8891 u=root |  fatal: [k8s_master]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": false, "msg": "Unsupported parameters for (k8s) module: notify Supported parameters include: api_key, api_version, append_hash, ca_cert, client_cert, client_key, context, force, host, kind, kubeconfig, merge_type, name, namespace, password, resource_definition, src, state, username, validate, validate_certs, wait, wait_condition, wait_timeout"}
+2019-11-09 11:02:01,395 p=8891 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 11:02:01,396 p=8891 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 11:02:01,396 p=8891 u=root |  k8s_master                 : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 11:03:22,682 p=9402 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 11:03:22,765 p=9402 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 11:03:22,784 p=9402 u=root |  skipping: [ansible_node]
+2019-11-09 11:03:22,792 p=9402 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 11:03:22,809 p=9402 u=root |  skipping: [ansible_node]
+2019-11-09 11:03:22,816 p=9402 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 11:03:22,832 p=9402 u=root |  skipping: [ansible_node]
+2019-11-09 11:03:22,839 p=9402 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 11:03:25,134 p=9402 u=root |  ok: [ansible_node]
+2019-11-09 11:03:25,144 p=9402 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 11:03:25,168 p=9402 u=root |  TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
+2019-11-09 11:03:27,351 p=9402 u=root |   [WARNING]: Platform linux on host k8s_master is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 11:03:27,351 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:27,358 p=9402 u=root |  TASK [database : Create MONGO DB Namespace] **************************************************************************************************
+2019-11-09 11:03:28,820 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:28,827 p=9402 u=root |  TASK [database : Create MONGO DB Service] ****************************************************************************************************
+2019-11-09 11:03:30,207 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:30,214 p=9402 u=root |  TASK [database : Create MONGO DB ConfigMap] **************************************************************************************************
+2019-11-09 11:03:31,550 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:31,557 p=9402 u=root |  TASK [database : Create MONGO DB Secret] *****************************************************************************************************
+2019-11-09 11:03:33,034 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:33,041 p=9402 u=root |  TASK [database : Create MONGO DB Deployment] *************************************************************************************************
+2019-11-09 11:03:34,397 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:34,404 p=9402 u=root |  TASK [ccoms : Create CCOMS Namespace] ********************************************************************************************************
+2019-11-09 11:03:35,835 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:35,843 p=9402 u=root |  TASK [ccoms : Create CCOMS Service for Config] ***********************************************************************************************
+2019-11-09 11:03:37,172 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:37,178 p=9402 u=root |  TASK [ccoms : Create CCOMS Service for Employee] *********************************************************************************************
+2019-11-09 11:03:38,561 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:38,568 p=9402 u=root |  TASK [ccoms : Create CCOMS Service for Departemnt] *******************************************************************************************
+2019-11-09 11:03:39,976 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:39,983 p=9402 u=root |  TASK [ccoms : Create CCOMS Service for Organization] *****************************************************************************************
+2019-11-09 11:03:41,438 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:41,445 p=9402 u=root |  TASK [ccoms : Create CCOMS Service for Proxy] ************************************************************************************************
+2019-11-09 11:03:42,823 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:42,830 p=9402 u=root |  TASK [ccoms : Create CCOMS Secrets] **********************************************************************************************************
+2019-11-09 11:03:44,308 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:44,315 p=9402 u=root |  TASK [ccoms : Create CCOMS Deployment for Config] ********************************************************************************************
+2019-11-09 11:03:45,690 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:45,697 p=9402 u=root |  TASK [ccoms : Create CCOMS Deployment for Employee] ******************************************************************************************
+2019-11-09 11:03:47,196 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:47,203 p=9402 u=root |  TASK [ccoms : Create CCOMS Deployment for Department] ****************************************************************************************
+2019-11-09 11:03:48,677 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:48,684 p=9402 u=root |  TASK [ccoms : Create CCOMS Deployment for Organization] **************************************************************************************
+2019-11-09 11:03:50,209 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:50,216 p=9402 u=root |  TASK [ccoms : Create CCOMS Deployment for Proxy] *********************************************************************************************
+2019-11-09 11:03:51,715 p=9402 u=root |  ok: [k8s_master]
+2019-11-09 11:03:51,717 p=9402 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 11:03:51,717 p=9402 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 11:03:51,717 p=9402 u=root |  k8s_master                 : ok=18   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 11:06:08,555 p=10387 u=root |  ERROR! Missing target hosts
+2019-11-09 11:06:13,690 p=10405 u=root |  ERROR! Missing target hosts
+2019-11-09 11:08:48,412 p=10629 u=root |  ERROR! Missing target hosts
+2019-11-09 11:09:29,426 p=10685 u=root |  ansible_node | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "gid": 0, 
+    "group": "root", 
+    "mode": "0755", 
+    "owner": "root", 
+    "path": "test", 
+    "size": 4096, 
+    "state": "directory", 
+    "uid": 0
+}
+2019-11-09 11:09:38,024 p=10915 u=root |  ansible 2.8.5
+  config file = /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /bin/ansible
+  python version = 2.7.5 (default, Jun  4 2019, 10:54:24) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36.0.1)]
+2019-11-09 11:09:38,024 p=10915 u=root |  Using /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/ansible.cfg as config file
+2019-11-09 11:09:38,034 p=10915 u=root |  host_list declined parsing /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts as it did not pass it's verify_file() method
+2019-11-09 11:09:38,034 p=10915 u=root |  script declined parsing /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts as it did not pass it's verify_file() method
+2019-11-09 11:09:38,034 p=10915 u=root |  auto declined parsing /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts as it did not pass it's verify_file() method
+2019-11-09 11:09:38,039 p=10915 u=root |  Parsed /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts inventory source with ini plugin
+2019-11-09 11:09:38,378 p=10915 u=root |  META: ran handlers
+2019-11-09 11:09:38,457 p=10915 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:09:38,458 p=10915 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo $HOME/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011 `" && echo ansible-tmp-1573315778.46-185984991455011="` echo $HOME/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011 `" ) && sleep 0'"'"''
+2019-11-09 11:09:38,538 p=10915 u=root |  <mum00cuc.in.oracle.com> (0, 'ansible-tmp-1573315778.46-185984991455011=/root/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011\n', '')
+2019-11-09 11:09:38,721 p=10915 u=root |  <ansible_node> Attempting python interpreter discovery
+2019-11-09 11:09:38,721 p=10915 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:09:38,722 p=10915 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'echo PLATFORM; uname; echo FOUND; command -v '"'"'"'"'"'"'"'"'/usr/bin/python'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.7'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.6'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.5'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python2.7'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python2.6'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/libexec/platform-python'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/bin/python3'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python'"'"'"'"'"'"'"'"'; echo ENDFOUND && sleep 0'"'"''
+2019-11-09 11:09:38,803 p=10915 u=root |  <mum00cuc.in.oracle.com> (0, 'PLATFORM\nLinux\nFOUND\n/usr/bin/python\n/usr/bin/python3.6\n/usr/bin/python2.7\n/usr/libexec/platform-python\n/usr/bin/python3\n/usr/bin/python\nENDFOUND\n', '')
+2019-11-09 11:09:38,804 p=10915 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:09:38,805 p=10915 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'/usr/bin/python && sleep 0'"'"''
+2019-11-09 11:09:38,941 p=10915 u=root |  <mum00cuc.in.oracle.com> (0, '{"platform_dist_result": ["redhat", "7.3", "Maipo"], "osrelease_content": "NAME=\\"Oracle Linux Server\\"\\nVERSION=\\"7.3\\"\\nID=\\"ol\\"\\nVERSION_ID=\\"7.3\\"\\nPRETTY_NAME=\\"Oracle Linux Server 7.3\\"\\nANSI_COLOR=\\"0;31\\"\\nCPE_NAME=\\"cpe:/o:oracle:linux:7:3:server\\"\\nHOME_URL=\\"https://linux.oracle.com/\\"\\nBUG_REPORT_URL=\\"https://bugzilla.oracle.com/\\"\\n\\nORACLE_BUGZILLA_PRODUCT=\\"Oracle Linux 7\\"\\nORACLE_BUGZILLA_PRODUCT_VERSION=7.3\\nORACLE_SUPPORT_PRODUCT=\\"Oracle Linux\\"\\nORACLE_SUPPORT_PRODUCT_VERSION=7.3\\n"}\n', '')
+2019-11-09 11:09:38,945 p=10915 u=root |  Using module file /usr/lib/python2.7/site-packages/ansible/modules/files/file.py
+2019-11-09 11:09:38,945 p=10915 u=root |  <mum00cuc.in.oracle.com> PUT /root/.ansible/tmp/ansible-local-10915MKm7w6/tmpO5AM1S TO /root/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011/AnsiballZ_file.py
+2019-11-09 11:09:38,946 p=10915 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC sftp -b - -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c '[mum00cuc.in.oracle.com]'
+2019-11-09 11:09:39,038 p=10915 u=root |  <mum00cuc.in.oracle.com> (0, 'sftp> put /root/.ansible/tmp/ansible-local-10915MKm7w6/tmpO5AM1S /root/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011/AnsiballZ_file.py\n', '')
+2019-11-09 11:09:39,039 p=10915 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:09:39,040 p=10915 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'chmod u+x /root/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011/ /root/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011/AnsiballZ_file.py && sleep 0'"'"''
+2019-11-09 11:09:39,114 p=10915 u=root |  <mum00cuc.in.oracle.com> (0, '', '')
+2019-11-09 11:09:39,114 p=10915 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:09:39,115 p=10915 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c -tt mum00cuc.in.oracle.com '/bin/sh -c '"'"'/usr/bin/python /root/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011/AnsiballZ_file.py && sleep 0'"'"''
+2019-11-09 11:09:39,388 p=10915 u=root |  <mum00cuc.in.oracle.com> (0, '\r\n{"path": "test", "changed": false, "diff": {"before": {"path": "test"}, "after": {"path": "test"}}, "uid": 0, "gid": 0, "owner": "root", "group": "root", "mode": "0755", "state": "directory", "size": 4096, "invocation": {"module_args": {"name": "test", "state": "directory", "path": "test", "recurse": false, "force": false, "follow": true, "modification_time_format": "%Y%m%d%H%M.%S", "access_time_format": "%Y%m%d%H%M.%S", "_original_basename": null, "_diff_peek": null, "src": null, "modification_time": null, "access_time": null, "mode": null, "owner": null, "group": null, "seuser": null, "serole": null, "selevel": null, "setype": null, "attributes": null, "content": null, "backup": null, "remote_src": null, "regexp": null, "delimiter": null, "directory_mode": null, "unsafe_writes": null}}}\r\n', 'Shared connection to mum00cuc.in.oracle.com closed.\r\n')
+2019-11-09 11:09:39,391 p=10915 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:09:39,392 p=10915 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'rm -f -r /root/.ansible/tmp/ansible-tmp-1573315778.46-185984991455011/ > /dev/null 2>&1 && sleep 0'"'"''
+2019-11-09 11:09:39,469 p=10915 u=root |  <mum00cuc.in.oracle.com> (0, '', '')
+2019-11-09 11:09:39,478 p=10915 u=root |  ansible_node | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "diff": {
+        "after": {
+            "path": "test"
+        }, 
+        "before": {
+            "path": "test"
+        }
+    }, 
+    "gid": 0, 
+    "group": "root", 
+    "invocation": {
+        "module_args": {
+            "_diff_peek": null, 
+            "_original_basename": null, 
+            "access_time": null, 
+            "access_time_format": "%Y%m%d%H%M.%S", 
+            "attributes": null, 
+            "backup": null, 
+            "content": null, 
+            "delimiter": null, 
+            "directory_mode": null, 
+            "follow": true, 
+            "force": false, 
+            "group": null, 
+            "mode": null, 
+            "modification_time": null, 
+            "modification_time_format": "%Y%m%d%H%M.%S", 
+            "name": "test", 
+            "owner": null, 
+            "path": "test", 
+            "recurse": false, 
+            "regexp": null, 
+            "remote_src": null, 
+            "selevel": null, 
+            "serole": null, 
+            "setype": null, 
+            "seuser": null, 
+            "src": null, 
+            "state": "directory", 
+            "unsafe_writes": null
+        }
+    }, 
+    "mode": "0755", 
+    "owner": "root", 
+    "path": "test", 
+    "size": 4096, 
+    "state": "directory", 
+    "uid": 0
+}
+2019-11-09 11:09:39,478 p=10915 u=root |  META: ran handlers
+2019-11-09 11:09:39,479 p=10915 u=root |  META: ran handlers
+2019-11-09 11:11:55,794 p=11347 u=root |  ansible 2.8.5
+  config file = /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /bin/ansible
+  python version = 2.7.5 (default, Jun  4 2019, 10:54:24) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36.0.1)]
+2019-11-09 11:11:55,795 p=11347 u=root |  Using /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/ansible.cfg as config file
+2019-11-09 11:11:55,806 p=11347 u=root |  host_list declined parsing /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts as it did not pass it's verify_file() method
+2019-11-09 11:11:55,806 p=11347 u=root |  script declined parsing /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts as it did not pass it's verify_file() method
+2019-11-09 11:11:55,806 p=11347 u=root |  auto declined parsing /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts as it did not pass it's verify_file() method
+2019-11-09 11:11:55,812 p=11347 u=root |  Parsed /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/hosts inventory source with ini plugin
+2019-11-09 11:11:56,170 p=11347 u=root |  META: ran handlers
+2019-11-09 11:11:56,250 p=11347 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:11:56,251 p=11347 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'( umask 77 && mkdir -p "` echo $HOME/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012 `" && echo ansible-tmp-1573315916.25-117932152509012="` echo $HOME/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012 `" ) && sleep 0'"'"''
+2019-11-09 11:11:56,445 p=11347 u=root |  <mum00cuc.in.oracle.com> (0, 'ansible-tmp-1573315916.25-117932152509012=/root/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012\n', '')
+2019-11-09 11:11:56,630 p=11347 u=root |  <ansible_node> Attempting python interpreter discovery
+2019-11-09 11:11:56,630 p=11347 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:11:56,631 p=11347 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'echo PLATFORM; uname; echo FOUND; command -v '"'"'"'"'"'"'"'"'/usr/bin/python'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.7'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.6'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python3.5'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python2.7'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python2.6'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/libexec/platform-python'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'/usr/bin/python3'"'"'"'"'"'"'"'"'; command -v '"'"'"'"'"'"'"'"'python'"'"'"'"'"'"'"'"'; echo ENDFOUND && sleep 0'"'"''
+2019-11-09 11:11:56,708 p=11347 u=root |  <mum00cuc.in.oracle.com> (0, 'PLATFORM\nLinux\nFOUND\n/usr/bin/python\n/usr/bin/python3.6\n/usr/bin/python2.7\n/usr/libexec/platform-python\n/usr/bin/python3\n/usr/bin/python\nENDFOUND\n', '')
+2019-11-09 11:11:56,709 p=11347 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:11:56,710 p=11347 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'/usr/bin/python && sleep 0'"'"''
+2019-11-09 11:11:56,841 p=11347 u=root |  <mum00cuc.in.oracle.com> (0, '{"platform_dist_result": ["redhat", "7.3", "Maipo"], "osrelease_content": "NAME=\\"Oracle Linux Server\\"\\nVERSION=\\"7.3\\"\\nID=\\"ol\\"\\nVERSION_ID=\\"7.3\\"\\nPRETTY_NAME=\\"Oracle Linux Server 7.3\\"\\nANSI_COLOR=\\"0;31\\"\\nCPE_NAME=\\"cpe:/o:oracle:linux:7:3:server\\"\\nHOME_URL=\\"https://linux.oracle.com/\\"\\nBUG_REPORT_URL=\\"https://bugzilla.oracle.com/\\"\\n\\nORACLE_BUGZILLA_PRODUCT=\\"Oracle Linux 7\\"\\nORACLE_BUGZILLA_PRODUCT_VERSION=7.3\\nORACLE_SUPPORT_PRODUCT=\\"Oracle Linux\\"\\nORACLE_SUPPORT_PRODUCT_VERSION=7.3\\n"}\n', '')
+2019-11-09 11:11:56,844 p=11347 u=root |  Using module file /usr/lib/python2.7/site-packages/ansible/modules/files/file.py
+2019-11-09 11:11:56,845 p=11347 u=root |  <mum00cuc.in.oracle.com> PUT /root/.ansible/tmp/ansible-local-11347wfbqe_/tmpTJCVTa TO /root/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012/AnsiballZ_file.py
+2019-11-09 11:11:56,846 p=11347 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC sftp -b - -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c '[mum00cuc.in.oracle.com]'
+2019-11-09 11:11:56,933 p=11347 u=root |  <mum00cuc.in.oracle.com> (0, 'sftp> put /root/.ansible/tmp/ansible-local-11347wfbqe_/tmpTJCVTa /root/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012/AnsiballZ_file.py\n', '')
+2019-11-09 11:11:56,934 p=11347 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:11:56,935 p=11347 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'chmod u+x /root/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012/ /root/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012/AnsiballZ_file.py && sleep 0'"'"''
+2019-11-09 11:11:57,007 p=11347 u=root |  <mum00cuc.in.oracle.com> (0, '', '')
+2019-11-09 11:11:57,008 p=11347 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:11:57,009 p=11347 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c -tt mum00cuc.in.oracle.com '/bin/sh -c '"'"'/usr/bin/python /root/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012/AnsiballZ_file.py && sleep 0'"'"''
+2019-11-09 11:11:57,277 p=11347 u=root |  <mum00cuc.in.oracle.com> (0, '\r\n{"path": "test786", "changed": true, "diff": {"before": {"path": "test786", "state": "absent"}, "after": {"path": "test786", "state": "directory"}}, "uid": 0, "gid": 0, "owner": "root", "group": "root", "mode": "0755", "state": "directory", "size": 4096, "invocation": {"module_args": {"name": "test786", "state": "directory", "path": "test786", "recurse": false, "force": false, "follow": true, "modification_time_format": "%Y%m%d%H%M.%S", "access_time_format": "%Y%m%d%H%M.%S", "_original_basename": null, "_diff_peek": null, "src": null, "modification_time": null, "access_time": null, "mode": null, "owner": null, "group": null, "seuser": null, "serole": null, "selevel": null, "setype": null, "attributes": null, "content": null, "backup": null, "remote_src": null, "regexp": null, "delimiter": null, "directory_mode": null, "unsafe_writes": null}}}\r\n', 'Shared connection to mum00cuc.in.oracle.com closed.\r\n')
+2019-11-09 11:11:57,279 p=11347 u=root |  <mum00cuc.in.oracle.com> ESTABLISH SSH CONNECTION FOR USER: root
+2019-11-09 11:11:57,280 p=11347 u=root |  <mum00cuc.in.oracle.com> SSH: EXEC ssh -C -o ControlMaster=auto -o ControlPersist=60s -o Port=22 -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="root"' -o ConnectTimeout=10 -o ControlPath=/root/.ansible/cp/1cc277363c mum00cuc.in.oracle.com '/bin/sh -c '"'"'rm -f -r /root/.ansible/tmp/ansible-tmp-1573315916.25-117932152509012/ > /dev/null 2>&1 && sleep 0'"'"''
+2019-11-09 11:11:57,354 p=11347 u=root |  <mum00cuc.in.oracle.com> (0, '', '')
+2019-11-09 11:11:57,362 p=11347 u=root |  ansible_node | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": true, 
+    "diff": {
+        "after": {
+            "path": "test786", 
+            "state": "directory"
+        }, 
+        "before": {
+            "path": "test786", 
+            "state": "absent"
+        }
+    }, 
+    "gid": 0, 
+    "group": "root", 
+    "invocation": {
+        "module_args": {
+            "_diff_peek": null, 
+            "_original_basename": null, 
+            "access_time": null, 
+            "access_time_format": "%Y%m%d%H%M.%S", 
+            "attributes": null, 
+            "backup": null, 
+            "content": null, 
+            "delimiter": null, 
+            "directory_mode": null, 
+            "follow": true, 
+            "force": false, 
+            "group": null, 
+            "mode": null, 
+            "modification_time": null, 
+            "modification_time_format": "%Y%m%d%H%M.%S", 
+            "name": "test786", 
+            "owner": null, 
+            "path": "test786", 
+            "recurse": false, 
+            "regexp": null, 
+            "remote_src": null, 
+            "selevel": null, 
+            "serole": null, 
+            "setype": null, 
+            "seuser": null, 
+            "src": null, 
+            "state": "directory", 
+            "unsafe_writes": null
+        }
+    }, 
+    "mode": "0755", 
+    "owner": "root", 
+    "path": "test786", 
+    "size": 4096, 
+    "state": "directory", 
+    "uid": 0
+}
+2019-11-09 11:11:57,363 p=11347 u=root |  META: ran handlers
+2019-11-09 11:11:57,364 p=11347 u=root |  META: ran handlers
+2019-11-09 11:23:48,373 p=12593 u=root |  ERROR! the playbook: mum00cuc could not be found
+2019-11-09 11:24:28,881 p=12650 u=root |  ERROR! the playbook: ansible_nodes could not be found
+2019-11-09 11:24:47,892 p=12677 u=root |  ERROR! A playbook must be a list of plays, got a <class 'ansible.parsing.yaml.objects.AnsibleMapping'> instead
+
+The error appears to be in '/root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/test.yaml': line 1, column 1, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+tasks:
+^ here
+
+2019-11-09 11:25:06,482 p=12722 u=root |  ERROR! the playbook: ansible_nodes could not be found
+2019-11-09 11:25:29,759 p=12760 u=root |  ERROR! the playbook: ansible_node could not be found
+2019-11-09 12:39:28,146 p=19463 u=root |  ERROR! Syntax Error while loading YAML.
+  did not find expected key
+
+The error appears to be in '/root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 44, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+- name: "Checking directory creation path"
+  - check
+  ^ here
+
+2019-11-09 12:40:01,756 p=19500 u=root |  ERROR! unexpected parameter type in action: <class 'ansible.parsing.yaml.objects.AnsibleSequence'>
+
+The error appears to be in '/root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 43, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: "Checking directory creation path"
+  ^ here
+
+2019-11-09 12:40:59,007 p=19610 u=root |  ERROR! unexpected parameter type in action: <class 'ansible.parsing.yaml.objects.AnsibleSequence'>
+
+The error appears to be in '/root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 43, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: "Checking directory creation path"
+  ^ here
+
+2019-11-09 12:42:42,233 p=19791 u=root |  ERROR! unexpected parameter type in action: <class 'ansible.parsing.yaml.objects.AnsibleSequence'>
+
+The error appears to be in '/root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 43, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: "Checking directory creation path"
+  ^ here
+
+2019-11-09 12:45:56,409 p=20042 u=root |  ERROR! unexpected parameter type in action: <class 'ansible.parsing.yaml.objects.AnsibleSequence'>
+
+The error appears to be in '/root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/roles/common/tasks/main.yml': line 43, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+
+- name: "Checking directory creation path"
+  ^ here
+
+2019-11-09 12:46:31,307 p=20091 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 12:46:31,356 p=20091 u=root |  TASK [common : Checking directory creation path] *********************************************************************************************
+2019-11-09 12:46:32,549 p=20091 u=root |  changed: [ansible_node]
+2019-11-09 12:46:32,560 p=20091 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 12:46:32,577 p=20091 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 12:46:32,578 p=20091 u=root |  ansible_node               : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 12:49:14,835 p=20588 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 12:49:14,884 p=20588 u=root |  TASK [common : Checking directory creation path] *********************************************************************************************
+2019-11-09 12:49:16,091 p=20588 u=root |  ok: [ansible_node]
+2019-11-09 12:49:16,100 p=20588 u=root |  TASK [common : Checking directory creation path] *********************************************************************************************
+2019-11-09 12:49:16,695 p=20588 u=root |  changed: [ansible_node]
+2019-11-09 12:49:16,703 p=20588 u=root |  TASK [common : Checking directory creation path] *********************************************************************************************
+2019-11-09 12:49:17,319 p=20588 u=root |  changed: [ansible_node]
+2019-11-09 12:49:17,330 p=20588 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 12:49:17,348 p=20588 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 12:49:17,348 p=20588 u=root |  ansible_node               : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 13:12:06,141 p=23376 u=root |   [WARNING]: Unable to parse /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-
+deployment/environments/dev/inventory_dir as an inventory source
+
+2019-11-09 13:12:06,664 p=23376 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:12:06,714 p=23376 u=root |  TASK [common : CCOMS:: Rotating Ansible vault password] **************************************************************************************
+2019-11-09 13:12:09,457 p=23376 u=root |  fatal: [ansible_node]: FAILED! => {"ansible_facts": {"discovered_interpreter_python": "/usr/bin/python"}, "changed": true, "cmd": "## take backup of existing key file\nrm -rf ~/.ansible_keys_backups && cp -r ~/.ansible_keys ~/.ansible_keys_backups\n## Remove existing files\nrm -rf ~/.ansible_keys && mkdir -p ~/.ansible_keys\n## Generate random passwords\ntr -cd '[:alnum:]' < /dev/urandom | fold -w32 | head -n1 > ~/.ansible_keys/.vault_ccoms.dev\ntr -cd '[:alnum:]' < /dev/urandom | fold -w32 | head -n1 > ~/.ansible_keys/.vault_ccoms.prod\ntr -cd '[:alnum:]' < /dev/urandom | fold -w32 | head -n1 > ~/.ansible_keys/.vault_ccoms.uat\n## Rekeying\nansible-vault rekey --vault-id dev --new-vault-id dev@~/.ansible_keys/.vault_ccoms.dev environments/dev/group_vars/all/vault/ccoms_db\nansible-vault rekey --vault-id prod --new-vault-id prod@~/.ansible_keys/.vault_ccoms.prod environments/prod/group_vars/all/vault/ccoms_db\nansible-vault rekey --vault-id uat --new-vault-id uat@~/.ansible_keys/.vault_ccoms.uat environments/uat/group_vars/all/vault/ccoms_db\n", "delta": "0:00:01.580982", "end": "2019-11-09 10:12:09.354939", "msg": "non-zero return code", "rc": 1, "start": "2019-11-09 10:12:07.773957", "stderr": "ERROR! The vault password file /root/dev was not found\nERROR! The vault password file /root/prod was not found\nERROR! The vault password file /root/uat was not found", "stderr_lines": ["ERROR! The vault password file /root/dev was not found", "ERROR! The vault password file /root/prod was not found", "ERROR! The vault password file /root/uat was not found"], "stdout": "", "stdout_lines": []}
+2019-11-09 13:12:09,458 p=23376 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 13:12:09,458 p=23376 u=root |  ansible_node               : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2019-11-09 13:13:16,907 p=23773 u=root |   [WARNING]: Unable to parse /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-
+deployment/environments/dev/inventory_dir as an inventory source
+
+2019-11-09 13:13:17,434 p=23773 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:13:17,544 p=23773 u=root |  ERROR! Decryption failed (no vault secrets were found that could decrypt) on /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/group_vars/all/vault/ccoms_db
+2019-11-09 13:14:37,110 p=23873 u=root |   [WARNING]: Unable to parse /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-
+deployment/environments/dev/inventory_dir as an inventory source
+
+2019-11-09 13:14:37,669 p=23873 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:14:37,781 p=23873 u=root |  ERROR! Decryption failed (no vault secrets were found that could decrypt) on /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/group_vars/all/vault/ccoms_db
+2019-11-09 13:15:10,257 p=23933 u=root |   [WARNING]: Unable to parse /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-
+deployment/environments/dev/inventory_dir as an inventory source
+
+2019-11-09 13:15:10,773 p=23933 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:15:10,880 p=23933 u=root |  ERROR! Decryption failed (no vault secrets were found that could decrypt) on /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/group_vars/all/vault/ccoms_db
+2019-11-09 13:15:50,043 p=23997 u=root |   [WARNING]: Unable to parse /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-
+deployment/environments/dev/inventory_dir as an inventory source
+
+2019-11-09 13:15:50,579 p=23997 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:15:50,630 p=23997 u=root |  TASK [common : CCOMS:: Rotating Ansible vault password] **************************************************************************************
+2019-11-09 13:15:51,827 p=23997 u=root |  changed: [ansible_node]
+2019-11-09 13:15:51,838 p=23997 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 13:15:51,856 p=23997 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 13:15:51,856 p=23997 u=root |  ansible_node               : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 13:15:55,984 p=24236 u=root |   [WARNING]: Unable to parse /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-
+deployment/environments/dev/inventory_dir as an inventory source
+
+2019-11-09 13:15:56,500 p=24236 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:15:56,607 p=24236 u=root |  ERROR! Decryption failed (no vault secrets were found that could decrypt) on /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/environments/dev/group_vars/all/vault/ccoms_db
+2019-11-09 13:38:36,857 p=26797 u=root |  Rekey successful
+2019-11-09 13:38:37,519 p=26810 u=root |  Rekey successful
+2019-11-09 13:38:38,170 p=26816 u=root |  Rekey successful
+2019-11-09 13:38:52,373 p=26839 u=root |   [WARNING]: Unable to parse /root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-
+deployment/environments/dev/inventory_dir as an inventory source
+
+2019-11-09 13:38:52,738 p=26839 u=root |  ERROR! Unable to retrieve file contents
+Could not find or access '/root/CCOMS/CCOMS/org-mgmt-system/kubernetes/ansible_based_k8s-ccoms-saas-deployment/rotate_password.yml' on the Ansible Controller.
+If you are using a module and expect the file to exist on the remote, see the remote_src option
+2019-11-09 13:44:32,058 p=27610 u=root |  Rekey successful
+2019-11-09 13:44:32,716 p=27617 u=root |  Rekey successful
+2019-11-09 13:44:33,374 p=27623 u=root |  Rekey successful
+2019-11-09 13:45:09,065 p=27703 u=root |  Rekey successful
+2019-11-09 13:45:09,711 p=27710 u=root |  Rekey successful
+2019-11-09 13:45:10,355 p=27716 u=root |  Rekey successful
+2019-11-09 13:45:14,079 p=27750 u=root |  Rekey successful
+2019-11-09 13:45:14,749 p=27757 u=root |  Rekey successful
+2019-11-09 13:45:15,432 p=27763 u=root |  Rekey successful
+2019-11-09 13:47:11,098 p=28059 u=root |  ERROR! You must specify a playbook file to run
+2019-11-09 13:47:17,113 p=28084 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:47:17,161 p=28084 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 13:47:17,177 p=28084 u=root |  skipping: [ansible_node]
+2019-11-09 13:47:17,185 p=28084 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 13:47:17,202 p=28084 u=root |  skipping: [ansible_node]
+2019-11-09 13:47:17,208 p=28084 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 13:47:17,224 p=28084 u=root |  skipping: [ansible_node]
+2019-11-09 13:47:17,230 p=28084 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 13:47:19,532 p=28084 u=root |  ok: [ansible_node]
+2019-11-09 13:47:19,542 p=28084 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 13:47:19,569 p=28084 u=root |  TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
+2019-11-09 13:47:21,516 p=28084 u=root |   [WARNING]: Platform linux on host k8s_master is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 13:47:21,517 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:21,523 p=28084 u=root |  TASK [database : Create MONGO DB Namespace] **************************************************************************************************
+2019-11-09 13:47:22,738 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:22,745 p=28084 u=root |  TASK [database : Create MONGO DB Service] ****************************************************************************************************
+2019-11-09 13:47:24,010 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:24,017 p=28084 u=root |  TASK [database : Create MONGO DB ConfigMap] **************************************************************************************************
+2019-11-09 13:47:25,260 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:25,267 p=28084 u=root |  TASK [database : Create MONGO DB Secret] *****************************************************************************************************
+2019-11-09 13:47:26,516 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:26,525 p=28084 u=root |  TASK [database : Create MONGO DB Deployment] *************************************************************************************************
+2019-11-09 13:47:27,731 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:27,739 p=28084 u=root |  TASK [ccoms : Create CCOMS Namespace] ********************************************************************************************************
+2019-11-09 13:47:29,017 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:29,024 p=28084 u=root |  TASK [ccoms : Create CCOMS Service for Config] ***********************************************************************************************
+2019-11-09 13:47:30,306 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:30,312 p=28084 u=root |  TASK [ccoms : Create CCOMS Service for Employee] *********************************************************************************************
+2019-11-09 13:47:31,619 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:31,626 p=28084 u=root |  TASK [ccoms : Create CCOMS Service for Departemnt] *******************************************************************************************
+2019-11-09 13:47:33,037 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:33,045 p=28084 u=root |  TASK [ccoms : Create CCOMS Service for Organization] *****************************************************************************************
+2019-11-09 13:47:34,457 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:34,465 p=28084 u=root |  TASK [ccoms : Create CCOMS Service for Proxy] ************************************************************************************************
+2019-11-09 13:47:35,903 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:35,911 p=28084 u=root |  TASK [ccoms : Create CCOMS Secrets] **********************************************************************************************************
+2019-11-09 13:47:37,251 p=28084 u=root |  ok: [k8s_master]
+2019-11-09 13:47:37,259 p=28084 u=root |  TASK [ccoms : Create CCOMS Deployment for Config] ********************************************************************************************
+2019-11-09 13:47:38,627 p=28084 u=root |  changed: [k8s_master]
+2019-11-09 13:47:38,634 p=28084 u=root |  TASK [ccoms : Create CCOMS Deployment for Employee] ******************************************************************************************
+2019-11-09 13:47:40,061 p=28084 u=root |  changed: [k8s_master]
+2019-11-09 13:47:40,068 p=28084 u=root |  TASK [ccoms : Create CCOMS Deployment for Department] ****************************************************************************************
+2019-11-09 13:47:41,446 p=28084 u=root |  changed: [k8s_master]
+2019-11-09 13:47:41,453 p=28084 u=root |  TASK [ccoms : Create CCOMS Deployment for Organization] **************************************************************************************
+2019-11-09 13:47:42,708 p=28084 u=root |  changed: [k8s_master]
+2019-11-09 13:47:42,715 p=28084 u=root |  TASK [ccoms : Create CCOMS Deployment for Proxy] *********************************************************************************************
+2019-11-09 13:47:44,015 p=28084 u=root |  changed: [k8s_master]
+2019-11-09 13:47:44,017 p=28084 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 13:47:44,017 p=28084 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 13:47:44,017 p=28084 u=root |  k8s_master                 : ok=18   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2019-11-09 13:49:06,156 p=28768 u=root |  PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+2019-11-09 13:49:06,208 p=28768 u=root |  TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+2019-11-09 13:49:06,226 p=28768 u=root |  skipping: [ansible_node]
+2019-11-09 13:49:06,234 p=28768 u=root |  TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+2019-11-09 13:49:06,249 p=28768 u=root |  skipping: [ansible_node]
+2019-11-09 13:49:06,255 p=28768 u=root |  TASK [common : Ensure Pip is installed] ******************************************************************************************************
+2019-11-09 13:49:06,270 p=28768 u=root |  skipping: [ansible_node]
+2019-11-09 13:49:06,276 p=28768 u=root |  TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+2019-11-09 13:49:08,601 p=28768 u=root |  ok: [ansible_node]
+2019-11-09 13:49:08,613 p=28768 u=root |  PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+2019-11-09 13:49:08,638 p=28768 u=root |  TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
+2019-11-09 13:49:10,749 p=28768 u=root |   [WARNING]: Platform linux on host k8s_master is using the discovered Python interpreter at /usr/bin/python, but future installation of
+another Python interpreter could change this. See https://docs.ansible.com/ansible/2.8/reference_appendices/interpreter_discovery.html for
+more information.
+
+2019-11-09 13:49:10,750 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:10,757 p=28768 u=root |  TASK [database : Create MONGO DB Namespace] **************************************************************************************************
+2019-11-09 13:49:12,034 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:12,042 p=28768 u=root |  TASK [database : Create MONGO DB Service] ****************************************************************************************************
+2019-11-09 13:49:13,362 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:13,369 p=28768 u=root |  TASK [database : Create MONGO DB ConfigMap] **************************************************************************************************
+2019-11-09 13:49:14,695 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:14,705 p=28768 u=root |  TASK [database : Create MONGO DB Secret] *****************************************************************************************************
+2019-11-09 13:49:16,004 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:16,011 p=28768 u=root |  TASK [database : Create MONGO DB Deployment] *************************************************************************************************
+2019-11-09 13:49:17,302 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:17,309 p=28768 u=root |  TASK [ccoms : Create CCOMS Namespace] ********************************************************************************************************
+2019-11-09 13:49:18,540 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:18,548 p=28768 u=root |  TASK [ccoms : Create CCOMS Service for Config] ***********************************************************************************************
+2019-11-09 13:49:19,816 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:19,823 p=28768 u=root |  TASK [ccoms : Create CCOMS Service for Employee] *********************************************************************************************
+2019-11-09 13:49:21,073 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:21,080 p=28768 u=root |  TASK [ccoms : Create CCOMS Service for Departemnt] *******************************************************************************************
+2019-11-09 13:49:22,319 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:22,327 p=28768 u=root |  TASK [ccoms : Create CCOMS Service for Organization] *****************************************************************************************
+2019-11-09 13:49:23,586 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:23,593 p=28768 u=root |  TASK [ccoms : Create CCOMS Service for Proxy] ************************************************************************************************
+2019-11-09 13:49:24,877 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:24,884 p=28768 u=root |  TASK [ccoms : Create CCOMS Secrets] **********************************************************************************************************
+2019-11-09 13:49:26,133 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:26,141 p=28768 u=root |  TASK [ccoms : Create CCOMS Deployment for Config] ********************************************************************************************
+2019-11-09 13:49:27,423 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:27,430 p=28768 u=root |  TASK [ccoms : Create CCOMS Deployment for Employee] ******************************************************************************************
+2019-11-09 13:49:28,684 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:28,691 p=28768 u=root |  TASK [ccoms : Create CCOMS Deployment for Department] ****************************************************************************************
+2019-11-09 13:49:29,957 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:29,964 p=28768 u=root |  TASK [ccoms : Create CCOMS Deployment for Organization] **************************************************************************************
+2019-11-09 13:49:31,217 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:31,224 p=28768 u=root |  TASK [ccoms : Create CCOMS Deployment for Proxy] *********************************************************************************************
+2019-11-09 13:49:32,483 p=28768 u=root |  ok: [k8s_master]
+2019-11-09 13:49:32,486 p=28768 u=root |  PLAY RECAP ***********************************************************************************************************************************
+2019-11-09 13:49:32,486 p=28768 u=root |  ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+2019-11-09 13:49:32,486 p=28768 u=root |  k8s_master                 : ok=18   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
