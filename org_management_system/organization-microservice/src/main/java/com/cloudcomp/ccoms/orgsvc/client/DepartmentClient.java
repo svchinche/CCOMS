@@ -9,10 +9,10 @@ import com.cloudcomp.ccoms.orgsvc.model.*;
 @FeignClient(name = "department-service", url = "${dept.service.url: http://localhost:8081}")
 public interface DepartmentClient {
 
-    @GetMapping("/department/api/org/{orgId}")
+    @GetMapping("/api/org/{orgId}")
     public List<Department> findDeptsUsingOrgId(@PathVariable("orgId") Long orgId);
 
-    @GetMapping("/department/api/org/{orgId}/withemp")
+    @GetMapping("/api/org/{orgId}/withemp")
     public List<Department> findDeptsWithEmpsUsingOrgId(@PathVariable("orgId") Long orgId);
 
 }

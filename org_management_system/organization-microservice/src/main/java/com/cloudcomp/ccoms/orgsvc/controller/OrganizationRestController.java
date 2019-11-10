@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = { "/api" })
-@Api(value = "Organization Management System", description = "Operations pertaining to organization in Organization Management System")
+@Api(value = "Organization Management System")
 public class OrganizationRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationRestController.class);
@@ -57,56 +57,74 @@ public class OrganizationRestController {
 
     @ApiOperation(value = "Get organization information by id ")
     @GetMapping("/{id}")
-    public Optional<Organization> findById(@PathVariable("id") Long id) {
-        LOGGER.info("Organization find: id={}", id);
-        return repository.findById(id);
+    public Organization findById(@PathVariable("id") Long id) {
+
+        Optional<Organization> org = repository.findById(id);
+        if (org.isPresent()) {
+            return org.get();
+        } else {
+            return null;
+        }
     }
 
     @ApiOperation(value = "Get organization info using organization id")
     @GetMapping("/{id}/withdepts")
     public Organization findOrgUsingId(@PathVariable("id") long id) {
         LOGGER.info("Organization find: id={}", id);
-        Organization org = repository.findById(id).get();
-        org.setDepts(departmentClient.findDeptsUsingOrgId(id));
-
-        return org;
-
+        Optional<Organization> org = repository.findById(id);
+        if (org.isPresent()) {
+            Organization org1 = org.get();
+            org1.setDepts(departmentClient.findDeptsUsingOrgId(id));
+            return org1;
+        } else {
+            return null;
+        }
     }
 
     @ApiOperation(value = "Get organization, depts and employees information using organization id")
     @GetMapping("/{id}/withdeptsandemps")
     public Organization findByIdWithDepartmentsAndEmployees(@PathVariable("id") Long id) {
 
-        Organization org = repository.findById(id).get();
-        List<Department> depts = departmentClient.findDeptsWithEmpsUsingOrgId(id);
-        org.setDepts(depts);
-
-        return org;
+        Optional<Organization> org = repository.findById(id);
+        if (org.isPresent()) {
+            Organization org1 = org.get();
+            List<Department> depts = departmentClient.findDeptsWithEmpsUsingOrgId(id);
+            org1.setDepts(depts);
+            return org1;
+        } else {
+            return null;
+        }
     }
 
     @ApiOperation(value = "Get organization and employees information using organization id")
     @GetMapping("/{id}/withemps")
     public Organization findByIdWithEmployees(@PathVariable("id") Long id) {
         LOGGER.info("Organization find: id={}", id);
-        Organization organization = repository.findById(id).get();
-        organization.setEmps(employeeClient.findEmpsByOrgId(id));
-        return organization;
+        Optional<Organization> org = repository.findById(id);
+        if (org.isPresent()) {
+            Organization org1 = org.get();
+            org1.setEmps(employeeClient.findEmpsByOrgId(id));
+            return org1;
+        } else {
+            return null;
+        }
+
     }
 
     @ApiOperation(value = "Get organization, depts and employees information")
     @GetMapping("/getall")
     public List<Organization> getDeptsEmpsAndOrgsInfo() {
 
-        List<Organization> f_orgs = new ArrayList<Organization>();
+        List<Organization> forgs = new ArrayList<>();
 
         for (Organization org : repository.findAll()) {
 
             List<Department> depts = departmentClient.findDeptsWithEmpsUsingOrgId(org.getId());
             org.setDepts(depts);
-            f_orgs.add(org);
+            forgs.add(org);
         }
 
-        return f_orgs;
+        return forgs;
     }
 
 }

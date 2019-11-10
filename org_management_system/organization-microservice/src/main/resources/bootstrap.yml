@@ -11,9 +11,4 @@ spring:
       retry:
         max-attempts: 20
         max-interval: 10000
-    
-
-server:
-  servlet:
-    path: /organization    
 
