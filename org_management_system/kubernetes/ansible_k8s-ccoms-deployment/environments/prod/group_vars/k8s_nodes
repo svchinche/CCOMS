@@ -29,8 +29,8 @@ APPS:
   PROXY:
     IMAGE: proxy-server-service
     REPLICA: 2
-    READYNESSPROBEHTTPPATH: /employee/pretty
-    LIVENESSPROBEHTTPPATH: /employee/pretty
+    READYNESSPROBEHTTPPATH: /emp/pretty
+    LIVENESSPROBEHTTPPATH: /emp/pretty
     CONTAINERPORT: 8111
 
 DB:

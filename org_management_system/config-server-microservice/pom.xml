@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.cloudcomp.ccoms</groupId>
-    <artifactId>config-server-service</artifactId>
+    <artifactId>config-server-service-withproxy</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>config-server-service</name>
     <description>ConfigServer for CCOM </description>
