@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Document(collection = "organization")
 @JsonInclude(value = Include.NON_EMPTY)
-
 public class Organization {
 
     @Id

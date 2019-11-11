@@ -21,9 +21,7 @@ public class Employee {
     int deptId;
     int orgId;
 
-    public Employee() {
 
-    }
 
     public Long getId() {
         return id;

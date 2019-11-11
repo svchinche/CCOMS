@@ -21,16 +21,18 @@ public class Department {
     private int orgId;
     private List<Employee> emps = new ArrayList<>();
 
-    public Department() {
-        // TODO Auto-generated constructor stub
-    }
-
     public Department(Long deptId, int orgId, String name) {
         super();
         this.id = deptId;
         this.orgId = orgId;
         this.name = name;
     }
+
+
+    public Department() {
+        // TODO Auto-generated constructor stub
+    }
+
 
     public Long getId() {
         return id;

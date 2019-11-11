@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = { "/api" })
-@Api(value = "Employee Management System", description = "Operations pertaining to employee in Employee Management System")
+@Api(value = "Employee Management System")
 public class EmployeeRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRestController.class);
@@ -54,11 +54,11 @@ public class EmployeeRestController {
     @PostMapping("/addemp")
     public ResponseEntity<Void> createEmployee(@RequestBody Employee emp, UriComponentsBuilder ucBuilder) {
 
-        LOGGER.info("Creating Employee " + emp.getName());
+ 
         empRepository.save(emp);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/Employee/{id}").buildAndExpand(emp.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Add an employees at once")
@@ -70,8 +70,8 @@ public class EmployeeRestController {
     @ApiOperation(value = "View a list of available employees", response = List.class)
     @GetMapping("/get")
     public List<Employee> getAllEmployee() {
-        List<Employee> tasks = (List<Employee>) empRepository.findAll();
-        return tasks;
+        return (List<Employee>) empRepository.findAll();
+  
 
     }
 
@@ -80,11 +80,11 @@ public class EmployeeRestController {
     public ResponseEntity<String> updateEmployee(@RequestBody Employee currentEmployee) {
 
         Optional<Employee> emp = empRepository.findById(currentEmployee.getId());
-        if (emp == null) {
-            return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+        if (!emp.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         empRepository.save(currentEmployee);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete a employee by employee id")
@@ -92,20 +92,20 @@ public class EmployeeRestController {
     public ResponseEntity<Employee> deleteEmployee(@PathVariable("id") Long id) {
 
         empRepository.deleteById(id);
-        return new ResponseEntity<Employee>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value = "Update a employee partially by employee id")
+    @ApiOperation(value = "Update a empoyee partially by employee id")
     @PatchMapping("/{id}")
     public ResponseEntity<Employee> updateEmployeePartially(@PathVariable("id") Long id,
             @RequestBody Employee currentEmployee) {
         Optional<Employee> emp = empRepository.findById(id);
 
-        if (emp == null) {
-            return new ResponseEntity<Employee>(HttpStatus.NOT_FOUND);
+        if (!emp.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Employee usr = empRepository.save(currentEmployee);
-        return new ResponseEntity<Employee>(usr, HttpStatus.OK);
+        return new ResponseEntity<>(usr, HttpStatus.OK);
     }
 
     @ApiOperation(value = "List employee by department id")

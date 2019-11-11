@@ -22,3 +22,7 @@ spring:
           - 'config-files/dev/'
           - 'config-files/prod/'
           - 'config-files/uat/'
+          proxy:
+            https:
+              host: www-proxy.us.oracle.com
+              port: 80
