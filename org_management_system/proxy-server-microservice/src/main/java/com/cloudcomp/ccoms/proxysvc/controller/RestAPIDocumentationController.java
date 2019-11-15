@@ -17,7 +17,7 @@ public class RestAPIDocumentationController implements SwaggerResourcesProvider 
 
     @Override
     public List<SwaggerResource> get() {
-        List<SwaggerResource> resources = new ArrayList<SwaggerResource>();
+        List<SwaggerResource> resources = new ArrayList<>();
         resources.add(swaggerResource("employee-service", "/emp/v2/api-docs", "2.0"));
         resources.add(swaggerResource("department-service", "/dept/v2/api-docs", "2.0"));
         resources.add(swaggerResource("organization-service", "/org/v2/api-docs", "2.0"));
