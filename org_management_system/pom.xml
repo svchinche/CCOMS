@@ -15,6 +15,10 @@
         <module>proxy-server-microservice</module>
     </modules>
 
+    <properties>
+        <docker.image.prefix>compucomm/${project.artifactId}}</docker.image.prefix>
+    </properties>
+
     <build>
         <pluginManagement>
             <plugins>
