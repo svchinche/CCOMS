@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.cloudcomp.ccoms</groupId>
     <artifactId>cloud-comp-oms</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
