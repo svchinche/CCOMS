@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>proxy-service</artifactId>
+    <artifactId>gateway-service</artifactId>
     <packaging>war</packaging>
     <description>ProxyServer for incoming request ccoms</description>
 
