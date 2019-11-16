@@ -117,15 +117,13 @@
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>dockerfile-maven-plugin</artifactId>
-                    <version>1.4.9</version>
+                    <version>1.4.13</version>
+
                     <configuration>
                         <repository>${docker.image.prefix}</repository>
-                        <imageTags>
-                            <imageTag>${revision}</imageTag>
-                            <imageTag>latest</imageTag>
-                        </imageTags>
                         <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
                     </configuration>
+
                     <executions>
                         <!-- Added docker build and push in install phase -->
                         <execution>
@@ -135,6 +133,17 @@
                                 <goal>build</goal>
                                 <goal>push</goal>
                             </goals>
+                        </execution>
+                        <execution>
+                            <id>tag-version</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>tag</goal>
+                                <goal>push</goal>
+                            </goals>
+                            <configuration>
+                                <tag>${project.version}</tag>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
