@@ -3,16 +3,19 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.1.RELEASE</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.cloudcomp.ccoms</groupId>
     <artifactId>cloud-comp-oms</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
+
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud-services.version>2.1.4.RELEASE</spring-cloud-services.version>
@@ -21,11 +24,11 @@
     </properties>
 
     <modules>
-        <module>config-server-microservice</module>
-        <module>department-microservice</module>
-        <module>employee-microservice</module>
-        <module>organization-microservice</module>
-        <module>proxy-server-microservice</module>
+        <module>config-service</module>
+        <module>department-service</module>
+        <module>employee-service</module>
+        <module>organization-service</module>
+        <module>gateway-service</module>
     </modules>
 
     <dependencyManagement>
@@ -61,7 +64,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
             <!-- https://mvnrepository.com/artifact/io.swagger/swagger-models -->
             <dependency>
                 <groupId>io.swagger</groupId>
@@ -73,7 +75,6 @@
                 <artifactId>spring-retry</artifactId>
                 <version>1.2.4.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
             </dependency>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
@@ -93,7 +94,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-aop</artifactId>
@@ -104,10 +104,9 @@
                 <artifactId>spring-batch-core</artifactId>
                 <version>4.1.2.RELEASE</version>
             </dependency>
-
         </dependencies>
-
     </dependencyManagement>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -115,7 +114,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
-
                 <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>dockerfile-maven-plugin</artifactId>
