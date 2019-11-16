@@ -120,7 +120,10 @@
                     <version>1.4.9</version>
                     <configuration>
                         <repository>${docker.image.prefix}</repository>
-                        <tag>${revision}</tag>
+                        <imageTags>
+                            <imageTag>${revision}</imageTag>
+                            <imageTag>latest</imageTag>
+                        </imageTags>
                         <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
                     </configuration>
                     <executions>
