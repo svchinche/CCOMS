@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: emp-ms
-        image: "{{ IMAGEPREFIX }}:{{ APPS.EMPLOYEE.IMAGE }}"
+        image: "{{ IMAGEPREFIX }}/{{ APPS.EMPLOYEE.IMAGE }}"
         imagePullPolicy: Always
         ports:
         - containerPort: {{ APPS.EMPLOYEE.CONTAINERPORT }}

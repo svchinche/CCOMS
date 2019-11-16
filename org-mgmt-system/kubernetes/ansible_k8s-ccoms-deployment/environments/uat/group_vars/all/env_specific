@@ -1,6 +1,6 @@
 ---
 # vars file for ccoms
 
-IMAGEPREFIX: compucomm/organization-mgmt-system
+IMAGEPREFIX: compucomm
 LOGLEVEL: DEBUG
 PROFILE: uat

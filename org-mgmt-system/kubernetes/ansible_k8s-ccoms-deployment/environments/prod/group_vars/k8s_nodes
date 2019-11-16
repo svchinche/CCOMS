@@ -9,25 +9,25 @@ APPS:
     LIVENESSPROBEHTTPPATH: /employee-microservice/default
     CONTAINERPORT: 8888
   EMPLOYEE:
-    IMAGE: employee-service
+    IMAGE: emp-service
     REPLICA: 3
     READYNESSPROBEHTTPPATH: /pretty
     LIVENESSPROBEHTTPPATH: /pretty
     CONTAINERPORT: 8080
   DEPARTMENT:
-    IMAGE: department-service
+    IMAGE: dept-service
     REPLICA: 3
     READYNESSPROBEHTTPPATH: /pretty
     LIVENESSPROBEHTTPPATH: /pretty
     CONTAINERPORT: 8081
   ORGANIZATION:
-    IMAGE: organization-service
+    IMAGE: org-service
     REPLICA: 3
     READYNESSPROBEHTTPPATH: /pretty
     LIVENESSPROBEHTTPPATH: /pretty
     CONTAINERPORT: 8082
   PROXY:
-    IMAGE: proxy-server-service
+    IMAGE: gateway-service
     REPLICA: 2
     READYNESSPROBEHTTPPATH: /emp/pretty
     LIVENESSPROBEHTTPPATH: /emp/pretty

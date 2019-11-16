@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: proxy-ms
-        image: "{{ IMAGEPREFIX }}:{{ APPS.PROXY.IMAGE }}"
+        image: "{{ IMAGEPREFIX }}/{{ APPS.PROXY.IMAGE }}"
         imagePullPolicy: Always
         ports:
         - containerPort: {{ APPS.PROXY.CONTAINERPORT }}

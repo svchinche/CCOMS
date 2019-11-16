@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: org-ms
-        image: "{{ IMAGEPREFIX }}:{{ APPS.ORGANIZATION.IMAGE }}"
+        image: "{{ IMAGEPREFIX }}/{{ APPS.ORGANIZATION.IMAGE }}"
         imagePullPolicy: Always
         ports:
         - containerPort: {{ APPS.ORGANIZATION.CONTAINERPORT }}

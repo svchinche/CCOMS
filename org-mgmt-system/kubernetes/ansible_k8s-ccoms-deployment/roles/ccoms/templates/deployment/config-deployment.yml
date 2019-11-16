@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: cfg-ms
-        image: '{{ IMAGEPREFIX }}:{{ APPS.CONFIG.IMAGE }}'
+        image: '{{ IMAGEPREFIX }}/{{ APPS.CONFIG.IMAGE }}'
         imagePullPolicy: Always
         ports:
         - containerPort: {{ APPS.CONFIG.CONTAINERPORT }}
