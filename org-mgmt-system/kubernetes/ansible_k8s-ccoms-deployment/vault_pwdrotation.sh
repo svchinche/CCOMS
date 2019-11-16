@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+## Uppdate home directory with new keys
+rm -rf ~/.ansible_keys; cp -r ./.ansible_keys/  ~/.ansible_keys/
+
 ## take backup of existing key files
 rm -rf ~/.ansible_keys_back && cp -r ~/.ansible_keys ~/.ansible_keys_back
 
