@@ -319,7 +319,7 @@ Application Rolling Update on k8s
 ---------------------------------
 
 * There are two ways of update
-    * Recreate - Will terminate all your replica, and recreate a new deployment. 
+    * Recreate - Will terminate all your replica, and recreate a new deployment. Generally we use this in development environemnt
     * Rolling - Not updating the instances at once, updating application with stages. We use this for zero downtime to keep application available for customer. </br>
     
 Below are the option that we use in rolling update
@@ -396,6 +396,109 @@ spec:
 
 Rolling back Application on k8s
 --------------------------------
+
+**Rollback:** To go back to last working revision / Prevision 
+		
+As you can see, in below screenshot empty replica set of previous version is present, so why not we delete these replicas [using kubectl delete rs ]
+hold on, if we delete these replica, you wont be able to rollback.
+		
+**You can check rolled out status, using below command**
+```linux
+[root@mum00aqm ~]# kubectl rollout status -n ccoms deployment cfg-ms
+deployment "cfg-ms" successfully rolled out
+```
+		
+**You can check revision history using below command**
+```linux
+root@mum00aqm ~]# kubectl rollout history -n ccoms deployment cfg-ms
+deployment.extensions/cfg-ms
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
+```
+
+**You can change image id of deployment using**
+```linux
+kubectl set image deployment -n ccoms proxy-ms compucomm/gateway-service=compucomm/gateway-service:1.2
+```
+
+**See the information of second last revision.**
+```linux
+[root@mum00aqm ~]# kubectl rollout history -n ccoms deployment proxy-ms --revision=2
+deployment.extensions/proxy-ms with revision #2
+Pod Template:
+  Labels:       app=proxy-ms
+        pod-template-hash=6f854c4b44
+  Containers:
+   proxy-ms:
+    Image:      compucomm/gateway-service:1.2
+    Port:       8111/TCP
+    Host Port:  0/TCP
+    Liveness:   http-get http://:8111/emp/pretty delay=120s timeout=1s period=10s #success=1 #failure=3
+    Readiness:  http-get http://:8111/emp/pretty delay=120s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      app.profile:      dev
+      CCOMS_EMP_PORT:   8080
+      CCOMS_DEPT_PORT:  8081
+      CCOMS_ORG_PORT:   8082
+      CCOMS_ZUUL_PORT:  8111
+    Mounts:     <none>
+  Volumes:      <none>
+
+```
+
+**Its good to set change cause**
+We can set a cause using annotate and record option. but that we never use. we update this using yaml manifest file. </br>
+Step for creating and maintaining revision history.</br>
+
+
+**Steps for rollout the last revison.**
+kubectl rollout
+```
+[root@mum00aqm ~]# kubectl  rollout undo deployment -n ccoms
+deployment.extensions/cfg-ms
+deployment.extensions/dept-ms
+deployment.extensions/emp-ms
+deployment.extensions/org-ms
+deployment.extensions/proxy-ms
+```
+
+**If you want go back to specific revision**
+```
+kubectl  rollout undo deployment -n ccoms cfg-ms --to-revision=2
+```
+where 2 is the revision id.
+
+**Status information**
+```linux
+[root@mum00aqm ~]# kubectl rollout status -n ccoms deployment dept-ms
+Waiting for deployment "dept-ms" rollout to finish: 2 out of 3 new replicas have been updated...
+```
+
+**Stopping and resuming update.**
+
+Assume that you have 100's of microservices and you find that there is some issue in the deployment after applying the rollup, 
+then in this case you can pause the rolling update and rollbacked to previous version
+```linux 
+[root@mum00aqm ~]# kubectl rollout undo deployment -n ccoms
+deployment.extensions/cfg-ms
+deployment.extensions/dept-ms
+deployment.extensions/emp-ms
+deployment.extensions/org-ms
+deployment.extensions/proxy-ms
+[root@mum00aqm ~]# kubectl rollout pause deployment -n ccoms
+failed to patch: the server could not find the requested resource
+failed to patch: the server could not find the requested resource
+failed to patch: the server could not find the requested resource
+failed to patch: the server could not find the requested resource
+failed to patch: the server could not find the requested resource
+```
+**You can resume the deployment using resume command**
+```linux
+[root@mum00aqm ~]# kubectl rollout resume deployment -n ccoms
+```
+
 Kubernetes Cluster Deployment
 -----------------------------
 Kubernetes Cluster Upgrade
