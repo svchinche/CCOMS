@@ -19,7 +19,16 @@ Table of contents
    * [Proposed System](#proposed-system)
    * [Advantages](#advantages)
    * [How automation works](#how-automation-works)
-   * [Operational activities](#operational-activities)
+   * [Operational Activities](#operational-activities)
+      * [Application Deployment on k8s](#application-deployment-on-k8s)
+      * [Application Rolling Update on k8s](#application-rolling-update-on-k8s)
+      * [Rolling back Application on k8s](#rolling-back-application-on-k8s)
+      * [Kubernetes Cluster Deployemnt](#kubernetes-cluster-deployment)  
+      * [Kubernetes Cluster Upgrade](#kubernetes-cluster-upgrade)
+      * [Ansible Password Rotation](#ansible-password-rotation)
+      * [Application Password Rotation](#application-password-rotation)
+      * [Autoscalling of Microservices](#autoscalling-microservices)
+      * [Backup and Restoration using Heptio Velero](#backup-and-restoration-using-heptio-velero)
    * [Best Dev-Ops Practices](#best-devops-practices)
 <!--te-->
 
@@ -59,8 +68,102 @@ Advantages
 How Automation Works
 ====================
 
-Operational activities
-====================
+Operational Activities
+======================
+	  
+Application Deployment on k8s
+-----------------------------
+Application Rolling Update on k8s 
+---------------------------------
+
+* There are two ways of update
+    * Recreate - Will terminate all your replica, and recreate a new deployment. 
+    * Rolling - Not updating the instances at once, updating application with stages. We use this for zero downtime to keep application available for customer. </br>
+    Below are the option that we use in rolling update
+        - MaxSurge : How many replicas in addition of existing replica. If we have four replica and if you mention 50% of surge, total available replica will be six  
+        - MaxUnable : How many pods can be unavailable. If you keep value as 1, it will terminate and update the pod one by one.
+		    - MinimumReadySeconds : We say minimum wait when new/updated pod is ready for serving request, ideal way would be to have ReadynessProbe
+		    - Revision history : It keep revision for deployment, this will help us to restore back using these revision
+		
+	Implementation: 
+	  I have automated zero downtime patching by updating kubernetes manifest [deployment yaml] file, which is automated through ansible
+	  in below command, i have provided extra argument to update microservices with tag 1.2. and default value was latest
+    
+      ```[root@ansible_node ansible_k8s-ccoms-deployment]# ansible-playbook -e "ccoms_service_tag=1.2" ccoms_playbook.yaml 
+			[root@mum00cuc ansible_k8s-ccoms-deployment]# grep -inr -F "ccoms_service_tag" *
+			environments/uat/group_vars/k8s_nodes:6:    IMAGE: config-service:{{ ccoms_service_tag }}
+			environments/uat/group_vars/k8s_nodes:12:    IMAGE: emp-service:{{ ccoms_service_tag }}
+			environments/uat/group_vars/k8s_nodes:18:    IMAGE: dept-service:{{ ccoms_service_tag }}
+			environments/uat/group_vars/k8s_nodes:24:    IMAGE: org-service:{{ ccoms_service_tag }}
+			environments/uat/group_vars/k8s_nodes:30:    IMAGE: gateway-service:{{ ccoms_service_tag }}
+			environments/000_cross_env_vars:2:ccoms_service_tag: latest
+      ```
+     
+	 Deployment yaml or Manifest file </br>
+   
+         ```apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+               name: proxy-ms
+               namespace: ccoms
+               labels:
+                  app: proxy-ms
+            spec:
+               replicas: 2
+               strategy:
+                  type: RollingUpdate
+                  rollingUpdate:
+                     maxSurge: 1
+                     maxUnavailable: 50%
+               selector:
+                  matchLabels:
+                     app: proxy-ms
+               template:
+                  metadata:
+                     labels:
+                        app: proxy-ms
+                  spec:
+                     containers:
+                     -  name: proxy-ms
+                        image: compucomm/gateway-service
+                        imagePullPolicy: Always
+                        ports:
+                        -  containerPort: 8111
+                        readinessProbe:
+                          httpGet:
+                            path: /emp/pretty
+                            port: 8111
+                          initialDelaySeconds: 120
+                          periodSeconds: 10
+                          successThreshold: 1
+                        livenessProbe:
+                          httpGet:
+						  
+                            path: /emp/pretty
+                            port: 8111
+                          initialDelaySeconds: 120
+                          periodSeconds: 10
+                          successThreshold: 1
+         ```
+
+
+
+
+
+Rolling back Application on k8s
+--------------------------------
+Kubernetes Cluster Deployemnt
+-----------------------------
+Kubernetes Cluster Upgrade
+--------------------------
+Ansible Password Rotation
+----------------------------
+Application Password rotation
+-------------------------------
+Autoscalling of Microservices
+-----------------------------
+Backup and Restoration using Heptio Velero
+-------------------------------------------
 
 Best Dev-Ops Practices
 ======================
