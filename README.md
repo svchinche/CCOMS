@@ -29,7 +29,7 @@ Table of contents
       * [Application Password Rotation](#application-password-rotation)
       * [Autoscalling of Microservices](#autoscalling-microservices)
       * [Backup and Restoration using Heptio Velero](#backup-and-restoration-using-heptio-velero)
-   * [Dev-Ops Best Practices](#best-devops-practices)
+   * [Dev-Ops Best Practices](#devops-best-practices)
 <!--te-->
 
 Abstract
