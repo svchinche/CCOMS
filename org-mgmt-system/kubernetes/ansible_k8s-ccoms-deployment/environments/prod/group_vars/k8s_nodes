@@ -3,31 +3,31 @@
 
 APPS:
   CONFIG:
-    IMAGE: config-server-service
+    IMAGE: config-server-service:{{ ccoms_service_tag }}
     REPLICA: 2
     READYNESSPROBEHTTPPATH: /employee-microservice/default
     LIVENESSPROBEHTTPPATH: /employee-microservice/default
     CONTAINERPORT: 8888
   EMPLOYEE:
-    IMAGE: emp-service
+    IMAGE: emp-service:{{ ccoms_service_tag }}
     REPLICA: 3
     READYNESSPROBEHTTPPATH: /pretty
     LIVENESSPROBEHTTPPATH: /pretty
     CONTAINERPORT: 8080
   DEPARTMENT:
-    IMAGE: dept-service
+    IMAGE: dept-service:{{ ccoms_service_tag }}
     REPLICA: 3
     READYNESSPROBEHTTPPATH: /pretty
     LIVENESSPROBEHTTPPATH: /pretty
     CONTAINERPORT: 8081
   ORGANIZATION:
-    IMAGE: org-service
+    IMAGE: org-service:{{ ccoms_service_tag }}
     REPLICA: 3
     READYNESSPROBEHTTPPATH: /pretty
     LIVENESSPROBEHTTPPATH: /pretty
     CONTAINERPORT: 8082
   PROXY:
-    IMAGE: gateway-service
+    IMAGE: gateway-service:{{ ccoms_service_tag }}
     REPLICA: 2
     READYNESSPROBEHTTPPATH: /emp/pretty
     LIVENESSPROBEHTTPPATH: /emp/pretty
