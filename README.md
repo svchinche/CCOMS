@@ -15,7 +15,7 @@ Table of contents
    * [Existing System](#existing-system)
       * [Monolithic Architecture](#monolithic-architecture)
    * [Demerits of Existing System](#demerits-of-existing-system)
-   * [Data flow Diagrams](#data-flow-diagram)
+   * [Data flow Diagrams](#data-flow-diagrams)
    * [Proposed System](#proposed-system)
    * [Advantages](#advantages)
    * [How automation works](#how-automation-works)
@@ -27,7 +27,7 @@ Table of contents
       * [Kubernetes Cluster Upgrade](#kubernetes-cluster-upgrade)
       * [Ansible Password Rotation](#ansible-password-rotation)
       * [Application Password Rotation](#application-password-rotation)
-      * [Autoscalling of Microservices](#autoscalling-microservices)
+      * [Autoscalling of Microservices](#autoscalling-of-microservices)
       * [Backup and Restoration using Heptio Velero](#backup-and-restoration-using-heptio-velero)
    * [Dev-Ops Best Practices](#devops-best-practices)
 <!--te-->
@@ -55,7 +55,7 @@ Existing System
 Demerits of Existing System
 ===========================
 
-Data flow Diagrams
+Data Flow Diagrams
 ==================
 <p align="center"><img width="460" height="300" src=".images/weave.PNG"></p>
 
@@ -73,9 +73,9 @@ Operational Activities
 	  
 Application Deployment on k8s
 -----------------------------
-Below command is used to deploy application.
+Below command is being used to install application on kubernetes
 
-```
+```linux
 [root@mum00cuc ansible_k8s-ccoms-deployment]# ansible-playbook -e "ccoms_service_tag=1.2" ccoms_playbook.yaml
 
 PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
@@ -235,7 +235,7 @@ spec:
 
 Rolling back Application on k8s
 --------------------------------
-Kubernetes Cluster Deployemnt
+Kubernetes Cluster Deployment
 -----------------------------
 Kubernetes Cluster Upgrade
 --------------------------
