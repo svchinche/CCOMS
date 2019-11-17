@@ -22,13 +22,13 @@ spec:
       spec:
          containers:
          -  name: cfg-ms
-            image: compucomm/organization-mgmt-system:config-server-service-withproxy
+            image: compucomm/config-service
             imagePullPolicy: Always
             ports:
             -  containerPort: 8888
             env:
             -  name: app.profile
-               value: prod
+               value: dev
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -54,13 +54,13 @@ spec:
       spec:
          containers:
          -  name: emp-ms
-            image: compucomm/organization-mgmt-system:employee-service
+            image: compucomm/emp-service
             imagePullPolicy: Always
             ports:
             -  containerPort: 8080
             env:
-            -  name: app.profile
-               value: prod
+            - name: app.profile
+              value: dev
             - name: CCOMS_DATABASE_USERNAME
               value: admin
             - name: CCOMS_DATABASE_PASSWORD
@@ -68,19 +68,19 @@ spec:
             - name: CCOMS_DATABASE_SERVICENAME
               value: admin
             - name: CCOMS_DATABASE_PORT
-              value: 27017
+              value: "27017"
             - name: CCOMS_EMP_PORT
-              value: 8080
+              value: "8080"
             readinessProbe:
                httpGet:
-                  path: /employee/pretty
+                  path: /pretty
                   port: 8080
                initialDelaySeconds: 120
                periodSeconds: 10
                successThreshold: 1
             livenessProbe:
                httpGet:
-                  path: /employee/pretty
+                  path: /pretty
                   port: 8080
                initialDelaySeconds: 120
                periodSeconds: 10
@@ -110,23 +110,35 @@ spec:
       spec:
          containers:
          -  name: dept-ms
-            image: compucomm/organization-mgmt-system:department-service
+            image: compucomm/dept-service
             imagePullPolicy: Always
             ports:
             -  containerPort: 8081
             env:
             -  name: app.profile
-               value: prod
+               value: dev
+            - name: CCOMS_DATABASE_USERNAME
+              value: admin
+            - name: CCOMS_DATABASE_PASSWORD
+              value: admin123
+            - name: CCOMS_DATABASE_SERVICENAME
+              value: admin
+            - name: CCOMS_DATABASE_PORT
+              value: "27017"
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            - name: CCOMS_DEPT_PORT
+              value: "8081"
             readinessProbe:
                httpGet:
-                  path: /department/pretty
+                  path: /pretty
                   port: 8081
                initialDelaySeconds: 120
                periodSeconds: 10
                successThreshold: 1
             livenessProbe:
                httpGet:
-                  path: /department/pretty
+                  path: /pretty
                   port: 8081
                initialDelaySeconds: 120
                periodSeconds: 10
@@ -140,7 +152,7 @@ metadata:
    labels:
       app: org-ms
 spec:
-   replicas: 2
+   replicas: 3
    strategy:
       type: RollingUpdate
       rollingUpdate:
@@ -156,23 +168,37 @@ spec:
       spec:
          containers:
          -  name: org-ms
-            image: compucomm/organization-mgmt-system:organization-service
+            image: compucomm/org-service
             imagePullPolicy: Always
             ports:
             -  containerPort: 8082
             env:
-            -  name: app.profile
-               value: prod
+            - name: app.profile
+              value: dev
+            - name: CCOMS_DATABASE_USERNAME
+              value: admin
+            - name: CCOMS_DATABASE_PASSWORD
+              value: admin123
+            - name: CCOMS_DATABASE_SERVICENAME
+              value: admin
+            - name: CCOMS_DATABASE_PORT
+              value: "27017"
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            - name: CCOMS_DEPT_PORT
+              value: "8081"
+            - name: CCOMS_ORG_PORT
+              value: "8082"
             readinessProbe:
                httpGet:
-                  path: /organization/pretty
+                  path: /pretty
                   port: 8082
                initialDelaySeconds: 120
                periodSeconds: 10
                successThreshold: 1
             livenessProbe:
                httpGet:
-                  path: /organization/pretty
+                  path: /pretty
                   port: 8082
                initialDelaySeconds: 120
                periodSeconds: 10
@@ -202,24 +228,32 @@ spec:
       spec:
          containers:
          -  name: proxy-ms
-            image: compucomm/organization-mgmt-system:proxy-server-service
+            image: compucomm/gateway-service
             imagePullPolicy: Always
             ports:
             -  containerPort: 8111
             env:
-            -  name: app.profile
-               value: prod
+            - name: app.profile
+              value: dev
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            - name: CCOMS_DEPT_PORT
+              value: "8081"
+            - name: CCOMS_ORG_PORT
+              value: "8082"
+            - name: CCOMS_ZUUL_PORT
+              value: "8111"
             readinessProbe:
-               httpGet:
-                  path: /employee/pretty
-                  port: 8111
-               initialDelaySeconds: 120
-               periodSeconds: 10
-               successThreshold: 1
+              httpGet:
+                path: /emp/pretty
+                port: 8111
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              successThreshold: 1
             livenessProbe:
-               httpGet:
-                  path: /employee/pretty
-                  port: 8111
-               initialDelaySeconds: 120
-               periodSeconds: 10
-               successThreshold: 1
+              httpGet:
+                path: /emp/pretty
+                port: 8111
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              successThreshold: 1

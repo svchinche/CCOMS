@@ -46,9 +46,9 @@ service/proxy   ClusterIP   10.106.10.8      <none>        8111/TCP   109s   app
 
 NAME                             DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES                                                     SELECTOR
 deployment.extensions/cfg-ms     1         1         1            1           33m    cfg-ms       compucomm/organization-mgmt-system:config-server-service   app=cfg-ms
-deployment.extensions/dept-ms    1         1         1            1           33m    dept-ms      compucomm/organization-mgmt-system:department-service      app=dept-ms
-deployment.extensions/emp-ms     1         1         1            1           33m    emp-ms       compucomm/organization-mgmt-system:employee-service        app=emp-ms
-deployment.extensions/org-ms     1         1         1            1           33m    org-ms       compucomm/organization-mgmt-system:organization-service    app=org-ms
+deployment.extensions/dept-ms    1         1         1            1           33m    dept-ms      compucomm/dept-service      app=dept-ms
+deployment.extensions/emp-ms     1         1         1            1           33m    emp-ms       compucomm/emp-service        app=emp-ms
+deployment.extensions/org-ms     1         1         1            1           33m    org-ms       compucomm/org-service    app=org-ms
 deployment.extensions/proxy-ms   1         1         1            1           109s   proxy-ms     compucomm/organization-mgmt-system:proxy-server-service    app=proxy-ms
 ```
 # Create Service, Namespace and Deployments using create/apply command
