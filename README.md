@@ -73,6 +73,87 @@ Operational Activities
 	  
 Application Deployment on k8s
 -----------------------------
+Below command is used to deploy application.
+
+```
+[root@mum00cuc ansible_k8s-ccoms-deployment]# ansible-playbook -e "ccoms_service_tag=1.2" ccoms_playbook.yaml
+
+PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
+
+TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
+skipping: [ansible_node]
+
+TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
+skipping: [ansible_node]
+
+TASK [common : Ensure Pip is installed] ******************************************************************************************************
+skipping: [ansible_node]
+
+TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
+ok: [ansible_node]
+
+PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
+
+TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
+
+ok: [k8s_master]
+
+TASK [database : Create MONGO DB Namespace] **************************************************************************************************
+ok: [k8s_master]
+
+TASK [database : Create MONGO DB Service] ****************************************************************************************************
+ok: [k8s_master]
+
+TASK [database : Create MONGO DB ConfigMap] **************************************************************************************************
+ok: [k8s_master]
+
+TASK [database : Create MONGO DB Secret] *****************************************************************************************************
+ok: [k8s_master]
+
+TASK [database : Create MONGO DB Deployment] *************************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Namespace] ********************************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Service for Config] ***********************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Service for Employee] *********************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Service for Departemnt] *******************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Service for Organization] *****************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Service for Proxy] ************************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Secrets] **********************************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Deployment for Config] ********************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Deployment for Employee] ******************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Deployment for Department] ****************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Deployment for Organization] **************************************************************************************
+ok: [k8s_master]
+
+TASK [ccoms : Create CCOMS Deployment for Proxy] *********************************************************************************************
+ok: [k8s_master]
+
+PLAY RECAP ***********************************************************************************************************************************
+ansible_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0
+k8s_master                 : ok=18   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+```
+
 Application Rolling Update on k8s 
 ---------------------------------
 
@@ -88,63 +169,65 @@ Application Rolling Update on k8s
 	Implementation: 
 	  I have automated zero downtime patching by updating kubernetes manifest [deployment yaml] file, which is automated through ansible
 	  in below command, i have provided extra argument to update microservices with tag 1.2. and default value was latest
-    
-      ```[root@ansible_node ansible_k8s-ccoms-deployment]# ansible-playbook -e "ccoms_service_tag=1.2" ccoms_playbook.yaml 
-			[root@mum00cuc ansible_k8s-ccoms-deployment]# grep -inr -F "ccoms_service_tag" *
-			environments/uat/group_vars/k8s_nodes:6:    IMAGE: config-service:{{ ccoms_service_tag }}
-			environments/uat/group_vars/k8s_nodes:12:    IMAGE: emp-service:{{ ccoms_service_tag }}
-			environments/uat/group_vars/k8s_nodes:18:    IMAGE: dept-service:{{ ccoms_service_tag }}
-			environments/uat/group_vars/k8s_nodes:24:    IMAGE: org-service:{{ ccoms_service_tag }}
-			environments/uat/group_vars/k8s_nodes:30:    IMAGE: gateway-service:{{ ccoms_service_tag }}
-			environments/000_cross_env_vars:2:ccoms_service_tag: latest
-      ```
-     
-	 Deployment yaml or Manifest file </br>
+	  
+``` 
+[root@ansible_node ansible_k8s-ccoms-deployment]# ansible-playbook -e "ccoms_service_tag=1.2" ccoms_playbook.yaml 
+[root@mum00cuc ansible_k8s-ccoms-deployment]# grep -inr -F "ccoms_service_tag" *
+environments/uat/group_vars/k8s_nodes:6:    IMAGE: config-service:{{ ccoms_service_tag }}
+environments/uat/group_vars/k8s_nodes:12:    IMAGE: emp-service:{{ ccoms_service_tag }}
+environments/uat/group_vars/k8s_nodes:18:    IMAGE: dept-service:{{ ccoms_service_tag }}
+environments/uat/group_vars/k8s_nodes:24:    IMAGE: org-service:{{ ccoms_service_tag }}
+environments/uat/group_vars/k8s_nodes:30:    IMAGE: gateway-service:{{ ccoms_service_tag }}
+environments/000_cross_env_vars:2:ccoms_service_tag: latest
+```
+
+Deployment yaml or Manifest file </br>
    
-         ```apiVersion: apps/v1
-            kind: Deployment
-            metadata:
-               name: proxy-ms
-               namespace: ccoms
-               labels:
-                  app: proxy-ms
-            spec:
-               replicas: 2
-               strategy:
-                  type: RollingUpdate
-                  rollingUpdate:
-                     maxSurge: 1
-                     maxUnavailable: 50%
-               selector:
-                  matchLabels:
-                     app: proxy-ms
-               template:
-                  metadata:
-                     labels:
-                        app: proxy-ms
-                  spec:
-                     containers:
-                     -  name: proxy-ms
-                        image: compucomm/gateway-service
-                        imagePullPolicy: Always
-                        ports:
-                        -  containerPort: 8111
-                        readinessProbe:
-                          httpGet:
-                            path: /emp/pretty
-                            port: 8111
-                          initialDelaySeconds: 120
-                          periodSeconds: 10
-                          successThreshold: 1
-                        livenessProbe:
-                          httpGet:
-						  
-                            path: /emp/pretty
-                            port: 8111
-                          initialDelaySeconds: 120
-                          periodSeconds: 10
-                          successThreshold: 1
-         ```
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: proxy-ms
+   namespace: ccoms
+   labels:
+      app: proxy-ms
+spec:
+   replicas: 2
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 1
+         maxUnavailable: 50%
+   selector:
+      matchLabels:
+         app: proxy-ms
+   template:
+      metadata:
+         labels:
+            app: proxy-ms
+      spec:
+         containers:
+         -  name: proxy-ms
+            image: compucomm/gateway-service
+            imagePullPolicy: Always
+            ports:
+            -  containerPort: 8111
+            readinessProbe:
+              httpGet:
+                path: /emp/pretty
+                port: 8111
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              successThreshold: 1
+            livenessProbe:
+              httpGet:
+			  
+                path: /emp/pretty
+                port: 8111
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              successThreshold: 1
+```
 
 
 
