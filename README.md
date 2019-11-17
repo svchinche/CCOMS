@@ -27,8 +27,11 @@ Abstract
 
 <img width="460" height="300" src=".images/empsvc.PNG">
 <img width="460" height="300" src=".images/deptsvc.PNG">
-<img width="460" height="300" src=".images/org_svc.PNG">
-<img width="460" height="300" src=".images/centralize_swagger.PNG">
+<img width="460" height="300" src=".images/orgsvc.PNG">
+<img width="460" height="300" src=".images/swagger.PNG">
+<img width="460" height="300" src=".images/postman.PNG">
+<img width="460" height="300" src=".images/dockerhubimages.PNG">
+<img width="460" height="300" src=".images/dockertagging.PNG">
 
 System Requirements
 ===================
