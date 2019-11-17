@@ -10,6 +10,7 @@ Table of contents
 
 <!--ts-->
    * [Abstract](#abstract)
+   * [Introdution](#introduction)
    * [System Requirements](#system-requirements)
    * [Existing System](#existing-system)
       * [Monolithic Architecture](#monolithic-architecture)
@@ -25,13 +26,16 @@ Table of contents
 Abstract
 ========
 
-<img width="460" height="300" src=".images/empsvc.PNG">
-<img width="460" height="300" src=".images/deptsvc.PNG">
-<img width="460" height="300" src=".images/orgsvc.PNG">
-<img width="460" height="300" src=".images/swagger.PNG">
-<img width="460" height="300" src=".images/postman.PNG">
-<img width="460" height="300" src=".images/dockerhubimages.PNG">
-<img width="460" height="300" src=".images/dockertagging.PNG">
+Introduction
+============
+
+<p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
+<p align="center"><img width="460" height="300" src=".images/deptsvc.PNG"></p>
+<p align="center"><img width="460" height="300" src=".images/orgsvc.PNG"></p>
+<p align="center"><img width="460" height="300" src=".images/swagger.PNG"></p>
+<p align="center"><img width="460" height="300" src=".images/postman.PNG"></p>
+<p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
+<p align="center"><img width="460" height="300" src=".images/dockertagging.PNG"></p>
 
 System Requirements
 ===================
@@ -44,7 +48,7 @@ Demerits of Existing System
 
 Data flow Diagrams
 ==================
-<img width="460" height="300" src=".images/weave.PNG">
+<p align="center"><img width="460" height="300" src=".images/weave.PNG"></p>
 
 Proposed System
 ===============
