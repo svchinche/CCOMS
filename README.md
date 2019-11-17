@@ -160,15 +160,16 @@ Application Rolling Update on k8s
 * There are two ways of update
     * Recreate - Will terminate all your replica, and recreate a new deployment. 
     * Rolling - Not updating the instances at once, updating application with stages. We use this for zero downtime to keep application available for customer. </br>
-    Below are the option that we use in rolling update
-        - MaxSurge : How many replicas in addition of existing replica. If we have four replica and if you mention 50% of surge, total available replica will be six  
-        - MaxUnable : How many pods can be unavailable. If you keep value as 1, it will terminate and update the pod one by one.
-		    - MinimumReadySeconds : We say minimum wait when new/updated pod is ready for serving request, ideal way would be to have ReadynessProbe
-		    - Revision history : It keep revision for deployment, this will help us to restore back using these revision
+    
+Below are the option that we use in rolling update
+* MaxSurge : How many replicas in addition of existing replica. If we have four replica and if you mention 50% of surge, total available replica will be six  
+* MaxUnavailable : How many pods can be unavailable. If you keep value as 1, it will terminate and update the pod one by one.
+* MinimumReadySeconds : We say minimum wait when new/updated pod is ready for serving request, ideal way would be to have ReadynessProbe
+* Revision history : It keep revision for deployment, this will help us to restore back using these revision
 		
-	Implementation: 
-	  I have automated zero downtime patching by updating kubernetes manifest [deployment yaml] file, which is automated through ansible
-	  in below command, i have provided extra argument to update microservices with tag 1.2. and default value was latest
+**Implementation** 
+I have automated zero downtime patching by updating kubernetes manifest [deployment yaml] file, which is automated through ansible</br>
+in below command, i have provided extra argument to update microservices with tag 1.2. and default value was latest</br>
 	  
 ``` 
 [root@ansible_node ansible_k8s-ccoms-deployment]# ansible-playbook -e "ccoms_service_tag=1.2" ccoms_playbook.yaml 
@@ -221,7 +222,6 @@ spec:
               successThreshold: 1
             livenessProbe:
               httpGet:
-			  
                 path: /emp/pretty
                 port: 8111
               initialDelaySeconds: 120
