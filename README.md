@@ -28,7 +28,7 @@ Table of contents
       * [Ansible Password Rotation](#ansible-password-rotation)
       * [Application Password Rotation](#application-password-rotation)
       * [Autoscalling of Microservices](#autoscalling-of-microservices)
-      * [Backup and Restoration using Heptio Velero](#backup-and-restoration-using-heptio-velero)
+      * [Backup and Restoration of k8s resources using Heptio Velero](#backup-and-restoration-of-k8s-resources-using-heptio-velero)
    * [Dev-Ops Best Practices](#devops-best-practices)
 <!--te-->
 
@@ -560,7 +560,7 @@ Application Password rotation
 -------------------------------
 Autoscalling of Microservices
 -----------------------------
-Backup and Restoration using Heptio Velero
+Backup and Restoration of k8s resources using Heptio Velero
 -------------------------------------------
 
 Dev-Ops Best Practices
