@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-0001
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    server: mum00aqm
+    path: /u02/data-0001
+...
+
+
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-0002
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    server: mum00aqm
+    path: /u02/data-0002
+...
