@@ -11,4 +11,6 @@ spec:
       protocol: TCP
    selector:
       app: proxy-ms
+   externalIPs:
+   -  {{ ansible_default_ipv4.address }} 
 

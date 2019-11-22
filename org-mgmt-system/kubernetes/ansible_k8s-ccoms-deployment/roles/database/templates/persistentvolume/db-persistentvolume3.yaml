@@ -11,5 +11,5 @@ spec:
     - ReadWriteOnce
     - ReadWriteMany
   nfs:
-    server: mum00aqm
+    server: {{ ansible_hostname }}
     path: /u02/pvs/pv3

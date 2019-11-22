@@ -37,3 +37,5 @@ fi
 ## replace the new files
 rm -rf ./.ansible_keys && cp -r ~/.ansible_keys ./
 rm -rf ~/.ansible_keys_back
+
+exit 0;

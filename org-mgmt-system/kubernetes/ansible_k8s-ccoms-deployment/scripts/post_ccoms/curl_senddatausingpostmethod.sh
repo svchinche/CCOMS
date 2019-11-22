@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export NO_PROXY=mum00aqm,localhost,127.0.0.1,mum00aqm.in.oracle.com
+export NO_PROXY=mum00aqm,localhost,127.0.0.1
 HOST_NAME=10.180.86.187
 PROXY_PORT=8111
 EMP_JSONFILE="../../../org_management_system/employee-microservice/emps.json"

@@ -1,6 +1,11 @@
 ---
 # tasks file for database
 
+- import_tasks: db-prereq.yml
+  tags:
+  - db
+  - db:prereq
+
 
 - import_tasks: db-namespace.yml
   tags:
