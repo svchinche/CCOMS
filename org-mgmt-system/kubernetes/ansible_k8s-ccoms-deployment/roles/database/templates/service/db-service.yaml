@@ -10,5 +10,5 @@ spec:
    -  port: {{ DB.MONGO.PORT }}
       protocol: TCP
    selector:
-      app: mongodb
-
+      role: mongo
+      environment: {{ PROFILE }}

@@ -12,6 +12,7 @@ spec:
       rollingUpdate:
          maxSurge: 1
          maxUnavailable: 50%
+   revisionHistoryLimit: 5
    selector:
       matchLabels:
          app: cfg-ms
@@ -22,7 +23,7 @@ spec:
       spec:
          containers:
          -  name: cfg-ms
-            image: compucomm/config-service
+            image: compucomm/config-service:1.2
             imagePullPolicy: Always
             ports:
             -  containerPort: 8888
@@ -44,6 +45,7 @@ spec:
       rollingUpdate:
          maxSurge: 1
          maxUnavailable: 50%
+   revisionHistoryLimit: 5
    selector:
       matchLabels:
          app: emp-ms
@@ -54,7 +56,7 @@ spec:
       spec:
          containers:
          -  name: emp-ms
-            image: compucomm/emp-service
+            image: compucomm/emp-service:1.2
             imagePullPolicy: Always
             ports:
             -  containerPort: 8080
@@ -100,6 +102,7 @@ spec:
       rollingUpdate:
          maxSurge: 1
          maxUnavailable: 50%
+   revisionHistoryLimit: 5
    selector:
       matchLabels:
          app: dept-ms
@@ -110,7 +113,7 @@ spec:
       spec:
          containers:
          -  name: dept-ms
-            image: compucomm/dept-service
+            image: compucomm/dept-service:1.2
             imagePullPolicy: Always
             ports:
             -  containerPort: 8081
@@ -158,6 +161,7 @@ spec:
       rollingUpdate:
          maxSurge: 1
          maxUnavailable: 50%
+   revisionHistoryLimit: 5
    selector:
       matchLabels:
          app: org-ms
@@ -168,7 +172,7 @@ spec:
       spec:
          containers:
          -  name: org-ms
-            image: compucomm/org-service
+            image: compucomm/org-service:1.2
             imagePullPolicy: Always
             ports:
             -  containerPort: 8082
@@ -218,6 +222,7 @@ spec:
       rollingUpdate:
          maxSurge: 1
          maxUnavailable: 50%
+   revisionHistoryLimit: 5
    selector:
       matchLabels:
          app: proxy-ms
@@ -228,7 +233,7 @@ spec:
       spec:
          containers:
          -  name: proxy-ms
-            image: compucomm/gateway-service
+            image: compucomm/gateway-service:1.2
             imagePullPolicy: Always
             ports:
             -  containerPort: 8111

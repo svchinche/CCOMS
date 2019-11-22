@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: db
   namespace: mongo
   labels:
     app: mongodb
@@ -14,5 +14,4 @@ spec:
     name: dbport
   selector:
     app: mongodb
-  externalIPs:
-  - 10.180.86.187
+  clusterIP: None

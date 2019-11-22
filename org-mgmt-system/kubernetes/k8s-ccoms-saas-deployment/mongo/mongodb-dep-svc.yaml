@@ -6,7 +6,7 @@ metadata:
   labels:
     app: mongodb
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: mongodb
@@ -19,6 +19,9 @@ spec:
       - name: mongodb
         image: mongo:latest
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - mountPath: "/data"
+          name: mongodbdata
         ports:
         - containerPort: 27017
         env:
@@ -36,4 +39,9 @@ spec:
           valueFrom:
             secretKeyRef:
               name: mongodb
-              key: database-password 
+              key: database-password
+      volumes:
+      - name: mongodbdata
+        persistentVolumeClaim:
+          claimName: claim-for-mongodb
+

@@ -1,44 +1,53 @@
-apiVersion: apps/v1beta1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: mongo
+  labels:
+    app: mongodb
+spec:
+  ports:
+  - port: 27027
+    targetPort: 27017
+    protocol: TCP
+    name: dbport
+  selector:
+    app: mongodb
+  clusterIP: None
+
+---
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongodb
-  namespace: {{ namespace }}
+  namespace: mongo
   labels:
-    role: mongo
-    environment: {{ PROFILE }}
+    app: mongodb
 spec:
-  replicas: {{ DB.MONGO.REPLICA }}
+  replicas: 5
+  serviceName: db
   selector:
     matchLabels:
-      role: mongo
+      app: mongodb
   template:
     metadata:
       labels:
-        role: mongo
-        environment: {{ PROFILE }}
+        app: mongodb
     spec:
-      terminationGracePeriodSeconds: 10
       containers:
       - name: mongodb
-        image: mongo:3.4
-        command:
-        - mongod
-        - "--replSet"
-        - rs0
-        - "--bind_ip"
-        - 0.0.0.0
-        - "--smallfiles"
-        - "--noprealloc"
+        image: mongo:latest
+        imagePullPolicy: IfNotPresent
         volumeMounts:
-        - mountPath: "/data/db"
-          name: dbvolumes
-        imagePullPolicy: Always
+        - mountPath: "/data"
+          name: mongodbdata
         ports:
-        - containerPort: {{ DB.MONGO.PORT }}
+        - containerPort: 27017
         env:
         - name: MONGO_INITDB_DATABASE
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               name: mongodb
               key: database-name
         - name: MONGO_INITDB_ROOT_USERNAME
@@ -51,17 +60,15 @@ spec:
             secretKeyRef:
               name: mongodb
               key: database-password
-      - name: mongo-sidecar
-        image: cvallance/mongo-k8s-sidecar
-        env:
-        - name: MONGO_SIDECAR_POD_LABELS
-          value: "role=mongo,environment={{ PROFILE }}"
   volumeClaimTemplates:
   - metadata:
-      name: dbvolumes
+      name: mongodbdata
     spec:
       storageClassName: manual
       accessModes:
       - ReadWriteOnce
       resources:
         requests:
+          storage: 100Mi
+
+

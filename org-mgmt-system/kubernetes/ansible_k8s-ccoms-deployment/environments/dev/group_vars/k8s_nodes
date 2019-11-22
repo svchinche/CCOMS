@@ -36,4 +36,4 @@ APPS:
 DB:
   MONGO:
     PORT: 27017
-    REPLICA: 2
+    REPLICA: 5

@@ -22,6 +22,15 @@
   - db
   - db:secret
 
+- import_tasks: db-clusterrole.yml
+  tags:
+  - db
+  - db:clusterrole
+
+- import_tasks: db-persistentvolume.yml
+  tags:
+  - db
+  - db:persistentvolume
 
 - import_tasks: db-deployment.yml
   tags:

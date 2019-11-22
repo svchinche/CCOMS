@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: mongo
+  namespace: {{ namespace }}
   name: pv-nfs-pv0
 spec:
   storageClassName: manual
@@ -16,14 +16,11 @@ spec:
     path: /u02/pvs/pv0
 ...
 
-
-
-
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: mongo
+  namespace: {{ namespace }}
   name: pv-nfs-pv1
 spec:
   storageClassName: manual
@@ -42,7 +39,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: mongo
+  namespace: {{ namespace }}
   name: pv-nfs-pv2
 spec:
   storageClassName: manual
@@ -61,7 +58,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: mongo
+  namespace: {{ namespace }}
   name: pv-nfs-pv3
 spec:
   storageClassName: manual
@@ -80,7 +77,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: mongo
+  namespace: {{ namespace }}
   name: pv-nfs-pv4
 spec:
   storageClassName: manual
