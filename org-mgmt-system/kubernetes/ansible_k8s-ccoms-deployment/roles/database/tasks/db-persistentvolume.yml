@@ -1,5 +1,25 @@
-- name: "Create MONGO DB Persistent Volumes for Replication" 
+- name: "Create MONGO DB Persistent Volumes 0 " 
   k8s:
     state: present
-    definition: "{{ lookup('template', 'persistentvolume/db-persistentvolume.yaml') | from_yaml }}"
+    definition: "{{ lookup('template', 'persistentvolume/db-persistentvolume0.yaml') | from_yaml }}"
+
+- name: "Create MONGO DB Persistent Volumes 1"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'persistentvolume/db-persistentvolume1.yaml') | from_yaml }}"
+
+- name: "Create MONGO DB Persistent Volumes 2"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'persistentvolume/db-persistentvolume2.yaml') | from_yaml }}"
+
+- name: "Create MONGO DB Persistent Volumes 3"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'persistentvolume/db-persistentvolume3.yaml') | from_yaml }}"
+
+- name: "Create MONGO DB Persistent Volumes 4"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'persistentvolume/db-persistentvolume4.yaml') | from_yaml }}"
 

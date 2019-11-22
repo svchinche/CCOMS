@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: {{ namespace }}
+  name: pv-nfs-pv4
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 400Mi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  nfs:
+    server: mum00aqm
+    path: /u02/pvs/pv4

@@ -8,9 +8,11 @@ metadata:
     environment: {{ PROFILE }}
 spec:
   replicas: {{ DB.MONGO.REPLICA }}
+  serviceName: db
   selector:
     matchLabels:
       role: mongo
+      environment: {{ PROFILE }}
   template:
     metadata:
       labels:
@@ -65,3 +67,4 @@ spec:
       - ReadWriteOnce
       resources:
         requests:
+          storage: 100Mi

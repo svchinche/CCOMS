@@ -12,3 +12,4 @@ spec:
    selector:
       role: mongo
       environment: {{ PROFILE }}
+   clusterIP: None
