@@ -11,7 +11,7 @@ Table of contents
 <!--ts-->
    * [Abstract](#abstract)
    * [Introdution](#introduction)
-   * [System Requirements](#system-requirements)
+   * [Software Metrics](#software-metrics)
    * [Existing System](#existing-system)
       * [Monolithic Architecture](#monolithic-architecture)
    * [Demerits of Existing System](#demerits-of-existing-system)
@@ -48,8 +48,49 @@ Introduction
 <p align="center"><img width="460" height="300" src=".images/postman.PNG"></p>
 <p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
 
-System Requirements
+Software Metrics
 ===================
+
+|Category                    |Tools               |Subtools/Plugin     |Version   |Purpose                                                                                      |
+|----------------------------|--------------------|--------------------|----------|---------------------------------------------------------------------------------------------|
+|Development                 |Springboot          |springframework     |2.2.1     |Easy in developing webservices                                                               |
+|                            |                    |swagger             |1.2.4     |To share documentation of REST API                                                           |
+|                            |                    |Config Server/Client|2.2.1     |Used distributed configuration server to store configuration                                 |
+|                            |                    |Openfeign           |2.2.1     |To communication one microservice with other microservice                                    |
+|                            |                    |thymeleaf           |2.2.1     |Its modern Java template to build a web environemnt                                          |
+|                            |                    |spring data mongodb |2.2.1     |To interact with mongo db                                                                    |
+|                            |                    |Zuul                |2.2.1     |To use proxy server and centralize swagger, this is why we havent used ingress k8s controller|
+|Project building Tool       |Maven               |Maven               |3.6.2     |To build Spring boot project                                                                 |
+|                            |                    |Surefire            |          |Surefire is default plugin to generate Unit test report [Junit and TestNG]                   |
+|                            |                    |failsafe            |          |Used for Integration testing                                                                 |
+|                            |                    |jacoco              |          |Used to check criteria of newly developed code                                               |
+|                            |                    |cucumber            |          |used for Behavior Driven Development                                                         |
+|                            |                    |sonar               |          |Use for static code analysis                                                                 |
+|                            |                    |docker              |          |to build and push image                                                                      |
+|                            |                    |nexus repository    |          |to push artifact on nexus                                                                    |
+|                            |                    |OWASP               |          |used for dynamic analys of code                                                              |
+|UI Testing                  |Selenium            |                    |3.141.59  |UI based automation testing is done by selenium                                              |
+|Performance Testing         |Jmeter              |                    |          |Load and stress testing is done by jemeter                                                   |
+|Artifact Repository         |Nexus               |                    |3.13      |Used to store artifact of monolithic application                                             |
+|                            |Docker Hub          |                    |          |Used private and public repositories to store docker images                                  |
+|Version Control tool        |git                 |                    |2.9.2     |to work with multiple developers and on multiple feature.                                    |
+|Containerization            |Docker              |                    |18.09.8-ol|to write docker files and to test application on docker before moving on to k8s              |
+|Container Orchestration     |Kubernetes          |                    |1.16      |to manage and scale pods                                                                     |
+|Monitoring log              |ELK with fluentd    |                    |7.4.2     |to monitor k8s cluster and pods log.                                                         |
+|Monitoring infra/k8s cluster|ELK with MetricBeat |                    |7.4.2     |to monitor k8scluster                                                                        |
+|                            |Weavescope          |                    |1.11.6    |to monitor k8s cluster and its service, lightweight tool and needs zero configuration        |
+|Static Code analysis        |Sonar Qube          |                    |          |Jenkins pushes to code for analsis on sonar qube                                             |
+|                            |Sonar Lint          |                    |          |Developer uses this plugin for static code analysis                                          |
+|Dynamic code analysis       |OWASP               |                    |          |for dynamic code analysis                                                                    |
+|Infrastructure automation   |Ansible             |                    |          |To automate ccoms project deployment on k8s cluster                                          |
+|Development                 |Java                |                    |1.8       |for webservice development                                                                   |
+|                            |html                |                    |          |for webpage development                                                                      |
+|Pipeline Automation         |Jenkins             |                    |          |To automate everything from checkin to delivering product to customer                        |
+|Building Infrastructure     |Vagrant             |                    |          |To form virtual machines with softwares,packages and k8s cluster                             |
+|Webserver                   |Apache Tomcat       |                    |          |To deploy web based application                                                              |
+|Operating system            |OEL                 |                    |7.3       |for deploying k8s cluster                                                                    |
+
+
 
 Existing System
 ===============
