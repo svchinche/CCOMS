@@ -1,0 +1,9 @@
+use {{ common.servicename | b64decode }};
+db.createUser({
+	user: "{{ common.username | b64decode }}",
+	pwd: "{{ common.password | b64decode }}",
+	roles: [{
+		role: "readWrite",
+		db: "{{ common.servicename | b64decode }}"
+	}]
+});

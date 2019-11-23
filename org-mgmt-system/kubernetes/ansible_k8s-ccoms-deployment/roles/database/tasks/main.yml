@@ -41,3 +41,8 @@
   tags:
   - db
   - db:deployment
+
+- import_tasks: db-create_user.yml
+  tags:
+  - db
+  - db:createuser

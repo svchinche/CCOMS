@@ -20,8 +20,9 @@
     state: present  
 
 - name: "Manage configuration and restart if required"
+  register: result
   shell: |
     NFS_CONF_DIR='/etc/exports'
     ### Add entry in etc export file and restart if entry added
-    grep 'pvs' $NFS_CONF_DIR >/dev/null || ( sed -i '$ a\/u02/pvs *(rw,sync,no_root_squash,nohide)' $NFS_CONF_DIR && ( systemctl restart nfs && exportfs ) )
-     
+    grep 'pvs' $NFS_CONF_DIR >/dev/null || ( echo "no entry found" ; sed -i '$ a\/u02/pvs *(rw,sync,no_root_squash,nohide)' $NFS_CONF_DIR && ( systemctl restart nfs && exportfs ) )
+  changed_when: "'no entry found' in result.stdout"
