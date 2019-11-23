@@ -30,13 +30,16 @@ Table of contents
       * [Autoscalling of Microservices](#autoscalling-of-microservices)
       * [Backup and Restoration of k8s resources using Heptio Velero](#backup-and-restoration-of-k8s-resources-using-heptio-velero)
    * [Dev-Ops Best Practices](#devops-best-practices)
+   * [Objectives](#objectvies)
 <!--te-->
 
 Abstract
 ========
+CCOMS is a Organization Managament System Microservices based project. Purpose of creating this project is to understand and work on all Devops technology. Live project will help you to understand or map all devops tools easily this is why i have created this project.
 
 Introduction
 ============
+
 
 <p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
 <p align="center"><img width="460" height="300" src=".images/deptsvc.PNG"></p>
@@ -565,3 +568,9 @@ Backup and Restoration of k8s resources using Heptio Velero
 
 Dev-Ops Best Practices
 ======================
+
+Objectives
+==========
+
+Everyone/Newbies should able build a project based on Devops technology, When i was moving from Developer to Devops most of the time i was spending in building a infrastructure. for ex. I had taken almost 2-3 weeks only for creating kubernetes cluster.
+If the same thing happened with newbies, they might loss there interest in devops field. Thats why i have created this project where everyone shoud take a checkout and build a project in few meenutes and start exploring devops technologies
