@@ -43,7 +43,8 @@ I have created three different microservices, which communicate with each other 
 - proxy-service
 - config-service
 
-
+There is nothing special in these microservices.
+- I have used spring boot dependencies to build spring boot based project and itegrated with mongodb database to store the data and used centralized swagger to get the list of availablr REST API.
 
 <p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
 <p align="center"><img width="460" height="300" src=".images/deptsvc.PNG"></p>
@@ -134,37 +135,6 @@ Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to 
 [INFO] -----------------< com.cloudcomp.ccoms:cloud-comp-oms >-----------------
 [INFO] Building cloud-comp-oms 1.3                                        [1/6]
 [INFO] --------------------------------[ pom ]---------------------------------
-[INFO]
-[INFO] --- maven-clean-plugin:3.1.0:clean (default-cli) @ cloud-comp-oms ---
-[INFO]
-[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ cloud-comp-oms ---
-[INFO] Installing /root/CCOMS/CCOMS/org-mgmt-system/pom.xml to /root/.m2/repository/com/cloudcomp/ccoms/cloud-comp-oms/1.3/cloud-comp-oms-1.3.pom
-[INFO]
-[INFO] -----------------< com.cloudcomp.ccoms:config-service >-----------------
-[INFO] Building config-service 1.3                                        [2/6]
-[INFO] --------------------------------[ war ]---------------------------------
-[INFO]
-[INFO] --- maven-clean-plugin:3.1.0:clean (default-cli) @ config-service ---
-[INFO] Deleting /root/CCOMS/CCOMS/org-mgmt-system/config-service/target
-[INFO]
-[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ config-service ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] Copying 0 resource
-[INFO] Copying 1 resource
-[INFO]
-[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ config-service ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 1 source file to /root/CCOMS/CCOMS/org-mgmt-system/config-service/target/classes
-[INFO]
-[INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ config-service ---
-[INFO] Using 'UTF-8' encoding to copy filtered resources.
-[INFO] skip non existing resourceDirectory /root/CCOMS/CCOMS/org-mgmt-system/config-service/src/test/resources
-[INFO]
-[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ config-service ---
-[INFO] Changes detected - recompiling the module!
-[INFO] Compiling 1 source file to /root/CCOMS/CCOMS/org-mgmt-system/config-service/target/test-classes
-[INFO]
-[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ config-service ---
 [INFO] Tests are skipped.
 [INFO]
 [INFO] --- maven-war-plugin:3.2.3:war (default-war) @ config-service ---
@@ -172,67 +142,7 @@ Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to 
 [INFO] Assembling webapp [config-service] in [/root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService]
 [INFO] Processing war project
 [INFO] Webapp assembled in [87 msecs]
-[INFO] Building war: /root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService.war
 [INFO]
-[INFO] --- spring-boot-maven-plugin:2.2.1.RELEASE:repackage (repackage) @ config-service ---
-[INFO] Replacing main artifact with repackaged archive
-[INFO]
-[INFO] --- maven-dependency-plugin:3.1.1:unpack (unpack) @ config-service ---
-[INFO] Skipping plugin execution
-[INFO]
-[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ config-service ---
-[INFO] Installing /root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService.war to /root/.m2/repository/com/cloudcomp/ccoms/config-service/1.3/config-service-1.3.war
-[INFO] Installing /root/CCOMS/CCOMS/org-mgmt-system/config-service/pom.xml to /root/.m2/repository/com/cloudcomp/ccoms/config-service/1.3/config-service-1.3.pom
-[INFO]
-[INFO] --- dockerfile-maven-plugin:1.4.13:build (default) @ config-service ---
-[INFO] Path(contextDirectory): /root/CCOMS/CCOMS/org-mgmt-system/config-service
-[INFO]
-[INFO] Image will be built as compucomm/config-service:latest
-[INFO]
-[INFO] Step 1/6 : FROM openjdk:8-jdk-alpine
-[INFO]
-[INFO] Trying to pull repository docker.io/library/openjdk ...
-[INFO] Pulling from docker.io/library/openjdk
-[INFO] Digest: sha256:94792824df2df33402f201713f932b58cb9de94a0cd524164a0f2283343547b3
-[INFO] Status: Image is up to date for openjdk:8-jdk-alpine
-[INFO]  ---> a3562aa0b991
-[INFO] Step 2/6 : VOLUME /tmp
-[INFO]
-[INFO]  ---> Using cache
-[INFO]  ---> 8fc42099a3a7
-[INFO] Step 3/6 : ENV APP_FILE ConfigServer-MicroService.war
-[INFO]
-[INFO]  ---> Using cache
-[INFO]  ---> 8df64ab20889
-[INFO] Step 4/6 : EXPOSE 8888
-[INFO]
-[INFO]  ---> Using cache
-[INFO]  ---> 653682fcc489
-[INFO] Step 5/6 : ADD target/${APP_FILE} ${APP_FILE}
-[INFO]
-[INFO]  ---> 8f5a8ba3b3b5
-[INFO] Step 6/6 : ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/ConfigServer-MicroService.war"]
-[INFO]
-[INFO]  ---> Running in aa40840ae2e2
-[INFO] Removing intermediate container aa40840ae2e2
-[INFO]  ---> de44e39ded7f
-[INFO] Successfully built de44e39ded7f
-[INFO] Successfully tagged compucomm/config-service:latest
-[INFO]
-[INFO] Detected build of image with id de44e39ded7f
-[INFO] Building jar: /root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService-docker-info.jar
-[INFO] Successfully built compucomm/config-service:latest
-[INFO]
-[INFO] --- dockerfile-maven-plugin:1.4.13:push (default) @ config-service ---
-[INFO] The push refers to repository [docker.io/compucomm/config-service]
-[INFO] Image 0f6d4a2f2989: Preparing
-[INFO] Image ceaf9e1ebef5: Preparing
-[INFO] Image 9b9b7f3d56a0: Preparing
-[INFO] Image f1b5933fe4b5: Preparing
-[INFO] Image 9b9b7f3d56a0: Layer already exists
-[INFO] Image ceaf9e1ebef5: Layer already exists
-[INFO] Image f1b5933fe4b5: Layer already exists
-[INFO] Image 0f6d4a2f2989: Pushing
 [INFO] Image 0f6d4a2f2989: Pushed
 [INFO] latest: digest: sha256:1987270b1da2a534921cfb89f79bedd313462f0ac48b740ccde178fa32819198 size: 1159
 [INFO]
@@ -242,13 +152,6 @@ Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to 
 [INFO]
 [INFO] --- dockerfile-maven-plugin:1.4.13:push (tag-version) @ config-service ---
 [INFO] The push refers to repository [docker.io/compucomm/config-service]
-[INFO] Image 0f6d4a2f2989: Preparing
-[INFO] Image ceaf9e1ebef5: Preparing
-[INFO] Image 9b9b7f3d56a0: Preparing
-[INFO] Image f1b5933fe4b5: Preparing
-[INFO] Image 0f6d4a2f2989: Layer already exists
-[INFO] Image ceaf9e1ebef5: Layer already exists
-[INFO] Image 9b9b7f3d56a0: Layer already exists
 [INFO] Image f1b5933fe4b5: Layer already exists
 [INFO] 1.3: digest: sha256:1987270b1da2a534921cfb89f79bedd313462f0ac48b740ccde178fa32819198 size: 1159
 [INFO] ------------------------------------------------------------------------
