@@ -615,3 +615,8 @@ Objectives
 
 Everyone/Newbies should able to build a project based on Devops technology, When i was moving from Developer to Devops most of the time i was spending in building a infrastructure. for ex. I had taken almost 2-3 weeks only for creating kubernetes cluster.
 If the same thing happened with newbies, they might loss there interest in devops field. Thats why i have created this project where everyone shoud take a checkout and build a project in few meenutes and start exploring devops technologies
+
+Quote
+-----
+Hard work pays off, Bootlicking will not help you to grow in long term. It will end up with problem.
+My final words to everyone: Only hard work will help you to grow
