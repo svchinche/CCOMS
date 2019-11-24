@@ -13,11 +13,7 @@ Table of contents
    * [Introdution](#introduction)
    * [Software Metrics](#software-metrics)
    * [Existing System](#existing-system)
-      * [Monolithic Architecture](#monolithic-architecture)
-   * [Demerits of Existing System](#demerits-of-existing-system)
    * [Data flow Diagrams](#data-flow-diagrams)
-   * [Proposed System](#proposed-system)
-   * [Advantages](#advantages)
    * [How automation works](#how-automation-works)
    * [Operational Activities](#operational-activities)
       * [Application Deployment on k8s](#application-deployment-on-k8s)
@@ -39,6 +35,14 @@ Abstract
 
 Introduction
 ============
+
+I have created three different microservices, which communicate with each other trough REST API.</br>
+- employee-service </br>
+- department-service </br>
+- organization-service </br>
+- proxy-service
+- config-service
+
 
 
 <p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
