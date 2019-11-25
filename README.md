@@ -46,37 +46,7 @@ I have created three different microservices, which communicate with each other 
 There is nothing special in these microservices.
 - I have used spring boot dependencies to build spring boot based project and itegrated with mongodb database to store the data and used centralized swagger for documenting the rest api. Below are the screenshot for individual microservices
 
-Employee Microservice
----------------------
 
-<p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
-
-
-
-Department Microservice
----------------------
-
-<p align="center"><img width="460" height="300" src=".images/deptsvc.PNG"></p>
-
-Organization Microservice
----------------------
-
-<p align="center"><img width="460" height="300" src=".images/orgsvc.PNG"></p>
-
-Swagger of all Microservice [Centralized Swagger]
----------------------
-
-<p align="center"><img width="460" height="300" src=".images/swagger.PNG"></p>
-
-Postman utiltity to send data using Rest api's
----------------------
-
-<p align="center"><img width="460" height="300" src=".images/postman.PNG"></p>
-
-Docker images 
---------------
-
-<p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
 
 Software Metrics
 ===================
@@ -120,6 +90,127 @@ Software Metrics
 |Webserver                   |Apache Tomcat       |                    |          |To deploy web based application                                                              |
 |Operating system            |OEL                 |                    |7.3       |for deploying k8s cluster                                                                    |
 
+Employee Microservice
+---------------------
+* Spring Boot implemntation
+------------------------
+
+    * Extended EmployeeRepository with CrudRepository to itegrate it with MongoDB 
+    
+    ```java
+    @Repository
+    public interface EmployeeRepository extends CrudRepository<Employee, Long>{    
+        @Query("{ 'orgId' : ?0 }")
+        public List<Employee> findEmpsByOrgId(int orgId);
+        @Query("{ 'deptId' : ?0 }")
+        public List<Employee> findEmpsByDeptId(int deptId);
+    }
+    ```
+    
+    * Entity class has been nnotated with @document and primary key with @id
+    ```java
+    @ApiModel(description = "All details about the Employee. ")
+    @Document(collection = "employee")
+    public class Employee {
+    
+        @Id
+        @Indexed
+        private Long id;
+    ```
+    
+    * Then repository has been injected into Controller class using @AutoWired
+    ```java
+    @RestController
+    @RequestMapping(value = { "/api" })
+    @Api(value = "Employee Management System")
+    public class EmployeeRestController {
+    
+        private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRestController.class);
+        @Autowired
+        EmployeeRepository empRepository;
+    
+        @GetMapping("/")
+        public String get() {
+            return "Please give url as hostname/employee/get";
+    
+        }
+    
+        @ApiOperation(value = "Get an employee by Id")
+        @GetMapping("/{id}")
+        public ResponseEntity<Employee> getEmpById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+            Employee emp = empRepository.findById(id)
+                    .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
+            return ResponseEntity.ok().body(emp);
+    
+        }
+    ```
+    * Used thymeleaf template and view controller to display it on UI.
+    
+    1. View Controller
+    
+    ```java
+    @Controller
+    @RequestMapping(value = { "/" })
+    public class EmployeeViewController {
+    
+        @Autowired
+        EmployeeRepository empRep;
+    
+        @GetMapping("/pretty")
+        public String showSignUpForm(Model model) {
+            model.addAttribute("emps", empRep.findAll());
+            return "show_pretty_output";
+        }
+    
+    }
+    ```
+    
+    2. HTML page using thymeleaf template
+    ```html
+    		<tbody>
+    			<tr th:if="${emps.empty}">
+    				<td colspan="2">CCOMS Employee Information</td>
+    			</tr>
+    			<tr th:each="emp : ${emps}">
+    				<td><span th:text="${emp.id}"> ID </span></td>
+    				<td><span th:text="${emp.name}"> Name </span></td>
+    				<td><span th:text="${emp.age}"> Age </span></td>
+    				<td><span th:text="${emp.position}"> Position </span></td>
+    				<td><span th:text="${emp.orgId}"> OrgId </span></td>
+    				<td><span th:text="${emp.deptId}"> DeptId </span></td>
+    			</tr>
+    		</tbody>
+    ```
+    
+    
+    <p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
+    
+
+
+Department Microservice
+---------------------
+
+<p align="center"><img width="460" height="300" src=".images/deptsvc.PNG"></p>
+
+Organization Microservice
+---------------------
+
+<p align="center"><img width="460" height="300" src=".images/orgsvc.PNG"></p>
+
+Swagger of all Microservice [Centralized Swagger]
+---------------------
+
+<p align="center"><img width="460" height="300" src=".images/swagger.PNG"></p>
+
+Postman utiltity to send data using Rest api's
+---------------------
+
+<p align="center"><img width="460" height="300" src=".images/postman.PNG"></p>
+
+Docker images 
+--------------
+
+<p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
 
 
 Existing System
