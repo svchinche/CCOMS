@@ -44,13 +44,38 @@ I have created three different microservices, which communicate with each other 
 - config-service
 
 There is nothing special in these microservices.
-- I have used spring boot dependencies to build spring boot based project and itegrated with mongodb database to store the data and used centralized swagger to get the list of availablr REST API.
+- I have used spring boot dependencies to build spring boot based project and itegrated with mongodb database to store the data and used centralized swagger for documenting the rest api. Below are the screenshot for individual microservices
+
+Employee Microservice
+---------------------
 
 <p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
+
+
+
+Department Microservice
+---------------------
+
 <p align="center"><img width="460" height="300" src=".images/deptsvc.PNG"></p>
+
+Organization Microservice
+---------------------
+
 <p align="center"><img width="460" height="300" src=".images/orgsvc.PNG"></p>
+
+Swagger of all Microservice [Centralized Swagger]
+---------------------
+
 <p align="center"><img width="460" height="300" src=".images/swagger.PNG"></p>
+
+Postman utiltity to send data using Rest api's
+---------------------
+
 <p align="center"><img width="460" height="300" src=".images/postman.PNG"></p>
+
+Docker images 
+--------------
+
 <p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
 
 Software Metrics
@@ -141,10 +166,6 @@ Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to 
 [INFO] Packaging webapp
 [INFO] Assembling webapp [config-service] in [/root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService]
 [INFO] Processing war project
-[INFO] Webapp assembled in [87 msecs]
-[INFO]
-[INFO] Image 0f6d4a2f2989: Pushed
-[INFO] latest: digest: sha256:1987270b1da2a534921cfb89f79bedd313462f0ac48b740ccde178fa32819198 size: 1159
 [INFO]
 [INFO] --- dockerfile-maven-plugin:1.4.13:tag (tag-version) @ config-service ---
 [INFO] Tagging image de44e39ded7f as compucomm/config-service:1.3
@@ -172,11 +193,11 @@ Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to 
 ```
 
 In command, you can see maven command is being used to create application war file.
-As docker spotify plugin is enrolled with install phase, it pushes docker image itself on dockerhub registry.
+As docker spotify plugin is entitled  with install phase, thats is why it is pushing docker image on dockerhub registry.
 
 * I have tagged image with two tags
     * latest
-	* with revision, that we passed as argument to maven
+    * with revision, that we passed as argument to maven
 	
 <p align="center"><img width="460" height="300" src=".images/dockertagging.PNG"></p>
 
@@ -193,69 +214,6 @@ Below command is being used to install application on kubernetes
 PLAY [Installing Kubernetes python client for ansible] ***************************************************************************************
 
 TASK [common : Ensure Pip is installed on Proxy Based Env] ***********************************************************************************
-skipping: [ansible_node]
-
-TASK [common : Ensure OpenShift client is installed on Proxy Based Env.] *********************************************************************
-skipping: [ansible_node]
-
-TASK [common : Ensure Pip is installed] ******************************************************************************************************
-skipping: [ansible_node]
-
-TASK [common : Ensure OpenShift client is installed.] ****************************************************************************************
-ok: [ansible_node]
-
-PLAY [Cloud Comp OMS Deployment on kunernetes Cluster] ***************************************************************************************
-
-TASK [preccoms : Updating existing Coredns ConfigMap] ****************************************************************************************
-
-ok: [k8s_master]
-
-TASK [database : Create MONGO DB Namespace] **************************************************************************************************
-ok: [k8s_master]
-
-TASK [database : Create MONGO DB Service] ****************************************************************************************************
-ok: [k8s_master]
-
-TASK [database : Create MONGO DB ConfigMap] **************************************************************************************************
-ok: [k8s_master]
-
-TASK [database : Create MONGO DB Secret] *****************************************************************************************************
-ok: [k8s_master]
-
-TASK [database : Create MONGO DB Deployment] *************************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Namespace] ********************************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Service for Config] ***********************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Service for Employee] *********************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Service for Departemnt] *******************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Service for Organization] *****************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Service for Proxy] ************************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Secrets] **********************************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Deployment for Config] ********************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Deployment for Employee] ******************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Deployment for Department] ****************************************************************************************
-ok: [k8s_master]
-
-TASK [ccoms : Create CCOMS Deployment for Organization] **************************************************************************************
 ok: [k8s_master]
 
 TASK [ccoms : Create CCOMS Deployment for Proxy] *********************************************************************************************
