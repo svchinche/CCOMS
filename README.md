@@ -94,7 +94,7 @@ Software Metrics
 |Webserver                   |Apache Tomcat       |                    |          |To deploy web based application                                                              |
 |Operating system            |OEL                 |                    |7.3       |for deploying k8s cluster                                                                    |
 
-Implemention
+Implementation
 ============
 - Spring Boot
 - Maven
@@ -435,6 +435,95 @@ For more information on ansible, you can check this [link](https://github.com/sv
 Kubernetes
 ==========
 
+* Yaml file for deployment
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: org-ms
+   namespace: ccoms
+   labels:
+      app: org-ms
+spec:
+   replicas: 3
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 1
+         maxUnavailable: 50%
+   revisionHistoryLimit: 5
+   selector:
+      matchLabels:
+         app: org-ms
+   template:
+      metadata:
+         labels:
+            app: org-ms
+      spec:
+         containers:
+         -  name: org-ms
+            image: compucomm/org-service:1.2
+            imagePullPolicy: Always
+            ports:
+            -  containerPort: 8082
+            env:
+            - name: app.profile
+              value: dev
+            - name: CCOMS_DATABASE_USERNAME
+              value: admin
+            - name: CCOMS_DATABASE_PASSWORD
+              value: admin123
+            - name: CCOMS_DATABASE_SERVICENAME
+              value: admin
+            - name: CCOMS_DATABASE_PORT
+              value: "27017"
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            - name: CCOMS_DEPT_PORT
+              value: "8081"
+            - name: CCOMS_ORG_PORT
+              value: "8082"
+            readinessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8082
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+            livenessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8082
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+---
+```
+* Department Service
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+   name: dept
+   namespace: ccoms
+   labels:
+      app: dept-svc
+spec:
+   ports:
+   -  port: 8081
+      protocol: TCP
+   selector:
+      app: dept-ms
+```
+* Namespace
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ccoms
+```
+For more information on kubernetes, go to this [link](https://github.com/svchinche/TechTopicswithBestPractices/tree/master/kubernetes)
+
 Jenkins
 =======
 
@@ -444,20 +533,13 @@ Docker images
 <p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
 
 
-Existing System
-===============
+
 
 
 Visualization of Containers
 ==================
 Below visualization of containers, volumes has been taken from Weave-scope kubernetes plugin
 <p align="center"><img width="460" height="300" src=".images/weave.PNG"></p>
-
-
-Advantages
-=========
-
-
 
 
 
@@ -487,15 +569,15 @@ k8s_master                 : ok=18   changed=0    unreachable=0    failed=0    s
 Application Rolling Update on k8s 
 ---------------------------------
 
-* There are two ways of update
-    * Recreate - Will terminate all your replica, and recreate a new deployment. Generally we use this in development environemnt
-    * Rolling - Not updating the instances at once, updating application with stages. We use this for zero downtime to keep application available for customer. </br>
+* Update can be done using two ways as below
+    * Recreate - This will terminate all your replica, and recreate a new deployment. Generally we use this in development environemnt.
+    * Rolling - Not updating the instances at once, updating application with stages. We use this for zero downtime for keeping application available for customer . </br>
     
 Below are the option that we use in rolling update
-* MaxSurge : How many replicas in addition of existing replica. If we have four replica and if you mention 50% of surge, total available replica will be six  
+* MaxSurge : How many replicas in addition of existing replica. If we have four replicas and if you mention 50% of surge, total available replicas will be six  
 * MaxUnavailable : How many pods can be unavailable. If you keep value as 1, it will terminate and update the pod one by one.
-* MinimumReadySeconds : We say minimum wait when new/updated pod is ready for serving request, ideal way would be to have ReadynessProbe
-* Revision history : It keep revision for deployment, this will help us to restore back using these revision
+* MinimumReadySeconds : We say minimum wait when new/updated pod is ready for serving a request, ideal way would be to have ReadynessProbe
+* Revision history : It keeps revision for deployment, this will help us to restore back using these revisions.
 		
 **Implementation** 
 I have automated zero downtime patching by updating kubernetes manifest [deployment yaml] file, which is automated through ansible</br>
@@ -558,10 +640,6 @@ spec:
               periodSeconds: 10
               successThreshold: 1
 ```
-
-
-
-
 
 Rolling back Application on k8s
 --------------------------------
