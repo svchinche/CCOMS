@@ -92,99 +92,100 @@ Software Metrics
 
 Employee Microservice
 ---------------------
-* Spring Boot implemntation
+
+Spring Boot implemntation
 ------------------------
 
-    * Extended EmployeeRepository with CrudRepository to itegrate it with MongoDB 
-    
-    ```java
-    @Repository
-    public interface EmployeeRepository extends CrudRepository<Employee, Long>{    
-        @Query("{ 'orgId' : ?0 }")
-        public List<Employee> findEmpsByOrgId(int orgId);
-        @Query("{ 'deptId' : ?0 }")
-        public List<Employee> findEmpsByDeptId(int deptId);
+* Extended EmployeeRepository with CrudRepository to itegrate it with MongoDB 
+
+```java
+@Repository
+public interface EmployeeRepository extends CrudRepository<Employee, Long>{    
+    @Query("{ 'orgId' : ?0 }")
+    public List<Employee> findEmpsByOrgId(int orgId);
+    @Query("{ 'deptId' : ?0 }")
+    public List<Employee> findEmpsByDeptId(int deptId);
+}
+```
+
+* Entity class has been nnotated with @document and primary key with @id
+```java
+@ApiModel(description = "All details about the Employee. ")
+@Document(collection = "employee")
+public class Employee {
+
+    @Id
+    @Indexed
+    private Long id;
+```
+
+* Then repository has been injected into Controller class using @AutoWired
+```java
+@RestController
+@RequestMapping(value = { "/api" })
+@Api(value = "Employee Management System")
+public class EmployeeRestController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRestController.class);
+    @Autowired
+    EmployeeRepository empRepository;
+
+    @GetMapping("/")
+    public String get() {
+        return "Please give url as hostname/employee/get";
+
     }
-    ```
-    
-    * Entity class has been nnotated with @document and primary key with @id
-    ```java
-    @ApiModel(description = "All details about the Employee. ")
-    @Document(collection = "employee")
-    public class Employee {
-    
-        @Id
-        @Indexed
-        private Long id;
-    ```
-    
-    * Then repository has been injected into Controller class using @AutoWired
-    ```java
-    @RestController
-    @RequestMapping(value = { "/api" })
-    @Api(value = "Employee Management System")
-    public class EmployeeRestController {
-    
-        private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRestController.class);
-        @Autowired
-        EmployeeRepository empRepository;
-    
-        @GetMapping("/")
-        public String get() {
-            return "Please give url as hostname/employee/get";
-    
-        }
-    
-        @ApiOperation(value = "Get an employee by Id")
-        @GetMapping("/{id}")
-        public ResponseEntity<Employee> getEmpById(@PathVariable("id") Long id) throws ResourceNotFoundException {
-            Employee emp = empRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
-            return ResponseEntity.ok().body(emp);
-    
-        }
-    ```
-    * Used thymeleaf template and view controller to display it on UI.
-    
-    1. View Controller
-    
-    ```java
-    @Controller
-    @RequestMapping(value = { "/" })
-    public class EmployeeViewController {
-    
-        @Autowired
-        EmployeeRepository empRep;
-    
-        @GetMapping("/pretty")
-        public String showSignUpForm(Model model) {
-            model.addAttribute("emps", empRep.findAll());
-            return "show_pretty_output";
-        }
-    
+
+    @ApiOperation(value = "Get an employee by Id")
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> getEmpById(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        Employee emp = empRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found for this id :: " + id));
+        return ResponseEntity.ok().body(emp);
+
     }
-    ```
-    
-    2. HTML page using thymeleaf template
-    ```html
-    		<tbody>
-    			<tr th:if="${emps.empty}">
-    				<td colspan="2">CCOMS Employee Information</td>
-    			</tr>
-    			<tr th:each="emp : ${emps}">
-    				<td><span th:text="${emp.id}"> ID </span></td>
-    				<td><span th:text="${emp.name}"> Name </span></td>
-    				<td><span th:text="${emp.age}"> Age </span></td>
-    				<td><span th:text="${emp.position}"> Position </span></td>
-    				<td><span th:text="${emp.orgId}"> OrgId </span></td>
-    				<td><span th:text="${emp.deptId}"> DeptId </span></td>
-    			</tr>
-    		</tbody>
-    ```
-    
-    
-    <p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
-    
+```
+* Used thymeleaf template and view controller to display it on UI.
+
+1. View Controller
+
+```java
+@Controller
+@RequestMapping(value = { "/" })
+public class EmployeeViewController {
+
+    @Autowired
+    EmployeeRepository empRep;
+
+    @GetMapping("/pretty")
+    public String showSignUpForm(Model model) {
+        model.addAttribute("emps", empRep.findAll());
+        return "show_pretty_output";
+    }
+
+}
+```
+
+2. HTML page using thymeleaf template
+```html
+		<tbody>
+			<tr th:if="${emps.empty}">
+				<td colspan="2">CCOMS Employee Information</td>
+			</tr>
+			<tr th:each="emp : ${emps}">
+				<td><span th:text="${emp.id}"> ID </span></td>
+				<td><span th:text="${emp.name}"> Name </span></td>
+				<td><span th:text="${emp.age}"> Age </span></td>
+				<td><span th:text="${emp.position}"> Position </span></td>
+				<td><span th:text="${emp.orgId}"> OrgId </span></td>
+				<td><span th:text="${emp.deptId}"> DeptId </span></td>
+			</tr>
+		</tbody>
+```
+
+
+<p align="center"><img width="460" height="300" src=".images/empsvc.PNG"></p>
+
 
 
 Department Microservice
@@ -197,10 +198,67 @@ Organization Microservice
 
 <p align="center"><img width="460" height="300" src=".images/orgsvc.PNG"></p>
 
-Swagger of all Microservice [Centralized Swagger]
----------------------
+Proxy Microserver (Gateway)
+-----------------------------
+* Annotated EnableZullProxy class to enable spring boot proxy server
+```
+@EnableRetry
+@EnableZuulProxy
+@EnableSwagger2
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class })
+public class ProxyServerMicroserviceApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(ProxyServerMicroserviceApplication.class, args);
+    }
+
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(RequestHandlerSelectors.basePackage("com.cloudcomp.ccoms.proxysvc.controller"))
+                .paths(PathSelectors.any()).build().apiInfo(apiEndPointsInfo());
+    }
+```
+
+* Documented REST API using Centralized Swagger
+```java
+@Component
+@EnableAutoConfiguration
+@Primary
+public class RestAPIDocumentationController implements SwaggerResourcesProvider {
+
+    @Override
+    public List<SwaggerResource> get() {
+        List<SwaggerResource> resources = new ArrayList<>();
+        resources.add(swaggerResource("employee-service", "/emp/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("department-service", "/dept/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("organization-service", "/org/v2/api-docs", "2.0"));
+        return resources;
+    }
+```
 <p align="center"><img width="460" height="300" src=".images/swagger.PNG"></p>
+
+* Routes are configure for Proxy Server as below
+[Git hub link](https://github.com/svchinche/CCOMS-configfiles/blob/master/config-files/uat/zuulserver-microservice-uat.yaml)
+```yaml
+server:
+   port: ${CCOMS_ZUUL_PORT}
+
+zuul:
+   routes:
+      employee:
+         path: /emp/**
+         url: http://emp.ccoms.com:${CCOMS_EMP_PORT}/
+         serviceId: employee-service
+      department:
+         path: /dept/**
+         url: http://dept.ccoms.com:${CCOMS_DEPT_PORT}/
+         serviceId: department-service
+      organization:
+         path: /org/**
+         url: http://org.ccoms.com:${CCOMS_ORG_PORT}/
+         serviceId: organization-service
+```
 
 Postman utiltity to send data using Rest api's
 ---------------------
@@ -563,7 +621,7 @@ Autoscalling of Microservices
 Backup and Restoration of k8s resources using Heptio Velero
 -------------------------------------------
 
-Dev-Ops Best Practices
+DevOps Best Practices
 ======================
 
 Objectives
