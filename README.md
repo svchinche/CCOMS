@@ -41,17 +41,25 @@ Introduction
 ============
 
 I have created three different microservices, which communicate with each other trough REST API.</br>
-- employee-service </br>
-- department-service </br>
-- organization-service </br>
-- proxy-service
-- config-service
+- Employee
+- Department
+- Organization
+- Proxy
+- Config
 
 There is nothing special in these microservices.
-- I have used spring boot dependencies to build spring boot based project and itegrated with mongodb database to store the data and used centralized swagger for documenting the rest api. Below are the screenshot for individual microservices
+- I have used spring boot dependencies to build spring boot based project and deployed it on kubernetes.
 
-
-
+Purpose of creating the organization
+-----------------------------------
+To uniquely identify project across all th projects, I have created CCOMS organization intentionally. </br>
+Below is the groupid that i have used in maven project. </br>
+```
+<groupId>com.cloudcomp.ccoms</groupId>
+com -- for commercial
+cloudcomp -- Organization name
+ccoms -- Organization Management Sysem Project
+```
 Software Metrics
 ===================
 
@@ -341,7 +349,7 @@ Aggreated Dependency and Plugin Management into Parent Pom file.
 For the demonstration purpose i an using install maven phase</br>
 
 Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to CCOMS/org-mgmt-system directory </br>
-run below command.
+and run below command.
 </br>
 
 ```linux
