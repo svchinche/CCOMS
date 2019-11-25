@@ -12,9 +12,13 @@ Table of contents
    * [Abstract](#abstract)
    * [Introdution](#introduction)
    * [Software Metrics](#software-metrics)
-   * [Existing System](#existing-system)
-   * [Data flow Diagrams](#data-flow-diagrams)
-   * [How automation works](#how-automation-works)
+   * [Implementation](#implementation)
+      * [Spring Boot](#spring-boot)
+      * [Maven](#maven)
+      * [Ansible](#ansible)
+      * [Kubernetes](#kubernetes)
+      * [Jenkins](#jenkins)
+   * [Visualization of Containers](#visualization-of-containers)
    * [Operational Activities](#operational-activities)
       * [Application Deployment on k8s](#application-deployment-on-k8s)
       * [Application Rolling Update on k8s](#application-rolling-update-on-k8s)
@@ -90,11 +94,19 @@ Software Metrics
 |Webserver                   |Apache Tomcat       |                    |          |To deploy web based application                                                              |
 |Operating system            |OEL                 |                    |7.3       |for deploying k8s cluster                                                                    |
 
+Implemention
+============
+- Spring Boot
+- Maven
+- Ansible
+- Kubernetes
+- Jenkins
+
+Spring Boot
+===========
+
 Employee Microservice
 ---------------------
-
-Spring Boot implemntation
-------------------------
 
 * Extended EmployeeRepository with CrudRepository to itegrate it with MongoDB 
 
@@ -190,17 +202,39 @@ public class EmployeeViewController {
 
 Department Microservice
 ---------------------
+Used OpenFeign Client to fetch data from Employee MicroService.
+```java
+@FeignClient(name = "employee-service", url = "${emp.service.url: http://localhost:8080}")
+public interface EmployeeClient {
 
+    @GetMapping("/api/dept/{deptId}")
+    public List<Employee> findEmpsByDeptId(@PathVariable("deptId") Long deptId);
+
+}
+```
 <p align="center"><img width="460" height="300" src=".images/deptsvc.PNG"></p>
 
 Organization Microservice
 ---------------------
+Used Openfeign client to fetch data from Department and Employee Microservice
+```java
+@FeignClient(name = "department-service", url = "${dept.service.url: http://localhost:8081}")
+public interface DepartmentClient {
+
+    @GetMapping("/api/org/{orgId}")
+    public List<Department> findDeptsUsingOrgId(@PathVariable("orgId") Long orgId);
+
+    @GetMapping("/api/org/{orgId}/withemp")
+    public List<Department> findDeptsWithEmpsUsingOrgId(@PathVariable("orgId") Long orgId);
+
+}
+```
 
 <p align="center"><img width="460" height="300" src=".images/orgsvc.PNG"></p>
 
 Proxy Microserver (Gateway)
 -----------------------------
-* Annotated EnableZullProxy class to enable spring boot proxy server
+* Annotated application class with EnableZullProxy for enabling spring proxy server.
 ```
 @EnableRetry
 @EnableZuulProxy
@@ -219,24 +253,6 @@ public class ProxyServerMicroserviceApplication {
                 .paths(PathSelectors.any()).build().apiInfo(apiEndPointsInfo());
     }
 ```
-
-* Documented REST API using Centralized Swagger
-```java
-@Component
-@EnableAutoConfiguration
-@Primary
-public class RestAPIDocumentationController implements SwaggerResourcesProvider {
-
-    @Override
-    public List<SwaggerResource> get() {
-        List<SwaggerResource> resources = new ArrayList<>();
-        resources.add(swaggerResource("employee-service", "/emp/v2/api-docs", "2.0"));
-        resources.add(swaggerResource("department-service", "/dept/v2/api-docs", "2.0"));
-        resources.add(swaggerResource("organization-service", "/org/v2/api-docs", "2.0"));
-        return resources;
-    }
-```
-<p align="center"><img width="460" height="300" src=".images/swagger.PNG"></p>
 
 * Routes are configure for Proxy Server as below
 [Git hub link](https://github.com/svchinche/CCOMS-configfiles/blob/master/config-files/uat/zuulserver-microservice-uat.yaml)
@@ -260,39 +276,74 @@ zuul:
          serviceId: organization-service
 ```
 
+* Documented REST API using Centralized Swagger
+```java
+@Component
+@EnableAutoConfiguration
+@Primary
+public class RestAPIDocumentationController implements SwaggerResourcesProvider {
+
+    @Override
+    public List<SwaggerResource> get() {
+        List<SwaggerResource> resources = new ArrayList<>();
+        resources.add(swaggerResource("employee-service", "/emp/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("department-service", "/dept/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("organization-service", "/org/v2/api-docs", "2.0"));
+        return resources;
+    }
+```
+<p align="center"><img width="460" height="300" src=".images/swagger.PNG"></p>
+
+
+
 Postman utiltity to send data using Rest api's
 ---------------------
 
 <p align="center"><img width="460" height="300" src=".images/postman.PNG"></p>
 
-Docker images 
---------------
 
-<p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
+Maven
+=====
 
+CCOMS is spring boot based application and built using maven. </br>
+I have used multimodule project to build all microservice from one location. Generally we run maven goals rather than phases directly. </br>
+Aggreated Dependency and Plugin Management into Parent Pom file.
 
-Existing System
-===============
+```xml
+<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.pivotal.spring.cloud</groupId>
+                <artifactId>spring-cloud-services-dependencies</artifactId>
+                <version>${spring-cloud-services.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+</dependencyManagement>	
+<build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            <plugins>
+       <pluginManagement>
+</build>
+```   
+For the demonstration purpose i an using install maven phase</br>
 
-Demerits of Existing System
-===========================
+Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to CCOMS/org-mgmt-system directory </br>
+run below command.
+</br>
 
-Data Flow Diagrams
-==================
-<p align="center"><img width="460" height="300" src=".images/weave.PNG"></p>
-
-Proposed System
-===============
-
-Advantages
-=========
-
-How Automation Works
-====================
-
-CCOMS is spring boot based application and built using maven
-
-Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to CCOMS/org-mgmt-system directory and run below command.
 ```linux
 [root@mum00aqm org-mgmt-system]# mvn -Drevision=1.3 -DskipTests=true  clean:clean install
 [INFO] Scanning for projects...
@@ -349,6 +400,66 @@ As docker spotify plugin is entitled  with install phase, thats is why it is pus
     * with revision, that we passed as argument to maven
 	
 <p align="center"><img width="460" height="300" src=".images/dockertagging.PNG"></p>
+
+Ansible
+=======
+
+Below is directory structure of ansible.these are the self explainatory.
+```
+[root@mum00aqm ansible_k8s-ccoms-deployment]# tree -L 2
+.
+├── ansible.cfg
+├── ccoms_playbook.yaml
+├── environments
+│   ├── 000_cross_env_vars
+│   ├── dev
+│   ├── prod
+│   └── uat
+├── prereq_verification_ccoms.sh
+├── roles
+│   ├── ccoms
+│   ├── common
+│   ├── database
+│   └── preccoms
+└── scripts
+    ├── post_ccoms
+    ├── pre_ccoms
+    └── test.yaml
+```
+
+12 directories, 5 files
+
+For more information on ansible, you can check this [link](https://github.com/svchinche/TechTopicswithBestPractices/tree/master/ansible)
+
+
+Kubernetes
+==========
+
+Jenkins
+=======
+
+Docker images 
+--------------
+
+<p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
+
+
+Existing System
+===============
+
+
+Visualization of Containers
+==================
+Below visualization of containers, volumes has been taken from Weave-scope kubernetes plugin
+<p align="center"><img width="460" height="300" src=".images/weave.PNG"></p>
+
+
+Advantages
+=========
+
+
+
+
 
 Operational Activities
 ======================
