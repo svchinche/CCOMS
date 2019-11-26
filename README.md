@@ -35,12 +35,12 @@ Table of contents
 
 Abstract
 ========
-**CCOMS is a Organization Managament System Microservices based project. Purpose of creating this project is to understand and work on all Devops technology. Live project will help you to understand or map all devops tools easily, this is why i have created this project.**
+**CCOMS is a Organization Managament System Microservices based project. Purpose of creating this project is to understand and work on all Devops technologies. Live project will help you to understand or map all devops tools easily, that is why i have created this project.**
 
 Introduction
 ============
 
-I have created three different microservices, which communicate with each other trough REST API.</br>
+I have created three different microservices, which communicates with each other trough REST API.</br>
 - Employee
 - Department
 - Organization
