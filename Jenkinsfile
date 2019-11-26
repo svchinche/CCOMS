@@ -13,14 +13,16 @@ pipeline {
 
 
       environment {
-           //application metadata related variables 
+           
            APP_NAME = "ccoms"
            APP_ROOT_DIR = "org-mgmt-system"
            APP_AUTHOR = "Suyog Chinche"
+
            PACKAGING  = "jar"
            OUTPUT_FILE = "${APP_NAME}.${PACKAGING}" 
            MAVEN_EXTENSION = "${PACKAGING}"
            SORT_OPTION = "repository"
+          
            GIT_URL="https://github.com/svchinche/CCOMS.git"
 
            VERSION_NUMBER=VersionNumber([
@@ -82,6 +84,7 @@ pipeline {
 
            }
     
+          /*
            stage('Publishing code on SONARQUBE'){
                 when {
                      anyOf {
@@ -181,5 +184,6 @@ pipeline {
                     echo "Generating checklist report"
                 }
            }
+           */
       }
 }
