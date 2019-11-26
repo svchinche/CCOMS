@@ -8,7 +8,7 @@ pipeline {
       }
 
       libraries {
-           lib('my-shared-library@master')
+           lib('git_infoshared_lib@master')
       }
 
 
