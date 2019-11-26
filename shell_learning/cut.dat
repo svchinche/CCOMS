@@ -1,2 +1,0 @@
-echo -e "Hi \n this is suyog, \n and my mob no is 9822622279" | cut -d' ' -f1
-echo -e "Hi \n this is suyog, \n and my mob no is 9822622279" | cut -d' ' -f1-4 --output-delimiter='%'

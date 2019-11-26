@@ -1,0 +1,5 @@
+---
+# handlers file for preccoms
+
+- name: "Removing pods to update CoreDNS CM"
+  command:  kubectl delete pod --namespace kube-system -l k8s-app=kube-dns

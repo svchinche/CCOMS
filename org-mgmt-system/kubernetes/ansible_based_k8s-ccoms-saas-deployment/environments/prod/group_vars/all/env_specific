@@ -1,6 +1,0 @@
----
-# vars file for ccoms
-
-IMAGEPREFIX: compucomm/organization-mgmt-system
-LOGLEVEL: DEBUG
-PROFILE: dev

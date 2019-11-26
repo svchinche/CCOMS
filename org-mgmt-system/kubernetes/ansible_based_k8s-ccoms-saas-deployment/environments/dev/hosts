@@ -1,5 +1,0 @@
-[k8s-master-and-worker:children]
-k8s-mgmt-node
-
-[k8s-mgmt-node]
-k8s-master ansible_host=mum00aqm.in.oracle.com ansible_port=22 ansible_user=root

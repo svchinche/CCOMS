@@ -1,6 +1,0 @@
----
-- name: Cloud Comp OMS Database role
-  hosts: all
-  user: root
-  roles:
-  - database

@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 {
+        errors
+        health
+
+        rewrite name cfg.ccoms.com cfg.ccoms.svc.cluster.local
+        rewrite name dept.ccoms.com dept.ccoms.svc.cluster.local
+        rewrite name org.ccoms.com org.ccoms.svc.cluster.local
+        rewrite name emp.ccoms.com emp.ccoms.svc.cluster.local
+        rewrite name proxy.ccoms.com proxy.ccoms.svc.cluster.local
+        rewrite name db.mongo.com db.mongo.svc.cluster.local
+
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           upstream
+           fallthrough in-addr.arpa ip6.arpa
+        }
+        prometheus :9153
+        proxy . /etc/resolv.conf
+        cache 30
+        loop
+        reload
+        loadbalance
+    }
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: kube-system

@@ -1,2 +1,0 @@
-free | grep Mem | awk '{ printf("free: %d %\n", $4/$2 * 100.0) }'
-ps -eo pid,pmem --sort pmem

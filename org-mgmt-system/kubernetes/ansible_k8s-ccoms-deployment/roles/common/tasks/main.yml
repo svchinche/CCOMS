@@ -1,0 +1,42 @@
+---
+
+## tasks for CCOMS
+
+- name: "Ensure Pip is installed on Proxy Based Env"
+  package:
+    name: python-pip
+    state: present
+  tags:
+  - common
+  - common:prereq
+  when: PROFILE == 'prod'
+
+- name: "Ensure OpenShift client is installed on Proxy Based Env."
+  pip:
+    name: openshift
+    state: present
+  tags:
+  - common
+  - common:prereq
+  when: PROFILE == 'prod'
+
+- name: "Ensure Pip is installed"
+  package:
+    name: python-pip
+    state: present
+  tags:
+  - common
+  - common:prereq
+  environment: "{{ proxy_env }}"
+  when: PROFILE == 'dev2' or PROFILE == 'uat2'
+
+- name: "Ensure OpenShift client is installed."
+  pip:
+    name: openshift
+    state: present
+  tags:
+  - common
+  - common:prereq
+  environment: "{{ proxy_env }}"
+  when: PROFILE == 'dev' or PROFILE == 'uat'
+

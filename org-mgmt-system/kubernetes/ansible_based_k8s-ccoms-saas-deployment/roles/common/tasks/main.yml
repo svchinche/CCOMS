@@ -1,6 +1,0 @@
----
-# tasks file for common
-
-- debug:
-    msg: "{{ PROFILE }}"
-    msg: "{{ common.servicename }}"

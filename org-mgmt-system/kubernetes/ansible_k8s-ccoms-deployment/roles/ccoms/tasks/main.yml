@@ -1,0 +1,23 @@
+---
+
+## tasks for CCOMS
+
+- import_tasks: ccoms-namespace.yml
+  tags:
+  - ccoms
+  - ccoms:namespace
+
+- import_tasks: ccoms-service.yml
+  tags:
+  - ccoms
+  - ccoms:service
+
+- import_tasks: ccoms-secrets.yml
+  tags:
+  - ccoms
+  - ccoms:secrets
+
+- import_tasks: ccoms-deployment.yml
+  tags:
+  - ccoms
+  - ccoms:deployment

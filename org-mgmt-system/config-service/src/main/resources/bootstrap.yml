@@ -1,0 +1,28 @@
+server:
+  port: 8888
+  
+logging:
+  level:
+     org:
+      springframework:
+        web: DEBUG
+         
+
+spring:
+  profiles:
+    include: default
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        git:
+          uri: 'https://github.com/svchinche/CCOMS-configfiles.git'
+          search-paths:
+          - 'config-files/default/'
+          - 'config-files/dev/'
+          - 'config-files/prod/'
+          - 'config-files/uat/'
+          proxy:
+            https:
+              host: www-proxy.us.oracle.com
+              port: 80

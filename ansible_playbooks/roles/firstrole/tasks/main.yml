@@ -1,6 +1,0 @@
----
-# tasks file for firstrole
-- name: printing all variable
-  debug:
-    msg: Employee information is {{ item }}
-  with_items: "{{ Employees }}"

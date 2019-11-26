@@ -1,1 +1,0 @@
-for filename in $( ls *.txt |sed 's/.txt1$//g'); do mv ${filename}.txt1 ${filename}.txt ; done
