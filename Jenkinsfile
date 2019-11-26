@@ -14,30 +14,26 @@ pipeline {
 
       environment {
            //application metadata related variables 
-           APP_NAME = "quickstart"
+           APP_NAME = "ccoms"
+           APP_ROOT_DIR = "org-mgmt-system"
            APP_AUTHOR = "Suyog Chinche"
            PACKAGING  = "jar"
            OUTPUT_FILE = "${APP_NAME}.${PACKAGING}" 
            MAVEN_EXTENSION = "${PACKAGING}"
            SORT_OPTION = "repository"
-           GIT_URL="https://github.com/suyogchinche/CICD_declarative_pipeline.git"
+           GIT_URL="https://github.com/svchinche/CCOMS.git"
 
-           // Version specific variable
            VERSION_NUMBER=VersionNumber([
                versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${BUILD_NUMBER}',
                projectStartDate : '2019-02-09',
                versionPrefix : 'v'
            ])
 
-           //appn memory argument
            SBT_OPTS='-Xmx1024m -Xms512m'
            JAVA_OPTS='-Xmx1024m -Xms512m'
 
-           //All servers URL
            NEXUS_URL = "worker-node1:8081"
 
-           //Used shared library to get the build no and tag name
-           //BUILD_NUM = show_BuildId()
       }
 
 
@@ -49,34 +45,34 @@ pipeline {
                      script {
                           env.BUILD_NUM = show_BuildId()
                      }
-                     sh 'mvn -f monolithic_app/pom.xml -Drevision="${BUILD_NUM}" clean:clean'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" clean:clean'
                 }
            }
            
            // Compile main and test classes
            stage('Compiling Phase') {
                 steps {
-                     sh 'mvn -f monolithic_app/pom.xml -Drevision="${BUILD_NUM}" compiler:compile compiler:testCompile'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" compiler:compile compiler:testCompile'
                 }
            }
 
            // Generate test cases using default surefire plugin in maven
            stage('Generate Test Cases - Surefire') {
                 steps {
-                     sh 'mvn -f monolithic_app/pom.xml -Drevision="${BUILD_NUM}" surefire:test'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" surefire:test'
                 }
 
                 post {
                      success {
-                          //junit 'monolithic_app/target/surefire-reports/*.xml'
-                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'monolithic_app/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
+                          //junit '${APP_ROOT_DIR}/target/surefire-reports/*.xml'
+                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
                      }
                 }
            }
           
            stage('Verify code coverage - Jacoco') {
                 steps {
-                    sh 'mvn -f monolithic_app/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
+                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
                      always {
@@ -93,7 +89,7 @@ pipeline {
                      }
                 }
                 steps {
-                    sh 'mvn -f monolithic_app/pom.xml -Drevision="${BUILD_NUM}" sonar:sonar'
+                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" sonar:sonar'
                 }
            }
            stage('Pushing artifacts to NEXUS') {
@@ -109,7 +105,7 @@ pipeline {
                      }
                 }
                 steps {
-                     sh 'mvn -f monolithic_app/pom.xml -Drevision="${BUILD_NUM}" jar:jar deploy:deploy'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" jar:jar deploy:deploy'
                 }
            }
 
@@ -145,9 +141,9 @@ pipeline {
 
                           environment{
                                 JMETER_HOME="/u01/app/jmeter/apache-jmeter-5.1.1";
-                                JMX_FILE_LOC="monolithic_app/jmeter_test_cases/buyer.jmx"
-                                JMX_RESULT_FILE_LOC="monolithic_app/target/result.file"
-                                JMX_WEB_REP_LOC="monolithic_app/target/jmxreport"
+                                JMX_FILE_LOC="${APP_ROOT_DIR}/jmeter_test_cases/buyer.jmx"
+                                JMX_RESULT_FILE_LOC="${APP_ROOT_DIR}/target/result.file"
+                                JMX_WEB_REP_LOC="${APP_ROOT_DIR}/target/jmxreport"
                             }
 
                            steps {
@@ -169,11 +165,11 @@ pipeline {
                      stage('Functional Regression Test') {
                            steps {
                                  echo "Function test is in progress...."
-                                 sh 'mvn -f monolithic_app/ -Drevision="${BUILD_NUM}" failsafe:integration-test'
+                                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" failsafe:integration-test'
                            }
                            post {
                                 always {
-                                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'monolithic_app/target/failsafe-reports', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: 'IT Test Result'])
+                                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/target/failsafe-reports', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: 'IT Test Result'])
                                 }
                           }
                      }
