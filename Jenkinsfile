@@ -35,9 +35,10 @@ pipeline {
 
       stages {
            
+           // Clean target directory if present
            stage('Cleaning Phase') {
                 steps {
-                     // This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library
+                     /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
                      script {
                           env.REVISION_ID = getBuildVersion()
                      }
@@ -45,14 +46,14 @@ pipeline {
                 }
            }
            
-           
-            stage('Copy Resources') {
+           // Copy resources to output directory
+           stage('Copy Resources') {
                 steps {
                      sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
                 }
            }
            
-           // Compile main and test classes
+           // Compile main and test classes 
            stage('Compiling Phase') {
                 steps {
                      sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile compiler:testCompile'
@@ -68,7 +69,7 @@ pipeline {
                 post {
                      success {
                           //junit '${APP_ROOT_DIR}/target/surefire-reports/*.xml'
-                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
+                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/config-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
                      }
                 }
            }
