@@ -26,7 +26,7 @@ pipeline {
            GIT_URL="https://github.com/svchinche/CCOMS.git"
 
            VERSION_NUMBER=VersionNumber([
-               versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${BUILD_NUMBER}',
+               versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${REVISION_IDBER}',
                projectStartDate : '2019-02-09',
                versionPrefix : 'v'
            ])
@@ -45,23 +45,23 @@ pipeline {
                 steps {
                      // This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library
                      script {
-                          env.BUILD_NUM = show_BuildId()
+                          env.REVISION_ID = getBuildVersion()
                      }
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" clean:clean'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
                 }
            }
            
            // Compile main and test classes
            stage('Compiling Phase') {
                 steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" compiler:compile compiler:testCompile'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile compiler:testCompile'
                 }
            }
 
            // Generate test cases using default surefire plugin in maven
            stage('Generate Test Cases - Surefire') {
                 steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" surefire:test'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" surefire:test'
                 }
 
                 post {
@@ -74,7 +74,7 @@ pipeline {
           
            stage('Verify code coverage - Jacoco') {
                 steps {
-                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
+                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
                 }
                 post {
                      always {
@@ -92,7 +92,7 @@ pipeline {
                      }
                 }
                 steps {
-                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" sonar:sonar'
+                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" sonar:sonar'
                 }
            }
            stage('Pushing artifacts to NEXUS') {
@@ -108,7 +108,7 @@ pipeline {
                      }
                 }
                 steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" jar:jar deploy:deploy'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" jar:jar deploy:deploy'
                 }
            }
 
@@ -168,7 +168,7 @@ pipeline {
                      stage('Functional Regression Test') {
                            steps {
                                  echo "Function test is in progress...."
-                                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${BUILD_NUM}" failsafe:integration-test'
+                                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" failsafe:integration-test'
                            }
                            post {
                                 always {
