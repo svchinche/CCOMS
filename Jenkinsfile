@@ -17,11 +17,6 @@ pipeline {
            APP_NAME = "ccoms"
            APP_ROOT_DIR = "org-mgmt-system"
            APP_AUTHOR = "Suyog Chinche"
-
-           PACKAGING  = "jar"
-           OUTPUT_FILE = "${APP_NAME}.${PACKAGING}" 
-           MAVEN_EXTENSION = "${PACKAGING}"
-           SORT_OPTION = "repository"
           
            GIT_URL="https://github.com/svchinche/CCOMS.git"
 
@@ -34,7 +29,6 @@ pipeline {
            SBT_OPTS='-Xmx1024m -Xms512m'
            JAVA_OPTS='-Xmx1024m -Xms512m'
 
-           NEXUS_URL = "worker-node1:8081"
 
       }
 
@@ -51,6 +45,13 @@ pipeline {
                 }
            }
            
+           
+            stage('Copy Resources') {
+                steps {
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
+                }
+           }
+           
            // Compile main and test classes
            stage('Compiling Phase') {
                 steps {
@@ -61,7 +62,7 @@ pipeline {
            // Generate test cases using default surefire plugin in maven
            stage('Generate Test Cases - Surefire') {
                 steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" surefire:test'
+                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire:test'
                 }
 
                 post {
@@ -72,19 +73,10 @@ pipeline {
                 }
            }
           
-           stage('Verify code coverage - Jacoco') {
-                steps {
-                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
-                }
-                post {
-                     always {
-                         jacoco classPattern: '**/target/classes', execPattern: '**/target/**.exec'
-                     }
-                }
+           
 
-           }
-    
           /*
+          
            stage('Publishing code on SONARQUBE'){
                 when {
                      anyOf {
