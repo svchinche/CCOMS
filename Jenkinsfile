@@ -1,182 +1,170 @@
 pipeline {
-      agent {
+
+    agent {
         label 'master'
-      }
-      tools {
-      maven 'maven'
-      jdk 'jdk8'
-      }
+    }
+    tools {
+        maven 'maven'
+        jdk 'jdk8'
+    }
 
-      libraries {
-           lib('git_infoshared_lib@master')
-      }
+    libraries {
+        lib('git_infoshared_lib@master')
+    }
 
+    environment {
+         
+        APP_NAME = "ccoms"
+        APP_ROOT_DIR = "org-mgmt-system"
+        APP_AUTHOR = "Suyog Chinche"
+        
+        GIT_URL="https://github.com/svchinche/CCOMS.git"
 
-      environment {
-           
-           APP_NAME = "ccoms"
-           APP_ROOT_DIR = "org-mgmt-system"
-           APP_AUTHOR = "Suyog Chinche"
-          
-           GIT_URL="https://github.com/svchinche/CCOMS.git"
+        VERSION_NUMBER=VersionNumber([
+            versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${REVISION_IDBER}',
+            projectStartDate : '2019-02-09',
+            versionPrefix : 'v'
+        ])
 
-           VERSION_NUMBER=VersionNumber([
-               versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${REVISION_IDBER}',
-               projectStartDate : '2019-02-09',
-               versionPrefix : 'v'
-           ])
+        SBT_OPTS='-Xmx1024m -Xms512m'
+        JAVA_OPTS='-Xmx1024m -Xms512m'
 
-           SBT_OPTS='-Xmx1024m -Xms512m'
-           JAVA_OPTS='-Xmx1024m -Xms512m'
-
-
-      }
+    }
 
 
-      stages {
-           
-           // Clean target directory if present
-           stage('Cleaning Phase') {
-                steps {
-                     /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
-                     script {
-                          env.REVISION_ID = getBuildVersion()
-                     }
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
+    stages {
+         
+        stage('Cleaning Phase') {
+            steps {
+                 /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
+                script {
+                    env.REVISION_ID = getBuildVersion()
                 }
-           }
-           
-           // Copy resources to output directory
-           stage('Copy Resources') {
-                steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
+            }
+        }
+        
+        stage('Copy Resources') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
+            }
+        }
+        
+        stage('Generate Test Cases - Surefire') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire:test'
+            }
+
+            post {
+                success {
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/config-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
                 }
-           }
-           
-           // Compile main and test classes 
-           stage('Compiling Phase') {
-                steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile compiler:testCompile'
+            }
+        }
+        
+        stage('Publishing code on SONARQUBE'){
+            when {
+                anyOf {
+                    branch 'release'
                 }
-           }
-
-           // Generate test cases using default surefire plugin in maven
-           stage('Generate Test Cases - Surefire') {
-                steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire:test'
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl .,config-service  sonar:sonar'
+            }
+        }
+        
+		 
+        stage('Packaging') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl department-service,employee-service,gateway-service,organization-service war:war spring-boot:repackage dependency:unpack@unpack'
+            }
+        }
+        
+        stage('Building and Pushing an image') {
+            when {
+                anyOf {
+                    branch 'release'
+					branch 'hotfix'
+					branch 'master'
                 }
-
-                post {
-                     success {
-                          //junit '${APP_ROOT_DIR}/target/surefire-reports/*.xml'
-                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/config-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
-                     }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+            }
+        }
+		
+		// In case of develop branch, QA env will be provision based on local private docker registry
+		stage('Snapshot Release- Building and Pushing an image') {
+            when {
+                anyOf {
+                    branch 'develop'
                 }
-           }
-          
-           
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+            }
+        }
 
-          /*
-          
-           stage('Publishing code on SONARQUBE'){
-                when {
-                     anyOf {
-                          branch 'release'
-                     }
+        stage('Install/Update artifact - QA/Stage/DEV-UAT') {
+            steps {
+                echo "Installation is in Progress ...."
+            }
+        }
+
+
+        stage('Post Deployment ll stages') {
+        
+            parallel {
+            
+                stage('Integration Test') {
+                    steps {
+                        echo "Integration test is in Progress ...."
+                    }
                 }
-                steps {
-                    sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" sonar:sonar'
+                /*
+                stage('Performance Test') {
+
+                    environment{
+                        JMETER_HOME="/u01/app/jmeter/apache-jmeter-5.1.1";
+                        JMX_FILE_LOC="${APP_ROOT_DIR}/jmeter_test_cases/buyer.jmx"
+                        JMX_RESULT_FILE_LOC="${APP_ROOT_DIR}/target/result.file"
+                        JMX_WEB_REP_LOC="${APP_ROOT_DIR}/target/jmxreport"
+                    }
+
+                    steps {
+                        echo "Performance test is in progress ...."
+                        sh script: ''' [ -d ${JMX_WEB_REP_LOC} ] &&  rm -rf  ${JMX_WEB_REP_LOC}
+                            [ -f ${JMX_RESULT_FILE_LOC} ] &&  rm -rf  ${JMX_RESULT_FILE_LOC}
+                            mkdir -p ${JMX_WEB_REP_LOC}
+                            ${JMETER_HOME}/bin/jmeter.sh -n -t ${JMX_FILE_LOC} -l ${JMX_RESULT_FILE_LOC} -e -o ${JMX_WEB_REP_LOC}
+                            '''
+                    }
+                    post {
+                        success {
+                            perfReport sourceDataFiles: env.JMX_RESULT_FILE_LOC
+                        }
+                    }
                 }
-           }
-           stage('Pushing artifacts to NEXUS') {
-                when {
-                     anyOf {
-                          branch 'develop'
-                          branch 'release'
-                          branch 'hotfix'
-                          allOf {
-                                     branch "feature-*"
-                                     tag "release-*"
-                          }
-                     }
+                */
+                stage('Functional Regression Test') {
+                    steps {
+                        echo "Function test is in progress...."
+                        sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" failsafe:integration-test'
+                    }
+                    post {
+                        always {
+                            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/target/failsafe-reports', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: 'IT Test Result'])
+                        }
+                    }
                 }
-                steps {
-                     sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" jar:jar deploy:deploy'
-                }
-           }
+            }
+        }
 
-           stage('Download artifact for deployment') {
-                environment{
-                       ASSET_URL= "http://${NEXUS_URL}/service/rest/v1/search/assets/download?sort=${SORT_OPTION}&repository=maven-snapshots&name=${APP_NAME}&group=com.vogella.maven&version=${VERSION_NUMBER}&maven.extension=${PACKAGING}"
-                }
-                steps {
-                     echo "Downloading ...."
-                     withCredentials([usernamePassword(credentialsId: 'nexus_artifactory_repository_credentials', passwordVariable: 'password', usernameVariable: 'username')]) { 
-                         sh 'curl -u ${username}:${password} -L -X GET ${ASSET_URL} -o ${APP_NAME}.${PACKAGING}'
-                     }
-                      
-                }
-           }
-
-           stage('Install/Update artifact - QA/Stage/DEV-UAT') {
-                steps {
-                     echo "Installation is in Progress ...."
-                }
-           }
-
-
-           stage('Post Deployment ll stages') {
-                parallel {
-                     stage('Integration Test') {
-                           steps {
-                                  echo "Integration test is in Progress ...."
-                           }
-                     }
-
-                     stage('Performance Test') {
-
-                          environment{
-                                JMETER_HOME="/u01/app/jmeter/apache-jmeter-5.1.1";
-                                JMX_FILE_LOC="${APP_ROOT_DIR}/jmeter_test_cases/buyer.jmx"
-                                JMX_RESULT_FILE_LOC="${APP_ROOT_DIR}/target/result.file"
-                                JMX_WEB_REP_LOC="${APP_ROOT_DIR}/target/jmxreport"
-                            }
-
-                           steps {
-                                 echo "Performance test is in progress ...."
-                                 sh script: ''' [ -d ${JMX_WEB_REP_LOC} ] &&  rm -rf  ${JMX_WEB_REP_LOC}
-                                                [ -f ${JMX_RESULT_FILE_LOC} ] &&  rm -rf  ${JMX_RESULT_FILE_LOC}
-                                                mkdir -p ${JMX_WEB_REP_LOC}
-                                                ${JMETER_HOME}/bin/jmeter.sh -n -t ${JMX_FILE_LOC} -l ${JMX_RESULT_FILE_LOC} -e -o ${JMX_WEB_REP_LOC}
-                                            '''
-                           }
-                           post {
-                               success {
-                                   perfReport sourceDataFiles: env.JMX_RESULT_FILE_LOC
-                               }
-                           }
-
-                     }
-
-                     stage('Functional Regression Test') {
-                           steps {
-                                 echo "Function test is in progress...."
-                                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" failsafe:integration-test'
-                           }
-                           post {
-                                always {
-                                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/target/failsafe-reports', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: 'IT Test Result'])
-                                }
-                          }
-                     }
-                 }
-           }
-
-           stage('Checklist report generation') {
-                steps {
-                    echo "Generating checklist report"
-                }
-           }
-           */
-      }
+        stage('Checklist report generation') {
+            steps {
+                echo "Generating checklist report"
+            }
+        }
+        
+    }
 }
