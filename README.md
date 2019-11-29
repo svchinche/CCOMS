@@ -535,6 +535,159 @@ For more information on kubernetes, go to this [link](https://github.com/svchinc
 Jenkins
 =======
 
+Automated Development, build and test process using Jenkins.
+ - Used MultiBranch-Pipeline project.
+ - Used Declarative and scripted section in JenkinsFile.
+ - Enable web-hook to auto trigger build.
+For more information on Jenkins, go to this link 
+ 
+MultiBranch-pipeline Project
+----------------------
+This will allow you to automatically create a pipeline for each branch on your source control repository. 
+See below Jenkins MultiBranchPipeline Screenshot.
+<p align="center"><img width="460" height="300" src=".images/Jenkins_multibranching.PNG"></p>
+
+Workflow of jenkins pipeline 
+<p align="center"><img width="460" height="300" src=".images/jenkins_blue_occean.PNG"></p>
+
+
+Multibranch pipeline works using a Jenkinsfile, that is stored along with your source code inside a version control repository.
+A Jenkinsfile is nothing but a pipeline script that defines your CI pipeline.
+
+One more, benefit of using Jenkins is that, You can continue from past failed stage, Use repay feature of jenkins as shown below.
+<p align="center"><img width="460" height="300" src=".images/jenkins_repay.PNG"></p>
+
+
+Used Declarative and scripted section in JenkinsFile
+---------------------------------------------------
+You can see in below code snippet, i have used shared library (git_infoshared-lib) to get the recent tag information, which will be used to form the artifact id.
+We use groovy language to write shared library.
+
+```java
+pipeline {
+
+    agent {
+        label 'master'
+    }
+    tools {
+        maven 'maven'
+        jdk 'jdk8'
+    }
+
+    libraries {
+        lib('git_infoshared_lib@master')
+    }
+
+    environment {
+        APP_NAME = "ccoms"
+        APP_ROOT_DIR = "org-mgmt-system"
+        APP_AUTHOR = "Suyog Chinche"
+        GIT_URL="https://github.com/svchinche/CCOMS.git"
+
+    }
+
+    stages {
+         
+        stage('Cleaning Phase') {
+            steps {
+                 /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
+                script {
+                    env.REVISION_ID = getBuildVersion()
+                }
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
+            }
+        }
+        
+        stage('Copy Resources') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
+            }
+        }
+        
+        stage('Generate Test Cases - Surefire') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire:test'
+            }
+
+            post {
+                success {
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/config-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
+                }
+            }
+        }
+        
+        stage('Publishing code on SONARQUBE'){
+            when {
+                anyOf {
+                    branch 'release'
+                }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl .,config-service  sonar:sonar'
+            }
+        }
+        
+		 
+        stage('Packaging') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl department-service,employee-service,gateway-service,organization-service war:war spring-boot:repackage dependency:unpack@unpack'
+            }
+        }
+        
+        stage('Building and Pushing an image') {
+            when {
+                anyOf {
+                    branch 'release'
+					branch 'hotfix'
+					branch 'master'
+                }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+            }
+        }
+		
+		// In case of develop branch, QA env will be provision based on local private docker registry
+		stage('Snapshot Release- Building and Pushing an image') {
+            when {
+                anyOf {
+                    branch 'develop'
+                }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+            }
+        }
+
+```
+
+Shared library snippet
+
+```groovy
+def call() {
+
+    tag_id = sh(script: "git describe --abbrev=0", returnStdout: true)?.trim()
+
+    env.TAG_NAME = tag_id
+
+    if ( BRANCH_NAME == 'master' || BRANCH_NAME == 'hostfix' || BRANCH_NAME == 'release' ) {
+        echo "master-hotfix-release"
+        env.REVISION_ID = tag_id;
+        return "${TAG_NAME}"
+    } else if ( BRANCH_NAME == 'develop' || BRANCH_NAME =~ /feature/ ) {
+        echo "development-feature-*"
+        env.REVISION_ID = "${TAG_NAME}-SNAPSHOT"
+        return "${REVISION_ID}"
+    } else {
+        return null
+    }
+}
+```
+
+Enable web-hook to auto trigger build.
+-------------------------------------
+
+
 Docker images 
 --------------
 
