@@ -145,7 +145,7 @@ pipeline {
                         }
                     }
                 }
-                */
+                
                 stage('Functional Regression Test') {
                     steps {
                         echo "Function test is in progress...."
@@ -157,6 +157,7 @@ pipeline {
                         }
                     }
                 }
+                */
             }
         }
 
