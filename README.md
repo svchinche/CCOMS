@@ -58,7 +58,7 @@ Below is the groupid that i have used in maven project. </br>
 <groupId>com.cloudcomp.ccoms</groupId>
 com -- for commercial
 cloudcomp -- Organization name
-ccoms -- Organization Management Sysem Project
+ccoms -- Organization Management System Project
 ```
 Software Metrics
 ===================
@@ -128,7 +128,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long>{
 }
 ```
 
-* Entity class has been nnotated with @document and primary key with @id
+* Entity class has been annotated with @document and primary key with @id
 ```java
 @ApiModel(description = "All details about the Employee. ")
 @Document(collection = "employee")
@@ -186,7 +186,7 @@ public class EmployeeViewController {
 }
 ```
 
-2. HTML page using thymeleaf template
+2. Used Thymeleaf template in html file
 ```html
 		<tbody>
 			<tr th:if="${emps.empty}">
@@ -242,8 +242,8 @@ public interface DepartmentClient {
 
 Proxy Microserver (Gateway)
 -----------------------------
-* Annotated application class with EnableZullProxy for enabling spring proxy server.
-```
+* Used EnableZullProxy annoattion for cteating a Proxy/Gateway server.
+```java
 @EnableRetry
 @EnableZuulProxy
 @EnableSwagger2
@@ -262,8 +262,9 @@ public class ProxyServerMicroserviceApplication {
     }
 ```
 
-* Routes are configure for Proxy Server as below
+* Routes are configured, as below
 [Git hub link](https://github.com/svchinche/CCOMS-configfiles/blob/master/config-files/uat/zuulserver-microservice-uat.yaml)
+
 ```yaml
 server:
    port: ${CCOMS_ZUUL_PORT}
@@ -412,7 +413,7 @@ As docker spotify plugin is entitled  with install phase, thats is why it is pus
 Ansible
 =======
 
-Below is directory structure of ansible.these are the self explainatory.
+Below is directory structure of ansible. it's  Self explainatory.
 ```
 [root@mum00aqm ansible_k8s-ccoms-deployment]# tree -L 2
 .
@@ -539,29 +540,29 @@ Automated Development, build and test process using Jenkins.
  - Used MultiBranch-Pipeline project.
  - Used Declarative and scripted section in JenkinsFile.
  - Enable web-hook to auto trigger build.
-For more information on Jenkins, go to this link 
+For more information on Jenkins, go to this [link](https://github.com/svchinche/TechTopicswithBestPractices/tree/master/jenkins)
  
 MultiBranch-pipeline Project
 ----------------------
-This will allow you to automatically create a pipeline for each branch on your source control repository. 
-See below Jenkins MultiBranchPipeline Screenshot.
-<p align="center"><img width="460" height="300" src=".images/Jenkins_multibranching.PNG"></p>
+This will allows you to automatically create a pipeline for each branch on your source control repository. </br>
+See below Jenkins MultiBranchPipeline Screenshot.</br>
+<p align="center"><img width="800" height="400" src=".images/Jenkins_multibranching.PNG"></p>
 
 Workflow of jenkins pipeline 
-<p align="center"><img width="460" height="300" src=".images/jenkins_blue_occean.PNG"></p>
+<p align="center"><img width="800" height="400" src=".images/jenkins_blue_occean.PNG"></p>
 
 
-Multibranch pipeline works using a Jenkinsfile, that is stored along with your source code inside a version control repository.
-A Jenkinsfile is nothing but a pipeline script that defines your CI pipeline.
+Multibranch pipeline works using a Jenkinsfile, that is stored along with your source code inside a version control repository.</br>
+A Jenkinsfile is nothing but a pipeline script that defines your CI pipeline.</br>
 
 One more, benefit of using Jenkins is that, You can continue from past failed stage, Use repay feature of jenkins as shown below.
-<p align="center"><img width="460" height="300" src=".images/jenkins_repay.PNG"></p>
+<p align="center"><img width="800" height="400" src=".images/jenkins_repay.PNG"></p>
 
 
 Used Declarative and scripted section in JenkinsFile
 ---------------------------------------------------
-You can see in below code snippet, i have used shared library (git_infoshared-lib) to get the recent tag information, which will be used to form the artifact id.
-We use groovy language to write shared library.
+You can see in below code snippet, i have used shared library (git_infoshared-lib) to get the recent tag information, which will be used to form the artifact id.</br>
+We use groovy language to write shared library.</br>
 
 ```java
 pipeline {
@@ -661,7 +662,7 @@ pipeline {
 
 ```
 
-Shared library snippet
+**Shared library snippet**
 
 ```groovy
 def call() {
@@ -700,7 +701,7 @@ Docker images
 Visualization of Containers
 ==================
 Below visualization of containers, volumes has been taken from Weave-scope kubernetes plugin
-<p align="center"><img width="460" height="300" src=".images/weave.PNG"></p>
+<p align="center"><img width="1000" height="500" src=".images/weave.PNG"></p>
 
 
 
