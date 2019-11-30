@@ -29,6 +29,7 @@ Table of contents
       * [Application Password Rotation](#application-password-rotation)
       * [Autoscalling of Microservices](#autoscalling-of-microservices)
       * [Backup and Restoration of k8s resources using Heptio Velero](#backup-and-restoration-of-k8s-resources-using-heptio-velero)
+   * [Monitoring](#monitoring)
    * [Dev-Ops Best Practices](#devops-best-practices)
    * [Objectives](#objectives)
 <!--te-->
@@ -692,7 +693,7 @@ Enable web-hook to auto trigger build.
 Docker images 
 --------------
 
-<p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
+<p align="center"><img width="800" height="400" src=".images/dockerhubimages.PNG"></p>
 
 
 
@@ -971,6 +972,116 @@ Autoscalling of Microservices
 -----------------------------
 Backup and Restoration of k8s resources using Heptio Velero
 -------------------------------------------
+
+Monitoring
+==========
+
+Before going for Monitoring setup
+- We need to have tiller component on kubernetes cluster.
+- We need dynamic nfs provision 
+ 
+* Tiller : 
+is the service that actually communicates with the Kubernetes API to manage our Helm packages.
+
+Using Grafana and Prometheus
+----------------------------
+Basically Grafana is monitoring tool and Prometheus is a visualization tool.
+
+**Helm**
+For customization on package installation using help, we use below options.
+name - name to that package to identify on k8s cluster
+namespace - install application on newly mentioned namespace
+value - to use our customized value to package, we use this flag
+
+Graphana vs Kibana
+------------------
+Graphana- Both are the visualization tool that can be used  on top of graphite,Prometheus </br>
+
+If you are building a monitoring system, both can do the job pretty well.  </br>
+for any of the use cases that logs support — troubleshooting, forensics, development, security, Kibana is your only option. </br>
+
+I am choosing Kibana amongst two.
+
+Kibana, Fluent-bit, elasticsearch and Metricbeat implemntation.
+----------------------------------------------------------------
+
+Create Persistent Volume for Storing logs parmanently.
+
+```yaml
+[root@mum00aqm efk-metricbeat]# cat pv_efk.yaml
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efk-master-volume
+spec:
+  storageClassName: elasticsearch-master
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  nfs:
+    server: mum00aqm
+    path: /u02/pvs/master
+...
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efk-data-volume
+spec:
+  storageClassName: elasticsearch-data
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  nfs:
+    server: mum00aqm
+    path: /u02/pvs/data
+...
+```
+
+Kibana
+-----
+* Install elasticsearch using helm.
+```
+helm install stable/elasticsearch --name=elasticsearch --namespace=logs \
+--set client.replicas=1 \
+--set master.replicas=1 \
+--set cluster.env.MINIMUM_MASTER_NODES=1 \
+--set cluster.env.RECOVER_AFTER_MASTER_NODES=1 \
+--set cluster.env.EXPECTED_MASTER_NODES=1 \
+--set data.replicas=1 \
+--set data.heapSize=300m \
+--set master.persistence.storageClass=elasticsearch-master \
+--set master.persistence.size=5Gi \
+--set data.persistence.storageClass=elasticsearch-data \
+--set data.persistence.size=5Gi
+```
+
+* Install fluent-bit 
+```
+helm install stable/fluent-bit --name=fluent-bit --namespace=logs --set backend.type=es --set backend.es.host=elasticsearch-client
+```
+
+* install kibana
+``` 
+helm install stable/kibana --name=kibana --namespace=logs --set env.ELASTICSEARCH_HOSTS=http://elasticsearch-client:9200 --set service.type=NodePort --set service.nodePort=31000
+```
+* install metricbeat 
+
+Steps will be provided soon
+
+** Screenshot::**
+- Logs of CCOMS application with some fields filtered with emp microservice
+
+<p align="center"><img width="1000" height="500" src=".images/kibana_index_withfilterlogs.PNG"></p>
+
+
+
 
 DevOps Best Practices
 ======================
