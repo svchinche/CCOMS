@@ -564,7 +564,7 @@ Used Declarative and scripted section in JenkinsFile
 You can see in below code snippet, i have used shared library (git_infoshared-lib) to get the recent tag information, which will be used to form the artifact id.</br>
 We use groovy language to write shared library.</br>
 
-```java
+```groovy
 pipeline {
 
     agent {
