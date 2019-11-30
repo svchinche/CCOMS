@@ -988,10 +988,11 @@ Using Grafana and Prometheus
 Basically Grafana is monitoring tool and Prometheus is a visualization tool.
 
 **Helm**
-For customization on package installation using help, we use below options.
-name - name to that package to identify on k8s cluster
-namespace - install application on newly mentioned namespace
-value - to use our customized value to package, we use this flag
+For customization on package installation using help, we used below options.
+- name:  name to that package to identify on k8s cluster
+- namespace: install application on newly mentioned namespace
+- values:  to use our customized values using yaml file, we can use this flag
+- set: to set individual attribute value
 
 Graphana vs Kibana
 ------------------
@@ -1075,7 +1076,7 @@ helm install stable/kibana --name=kibana --namespace=logs --set env.ELASTICSEARC
 
 Steps will be provided soon
 
-** Screenshot::**
+**Screenshot::**
 - Logs of CCOMS application with some fields filtered with emp microservice
 
 <p align="center"><img width="1000" height="500" src=".images/kibana_index_withfilterlogs.PNG"></p>
