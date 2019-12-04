@@ -42,12 +42,22 @@ pipeline {
                 }
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
             }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }
         }
         
         stage('Copy Resources') {
             steps {
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
             }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }				
         }
         
         stage('Generate Test Cases - Surefire') {
@@ -59,7 +69,10 @@ pipeline {
                 success {
                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/config-service/target/surefire-reports', reportFiles: '*.xml', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
                 }
-            }
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }                     
+            }            
         }
         
         stage('Publishing code on SONARQUBE'){
@@ -71,6 +84,11 @@ pipeline {
             steps {
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl .,config-service  sonar:sonar'
             }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }	
         }
         
 		 
@@ -78,6 +96,11 @@ pipeline {
             steps {
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl department-service,employee-service,gateway-service,organization-service war:war spring-boot:repackage dependency:unpack@unpack'
             }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }	
         }
         
         stage('Building and Pushing an image') {
@@ -91,6 +114,11 @@ pipeline {
             steps {
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
             }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }				
         }
 		
 		// In case of develop branch, QA env will be provision based on local private docker registry
@@ -103,12 +131,22 @@ pipeline {
             steps {
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
             }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }	
         }
 
         stage('Install/Update artifact - QA/Stage/DEV-UAT') {
             steps {
                 echo "Installation is in Progress ...."
             }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }	
         }
 
 
@@ -121,6 +159,7 @@ pipeline {
                         echo "Integration test is in Progress ...."
                     }
                 }
+				
                 /*
                 stage('Performance Test') {
 
