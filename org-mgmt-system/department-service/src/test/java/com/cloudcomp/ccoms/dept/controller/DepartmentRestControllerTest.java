@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cloudcomp.ccoms.dept.client.EmployeeClient;
@@ -26,6 +27,7 @@ import com.cloudcomp.ccoms.dept.service.DepartmentService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class DepartmentRestControllerTest {
 
     List<Department> depts = new ArrayList<Department>();
