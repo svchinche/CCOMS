@@ -1,4 +1,4 @@
-package com.cloudcomp.ccoms.proxysvc.controller;
+package com.cloudcomp.ccoms.proxy.controller;
 
 import java.util.ArrayList;
 import java.util.List;
