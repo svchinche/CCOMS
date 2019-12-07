@@ -128,10 +128,10 @@
 
             <!-- Mockito and Junit -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>compile</scope>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>7.0.0</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
