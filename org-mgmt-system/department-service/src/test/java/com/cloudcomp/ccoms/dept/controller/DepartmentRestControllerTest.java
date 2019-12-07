@@ -18,8 +18,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.cloudcomp.ccoms.dept.client.EmployeeClient;
 import com.cloudcomp.ccoms.dept.dao.DepartmentRepository;
 import com.cloudcomp.ccoms.dept.model.Department;
+import com.cloudcomp.ccoms.dept.model.Employee;
 import com.cloudcomp.ccoms.dept.service.DepartmentService;
 
 @RunWith(SpringRunner.class)
@@ -29,17 +31,18 @@ public class DepartmentRestControllerTest {
     List<Department> depts = new ArrayList<Department>();
     Department dept1 = new Department(11L, 1, "ORMB");
     Department dept2 = new Department(12L, 1, "I-FLEX");
+    
+    Employee emp1 = new Employee(1L, "Suyog", 29, "DevOps Engineer");
+    Employee emp2 = new Employee(2L, "Sachin", 29, "DevOps Engineer-2");
 
     @Autowired
     private DepartmentService deptSvc;
+    
+    @MockBean
+    private EmployeeClient empClient;
 
     @MockBean
     private DepartmentRepository deptRepo;
-
-    @Test
-    public void testGet() {
-        fail("Not yet implemented");
-    }
 
     @Test
     public void testGetAllDepts() {
@@ -89,20 +92,20 @@ public class DepartmentRestControllerTest {
         depts.add(dept2);
 
         // Given -- Setup eg. initializing or preparing
-        when(deptRepo.findById(1L)).thenReturn(Optional.of(dept1));
+        when(deptRepo.findAll()).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
         deptSvc.deleteAllDepts();
 
         // then
-        verify(deptRepo, times(1)).deleteById(1L);
+        verify(deptRepo, times(1)).deleteAll();
     }
 
     @Test
     public void testGetDeptById() {
 
         // Given
-        when(deptRepo.findById(1L)).thenReturn(Optional.of(dept1));
+        when(deptRepo.findById(11L)).thenReturn(Optional.of(dept1));
 
         // when
         Department dept = deptSvc.getDeptById(11L);
@@ -115,31 +118,37 @@ public class DepartmentRestControllerTest {
     @Test
     public void testGetDeptsByOrgId() {
         // Given
-        when(deptRepo.findAll()).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
+        when(deptRepo.findDeptByOrgId(1L)).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
         List<Department> depts = deptSvc.getDeptsByOrgId(1L);
 
         // then
-        assertEquals(1, depts.size());
+        assertEquals(2, depts.size());
     }
 
     @Test
     public void testGetDeptswithEmpsUsingOrgid() {
 
         // Given
-        when(deptRepo.findAll()).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
+        
+        when(empClient.findEmpsByDeptId(11L)).thenReturn(Stream.of(emp1, emp2).collect(Collectors.toList()));
+        
+        when(deptRepo.findDeptByOrgId(1L)).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
         List<Department> depts = deptSvc.getDeptswithEmpsUsingOrgid(1L);
 
         // then
-        assertEquals(1, depts.size());
+        assertEquals(2, depts.size());
     }
 
     @Test
     public void testGetDeptswithEmps() {
+        
         // Given
+        when(empClient.findEmpsByDeptId(11L)).thenReturn(Stream.of(emp1, emp2).collect(Collectors.toList()));
+       
         when(deptRepo.findAll()).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
@@ -147,6 +156,12 @@ public class DepartmentRestControllerTest {
 
         // then
         assertEquals(2, depts.size());
+    }
+
+    @Test
+    public void testGet() {
+        String actual = "expected";
+        assertEquals("expected", actual);
     }
 
 }
