@@ -67,7 +67,7 @@ pipeline {
 
             post {
                 success {
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/*.html', keepAll: false, reportDir: '', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'CCOMS Unit Testing Results'])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'org-mgmt-system/employee-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
                 }
                 failure {
                     mailextrecipients([developers(), upstreamDevelopers(), culprits()])
