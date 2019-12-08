@@ -15,7 +15,7 @@ pipeline {
     environment {
          
         APP_NAME = "ccoms"
-        APP_ROOT_DIR = "org-mgmt-system"
+        APP_ROOT_DIR = "organization-management-system"
         APP_AUTHOR = "Suyog Chinche"
         
         GIT_URL="https://github.com/svchinche/CCOMS.git"
@@ -67,7 +67,7 @@ pipeline {
 
             post {
                 success {
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'org-mgmt-system/employee-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'organization-management-system/employee-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
                 }
                 failure {
                     mailextrecipients([developers(), upstreamDevelopers(), culprits()])

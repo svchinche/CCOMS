@@ -350,12 +350,12 @@ Aggreated Dependency and Plugin Management into Parent Pom file.
 ```   
 For the demonstration purpose i an using install maven phase</br>
 
-Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to CCOMS/org-mgmt-system directory </br>
+Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to CCOMS/organization-management-system directory </br>
 and run below command.
 </br>
 
 ```linux
-[root@mum00aqm org-mgmt-system]# mvn -Drevision=1.3 -DskipTests=true  clean:clean install
+[root@mum00aqm organization-management-system]# mvn -Drevision=1.3 -DskipTests=true  clean:clean install
 [INFO] Scanning for projects...
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Build Order:
@@ -374,12 +374,12 @@ and run below command.
 [INFO]
 [INFO] --- maven-war-plugin:3.2.3:war (default-war) @ config-service ---
 [INFO] Packaging webapp
-[INFO] Assembling webapp [config-service] in [/root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService]
+[INFO] Assembling webapp [config-service] in [/root/CCOMS/CCOMS/organization-management-system/config-service/target/ConfigServer-MicroService]
 [INFO] Processing war project
 [INFO]
 [INFO] --- dockerfile-maven-plugin:1.4.13:tag (tag-version) @ config-service ---
 [INFO] Tagging image de44e39ded7f as compucomm/config-service:1.3
-[INFO] Building jar: /root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService-docker-info.jar
+[INFO] Building jar: /root/CCOMS/CCOMS/organization-management-system/config-service/target/ConfigServer-MicroService-docker-info.jar
 [INFO]
 [INFO] --- dockerfile-maven-plugin:1.4.13:push (tag-version) @ config-service ---
 [INFO] The push refers to repository [docker.io/compucomm/config-service]
@@ -582,7 +582,7 @@ pipeline {
 
     environment {
         APP_NAME = "ccoms"
-        APP_ROOT_DIR = "org-mgmt-system"
+        APP_ROOT_DIR = "organization-management-system"
         APP_AUTHOR = "Suyog Chinche"
         GIT_URL="https://github.com/svchinche/CCOMS.git"
 
