@@ -1,4 +1,4 @@
-package com.vogella.maven.quickstart;
+package com.ccoms.firstapp;
 
 
 public class EmpBusinessLogic {

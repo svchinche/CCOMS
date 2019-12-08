@@ -1,7 +1,10 @@
-package com.vogella.maven.quickstart;
+package com.ccoms.firstapp;
 
 import org.testng.*;
 import org.testng.annotations.Test;
+
+import com.ccoms.firstapp.EmpBusinessLogic;
+import com.ccoms.firstapp.EmployeeDetails;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
