@@ -38,6 +38,9 @@ public class DepartmentRestControllerTest {
     Employee emp2 = new Employee(2L, "Sachin", 29, "DevOps Engineer-2");
 
     @Autowired
+    private DepartmentRestController deptRestController;
+ 
+    @Autowired
     private DepartmentService deptSvc;
     
     @MockBean
@@ -52,7 +55,7 @@ public class DepartmentRestControllerTest {
         when(deptRepo.findAll()).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
-        int deptcount = deptSvc.getAllDepts().size();
+        int deptcount = deptRestController.getAllDepts().size();
 
         // then
         assertEquals(2, deptcount);
@@ -97,7 +100,7 @@ public class DepartmentRestControllerTest {
         when(deptRepo.findAll()).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
-        deptSvc.deleteAllDepts();
+        deptRestController.deleteAllDepts();
 
         // then
         verify(deptRepo, times(1)).deleteAll();
@@ -110,7 +113,7 @@ public class DepartmentRestControllerTest {
         when(deptRepo.findById(11L)).thenReturn(Optional.of(dept1));
 
         // when
-        Department dept = deptSvc.getDeptById(11L);
+        Department dept = deptRestController.getDeptById(11L);
 
         // then
         assertEquals("ORMB", dept.getName());
@@ -123,7 +126,7 @@ public class DepartmentRestControllerTest {
         when(deptRepo.findDeptByOrgId(1L)).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
-        List<Department> depts = deptSvc.getDeptsByOrgId(1L);
+        List<Department> depts = deptRestController.getDeptsByOrgId(1L);
 
         // then
         assertEquals(2, depts.size());
@@ -139,7 +142,7 @@ public class DepartmentRestControllerTest {
         when(deptRepo.findDeptByOrgId(1L)).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
-        List<Department> depts = deptSvc.getDeptswithEmpsUsingOrgid(1L);
+        List<Department> depts = deptRestController.getDeptswithEmpsUsingOrgid(1L);
 
         // then
         assertEquals(2, depts.size());
@@ -154,7 +157,7 @@ public class DepartmentRestControllerTest {
         when(deptRepo.findAll()).thenReturn(Stream.of(dept1, dept2).collect(Collectors.toList()));
 
         // when
-        List<Department> depts = deptSvc.getDeptswithEmps();
+        List<Department> depts = deptRestController.getDeptswithEmps();
 
         // then
         assertEquals(2, depts.size());

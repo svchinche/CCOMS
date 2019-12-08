@@ -35,6 +35,9 @@ public class EmployeeRestControllerTest {
     @Autowired
     private EmployeeService empsvc;
 
+    @Autowired
+    private EmployeeRestController empRestController;
+
     @MockBean
     private EmployeeRepository emprepo;
 
@@ -92,7 +95,7 @@ public class EmployeeRestControllerTest {
         when(emprepo.findAll()).thenReturn(Stream.of(emp1, emp2).collect(Collectors.toList()));
 
         // when
-        int empcount = empsvc.getAllEmps().size();
+        int empcount = empRestController.getAllEmps().size();
 
         // then
         assertEquals(2, empcount);
@@ -120,9 +123,8 @@ public class EmployeeRestControllerTest {
         // Given -- Setup eg. initializing or preparing
         when(emprepo.findById(1L)).thenReturn(Optional.of(emp1));
 
-        
         // when
-        empsvc.deleteEmp(1L);
+        empRestController.deleteEmp(1L);
 
         // then
         verify(emprepo, times(1)).deleteById(1L);
@@ -141,18 +143,17 @@ public class EmployeeRestControllerTest {
         assertEquals("Suyog", emp.getName());
     }
 
-   
     @Test
     public void testFindByDept() {
-        int dept_id = 11 ;
-  
+        int dept_id = 11;
+
         emps.add(emp2);
-        
+
         // Given -- Setup eg. initializing or preparing
         when(emprepo.findEmpsByDeptId(dept_id)).thenReturn(emps);
 
         // when
-        List<Employee> emps = empsvc.findByDept(dept_id);
+        List<Employee> emps = empRestController.findByDept(dept_id);
 
         // then
         assertEquals(1, emps.size());
@@ -160,15 +161,15 @@ public class EmployeeRestControllerTest {
 
     @Test
     public void testFindByOrg() {
-        int org_id = 2 ;
-        
+        int org_id = 2;
+
         emps.add(emp1);
-        
+
         // Given -- Setup eg. initializing or preparing
         when(emprepo.findEmpsByOrgId(org_id)).thenReturn(emps);
 
         // when
-        List<Employee> emps = empsvc.findByOrg(org_id);
+        List<Employee> emps = empRestController.findByOrg(org_id);
 
         // then
         assertEquals(1, emps.size());

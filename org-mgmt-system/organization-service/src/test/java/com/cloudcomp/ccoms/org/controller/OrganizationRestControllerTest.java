@@ -25,7 +25,6 @@ import com.cloudcomp.ccoms.org.model.Employee;
 import com.cloudcomp.ccoms.org.model.Organization;
 import com.cloudcomp.ccoms.org.service.OrganizationService;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("test")
@@ -41,7 +40,7 @@ public class OrganizationRestControllerTest {
     DepartmentClient deptClient;
 
     @Autowired
-    OrganizationService orgSvc;
+    OrganizationRestController orgRestController;
 
     List<Organization> orgs = new ArrayList<Organization>();
     Organization org1 = new Organization(1L, "Oracle", "Pune");
@@ -64,7 +63,7 @@ public class OrganizationRestControllerTest {
         when(orgRepo.saveAll(orgs)).thenReturn(orgs);
 
         // when
-        List<Organization> orgs1 = orgSvc.addorgs(orgs);
+        List<Organization> orgs1 = orgRestController.addorgs(orgs);
 
         // then
         assertEquals(2, orgs1.size());
@@ -76,7 +75,7 @@ public class OrganizationRestControllerTest {
         when(orgRepo.findAll()).thenReturn(Stream.of(org1, org2).collect(Collectors.toList()));
 
         // when
-        int orgcount = orgSvc.findAllOrganizations().size();
+        int orgcount = orgRestController.findAllOrganizations().size();
 
         // then
         assertEquals(2, orgcount);
@@ -91,7 +90,7 @@ public class OrganizationRestControllerTest {
         when(orgRepo.findById(org_id)).thenReturn(Optional.of(org1));
 
         // when
-        Organization org = orgSvc.findById(org_id);
+        Organization org = orgRestController.findById(org_id);
 
         // then
         assertEquals("Oracle", org.getName());
@@ -107,7 +106,7 @@ public class OrganizationRestControllerTest {
         when(orgRepo.findById(org_id)).thenReturn(Optional.of(org1));
 
         // when
-        Organization org = orgSvc.findOrgUsingId(org_id);
+        Organization org = orgRestController.findOrgUsingId(org_id);
 
         // then
         assertEquals("Oracle", org.getName());
@@ -126,7 +125,7 @@ public class OrganizationRestControllerTest {
         when(deptClient.findDeptsWithEmpsUsingOrgId(org_id)).thenReturn(depts);
 
         // when
-        Organization org = orgSvc.findByIdWithDepartmentsAndEmployees(org_id);
+        Organization org = orgRestController.findByIdWithDepartmentsAndEmployees(org_id);
 
         // then
         assertEquals("Oracle", org.getName());
@@ -144,7 +143,7 @@ public class OrganizationRestControllerTest {
         when(empClient.findEmpsByOrgId(org_id)).thenReturn(emps);
 
         // when
-        Organization org = orgSvc.findByIdWithEmployees(org_id);
+        Organization org = orgRestController.findByIdWithEmployees(org_id);
 
         // then
         assertEquals("Oracle", org.getName());
@@ -161,7 +160,7 @@ public class OrganizationRestControllerTest {
         when(deptClient.findDeptsWithEmpsUsingOrgId(1L)).thenReturn(depts);
 
         // when
-        List<Organization> orgs = orgSvc.getDeptsEmpsAndOrgsInfo();
+        List<Organization> orgs = orgRestController.getDeptsEmpsAndOrgsInfo();
 
         // then
         assertEquals(2, orgs.size());
