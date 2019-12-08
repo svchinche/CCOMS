@@ -41,6 +41,9 @@ public class OrganizationRestControllerTest {
 
     @Autowired
     OrganizationRestController orgRestController;
+    
+    @Autowired
+    OrganizationService orgSvc;
 
     List<Organization> orgs = new ArrayList<Organization>();
     Organization org1 = new Organization(1L, "Oracle", "Pune");
@@ -161,6 +164,21 @@ public class OrganizationRestControllerTest {
 
         // when
         List<Organization> orgs = orgRestController.getDeptsEmpsAndOrgsInfo();
+
+        // then
+        assertEquals(2, orgs.size());
+    }
+    
+    @Test
+    public void testShowSignUpForm() {
+        depts.add(dept1);
+
+        // Given -- Setup eg. initializing or preparing
+        when(orgRepo.findAll()).thenReturn(Stream.of(org1, org2).collect(Collectors.toList()));
+        when(deptClient.findDeptsWithEmpsUsingOrgId(1L)).thenReturn(depts);
+
+        // when
+        List<Organization> orgs = orgSvc.getDeptsEmpsAndOrgsInfo();
 
         // then
         assertEquals(2, orgs.size());
