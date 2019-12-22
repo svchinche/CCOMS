@@ -222,7 +222,7 @@ public class EmployeeRestControllerTest {
         // when
         int empcount = empRestController.getAllEmps().size();
 
-        String return_val = empViewController.showSignUpForm(model);
+        String return_val = empViewController.showPrettyOutput(model);
 
         // then
         Assertions.assertEquals(2, empcount);
