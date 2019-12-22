@@ -1,6 +1,6 @@
 package com.cloudcomp.ccoms.org.controller;
 
-import static org.junit.Assert.*;
+
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -9,14 +9,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.cloudcomp.ccoms.org.Application;
 import com.cloudcomp.ccoms.org.client.DepartmentClient;
 import com.cloudcomp.ccoms.org.client.EmployeeClient;
 import com.cloudcomp.ccoms.org.dao.OrganizationRepository;
@@ -25,9 +28,9 @@ import com.cloudcomp.ccoms.org.model.Employee;
 import com.cloudcomp.ccoms.org.model.Organization;
 import com.cloudcomp.ccoms.org.service.OrganizationService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 public class OrganizationRestControllerTest {
 
     @MockBean
@@ -69,7 +72,7 @@ public class OrganizationRestControllerTest {
         List<Organization> orgs1 = orgRestController.addorgs(orgs);
 
         // then
-        assertEquals(2, orgs1.size());
+        Assertions.assertEquals(2, orgs1.size());
     }
 
     @Test
@@ -81,7 +84,7 @@ public class OrganizationRestControllerTest {
         int orgcount = orgRestController.findAllOrganizations().size();
 
         // then
-        assertEquals(2, orgcount);
+        Assertions.assertEquals(2, orgcount);
     }
 
     @Test
@@ -96,7 +99,7 @@ public class OrganizationRestControllerTest {
         Organization org = orgRestController.findById(org_id);
 
         // then
-        assertEquals("Oracle", org.getName());
+        Assertions.assertEquals("Oracle", org.getName());
 
     }
 
@@ -112,7 +115,7 @@ public class OrganizationRestControllerTest {
         Organization org = orgRestController.findOrgUsingId(org_id);
 
         // then
-        assertEquals("Oracle", org.getName());
+        Assertions.assertEquals("Oracle", org.getName());
 
     }
 
@@ -131,7 +134,7 @@ public class OrganizationRestControllerTest {
         Organization org = orgRestController.findByIdWithDepartmentsAndEmployees(org_id);
 
         // then
-        assertEquals("Oracle", org.getName());
+        Assertions.assertEquals("Oracle", org.getName());
     }
 
     @Test
@@ -149,7 +152,7 @@ public class OrganizationRestControllerTest {
         Organization org = orgRestController.findByIdWithEmployees(org_id);
 
         // then
-        assertEquals("Oracle", org.getName());
+        Assertions.assertEquals("Oracle", org.getName());
 
     }
 
@@ -166,7 +169,7 @@ public class OrganizationRestControllerTest {
         List<Organization> orgs = orgRestController.getDeptsEmpsAndOrgsInfo();
 
         // then
-        assertEquals(2, orgs.size());
+        Assertions.assertEquals(2, orgs.size());
     }
     
     @Test
@@ -181,7 +184,7 @@ public class OrganizationRestControllerTest {
         List<Organization> orgs = orgSvc.getDeptsEmpsAndOrgsInfo();
 
         // then
-        assertEquals(2, orgs.size());
+        Assertions.assertEquals(2, orgs.size());
     }
 
 }

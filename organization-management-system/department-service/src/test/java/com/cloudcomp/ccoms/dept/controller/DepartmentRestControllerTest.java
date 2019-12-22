@@ -1,6 +1,6 @@
 package com.cloudcomp.ccoms.dept.controller;
 
-import static org.junit.Assert.*;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -11,23 +11,24 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-
+import com.cloudcomp.ccoms.dept.Application;
 import com.cloudcomp.ccoms.dept.client.EmployeeClient;
 import com.cloudcomp.ccoms.dept.dao.DepartmentRepository;
 import com.cloudcomp.ccoms.dept.model.Department;
 import com.cloudcomp.ccoms.dept.model.Employee;
 import com.cloudcomp.ccoms.dept.service.DepartmentService;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
+@ExtendWith(MockitoExtension.class)
 public class DepartmentRestControllerTest {
 
     List<Department> depts = new ArrayList<Department>();
@@ -58,7 +59,7 @@ public class DepartmentRestControllerTest {
         int deptcount = deptRestController.getAllDepts().size();
 
         // then
-        assertEquals(2, deptcount);
+        Assertions.assertEquals(2, deptcount);
 
     }
 
@@ -73,7 +74,7 @@ public class DepartmentRestControllerTest {
         Department dept = deptSvc.createDept(dept1);
 
         // then
-        assertEquals("ORMB", dept.getName());
+        Assertions.assertEquals("ORMB", dept.getName());
     }
 
     @Test
@@ -87,7 +88,7 @@ public class DepartmentRestControllerTest {
         List<Department> depts1 = deptSvc.createDepts(depts);
 
         // then
-        assertEquals(2, depts1.size());
+        Assertions.assertEquals(2, depts1.size());
     }
 
     @Test
@@ -116,7 +117,7 @@ public class DepartmentRestControllerTest {
         Department dept = deptRestController.getDeptById(11L);
 
         // then
-        assertEquals("ORMB", dept.getName());
+        Assertions.assertEquals("ORMB", dept.getName());
 
     }
 
@@ -129,7 +130,7 @@ public class DepartmentRestControllerTest {
         List<Department> depts = deptRestController.getDeptsByOrgId(1L);
 
         // then
-        assertEquals(2, depts.size());
+        Assertions.assertEquals(2, depts.size());
     }
 
     @Test
@@ -145,7 +146,7 @@ public class DepartmentRestControllerTest {
         List<Department> depts = deptRestController.getDeptswithEmpsUsingOrgid(1L);
 
         // then
-        assertEquals(2, depts.size());
+        Assertions.assertEquals(2, depts.size());
     }
 
     @Test
@@ -160,13 +161,13 @@ public class DepartmentRestControllerTest {
         List<Department> depts = deptRestController.getDeptswithEmps();
 
         // then
-        assertEquals(2, depts.size());
+        Assertions.assertEquals(2, depts.size());
     }
 
     @Test
     public void testGet() {
         String actual = "expected";
-        assertEquals("expected", actual);
+        Assertions.assertEquals("expected", actual);
     }
 
 }
