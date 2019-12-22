@@ -27,6 +27,14 @@ import com.cloudcomp.ccoms.org.model.Department;
 import com.cloudcomp.ccoms.org.model.Employee;
 import com.cloudcomp.ccoms.org.model.Organization;
 import com.cloudcomp.ccoms.org.service.OrganizationService;
+import com.openpojo.reflection.PojoClass;
+import com.openpojo.reflection.impl.PojoClassFactory;
+import com.openpojo.validation.Validator;
+import com.openpojo.validation.ValidatorBuilder;
+import com.openpojo.validation.rule.impl.GetterMustExistRule;
+import com.openpojo.validation.rule.impl.SetterMustExistRule;
+import com.openpojo.validation.test.impl.GetterTester;
+import com.openpojo.validation.test.impl.SetterTester;
 
 @SpringBootTest(classes = Application.class)
 @ActiveProfiles("test")
@@ -210,6 +218,46 @@ public class OrganizationRestControllerTest {
         Assertions.assertEquals(2, orgs.size());
         Assertions.assertEquals("show_pretty_output", return_val);
 
+    }
+    
+    @Test
+    public void testOrgGetterSetter() {
+        PojoClass pojoclass = PojoClassFactory.getPojoClass(Organization.class);
+        Validator validator = ValidatorBuilder
+                .create()
+                .with(new SetterMustExistRule())
+                .with(new GetterMustExistRule())
+                .with(new SetterTester())
+                .with(new GetterTester())
+                .build();
+        validator.validate(pojoclass);
+    }
+    
+    
+    @Test
+    public void testEmpGetterSetter() {
+        PojoClass pojoclass = PojoClassFactory.getPojoClass(Employee.class);
+        Validator validator = ValidatorBuilder
+                .create()
+                .with(new SetterMustExistRule())
+                .with(new GetterMustExistRule())
+                .with(new SetterTester())
+                .with(new GetterTester())
+                .build();
+        validator.validate(pojoclass);
+    }
+    
+    @Test
+    public void testDeptGetterSetter() {
+        PojoClass pojoclass = PojoClassFactory.getPojoClass(Department.class);
+        Validator validator = ValidatorBuilder
+                .create()
+                .with(new SetterMustExistRule())
+                .with(new GetterMustExistRule())
+                .with(new SetterTester())
+                .with(new GetterTester())
+                .build();
+        validator.validate(pojoclass);
     }
 
 }

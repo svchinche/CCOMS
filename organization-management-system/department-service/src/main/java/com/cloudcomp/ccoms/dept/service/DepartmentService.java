@@ -57,10 +57,7 @@ public class DepartmentService {
         List<Department> finaldepts = new ArrayList<>();
         List<Department> depts = deptrepo.findDeptByOrgId(orgId);
         for (Department dept : depts) {
-            Department tmp = new Department();
-            tmp.setId(dept.getId());
-            tmp.setOrgId(dept.getOrgId());
-            tmp.setName(dept.getName());
+            Department tmp = new Department(dept.getId(), dept.getOrgId(), dept.getName());
             tmp.setEmps(empClient.findEmpsByDeptId(dept.getId()));
             finaldepts.add(tmp);
         }
