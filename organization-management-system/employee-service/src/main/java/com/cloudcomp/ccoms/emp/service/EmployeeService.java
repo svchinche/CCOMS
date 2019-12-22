@@ -21,15 +21,14 @@ public class EmployeeService {
     
     public Employee getEmpById(Long id) throws ResourceNotFoundException {
         return empRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(empIdNotFound + id));
-
     }
 
-    public Employee createEmp(Employee emp) {
+    public Employee addEmp(Employee emp) {
         empRepo.save(emp);
         return emp;
     }
 
-    public List<Employee> createEmps(List<Employee> emps) {
+    public List<Employee> addEmps(List<Employee> emps) {
         empRepo.saveAll(emps);
         return emps;
     }
@@ -38,10 +37,7 @@ public class EmployeeService {
         return (List<Employee>) empRepo.findAll();
     }
 
-    public void updateEmp(Employee emp) throws ResourceNotFoundException {
-        this.emp = empRepo.findById(emp.getId())
-                .orElseThrow(() -> new ResourceNotFoundException(empIdNotFound + emp.getId()));
-
+    public void updateEmp(Employee emp){
         empRepo.save(this.emp);
     }
 

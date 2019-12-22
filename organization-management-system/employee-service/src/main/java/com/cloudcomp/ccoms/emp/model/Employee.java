@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import io.swagger.annotations.ApiModel;
 
+
 @ApiModel(description = "All details about the Employee. ")
 @Document(collection = "employee")
 public class Employee {
