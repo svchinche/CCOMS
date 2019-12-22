@@ -24,6 +24,9 @@ public class Organization {
     private Department dept;
     private List<Employee> emps;
         
+    public Organization() {  
+    }
+    
     public Organization(Long orgId,String name, String address){
         this.id=orgId;
         this.name=name;

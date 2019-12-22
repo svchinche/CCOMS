@@ -25,6 +25,9 @@ public class Department {
     private int orgId;
     private List<Employee> emps = new ArrayList<>();
 
+    public Department() {
+    }
+    
     public Department(Long deptId, int orgId, String name) {
         super();
         this.id = deptId;
