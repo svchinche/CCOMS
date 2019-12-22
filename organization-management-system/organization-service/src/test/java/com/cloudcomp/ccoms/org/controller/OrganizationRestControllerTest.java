@@ -1,6 +1,5 @@
 package com.cloudcomp.ccoms.org.controller;
 
-
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -8,16 +7,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.ui.Model;
 
 import com.cloudcomp.ccoms.org.Application;
 import com.cloudcomp.ccoms.org.client.DepartmentClient;
@@ -42,9 +42,17 @@ public class OrganizationRestControllerTest {
     @MockBean
     DepartmentClient deptClient;
 
+    @InjectMocks
     @Autowired
     OrganizationRestController orgRestController;
-    
+
+    @InjectMocks
+    @Autowired
+    OrganizationViewController orgViewController;
+
+    @Mock
+    private Model model;
+
     @Autowired
     OrganizationService orgSvc;
 
@@ -94,12 +102,15 @@ public class OrganizationRestControllerTest {
 
         // Given -- Setup eg. initializing or preparing
         when(orgRepo.findById(org_id)).thenReturn(Optional.of(org1));
+        when(orgRepo.findById(3L)).thenReturn(Optional.empty());
 
         // when
         Organization org = orgRestController.findById(org_id);
+        Organization neg_org = orgRestController.findById(3L);
 
         // then
         Assertions.assertEquals("Oracle", org.getName());
+        Assertions.assertEquals(null,neg_org);
 
     }
 
@@ -110,12 +121,16 @@ public class OrganizationRestControllerTest {
 
         // Given -- Setup eg. initializing or preparing
         when(orgRepo.findById(org_id)).thenReturn(Optional.of(org1));
+        when(orgRepo.findById(3L)).thenReturn(Optional.empty());
 
         // when
         Organization org = orgRestController.findOrgUsingId(org_id);
+        Organization neg_org = orgRestController.findOrgUsingId(3L);
 
         // then
         Assertions.assertEquals("Oracle", org.getName());
+        Assertions.assertEquals(null,neg_org);
+
 
     }
 
@@ -129,12 +144,15 @@ public class OrganizationRestControllerTest {
         // Given -- Setup eg. initializing or preparing
         when(orgRepo.findById(org_id)).thenReturn(Optional.of(org1));
         when(deptClient.findDeptsWithEmpsUsingOrgId(org_id)).thenReturn(depts);
-
+        when(orgRepo.findById(3L)).thenReturn(Optional.empty());
+        
         // when
         Organization org = orgRestController.findByIdWithDepartmentsAndEmployees(org_id);
+        Organization neg_org = orgRestController.findByIdWithDepartmentsAndEmployees(3L);
 
         // then
         Assertions.assertEquals("Oracle", org.getName());
+        Assertions.assertEquals(null,neg_org);
     }
 
     @Test
@@ -147,12 +165,15 @@ public class OrganizationRestControllerTest {
 
         when(orgRepo.findById(org_id)).thenReturn(Optional.of(org1));
         when(empClient.findEmpsByOrgId(org_id)).thenReturn(emps);
+        when(orgRepo.findById(3L)).thenReturn(Optional.empty());
 
         // when
         Organization org = orgRestController.findByIdWithEmployees(org_id);
+        Organization neg_org = orgRestController.findByIdWithEmployees(3L);
 
         // then
         Assertions.assertEquals("Oracle", org.getName());
+        Assertions.assertEquals(null,neg_org);
 
     }
 
@@ -171,9 +192,10 @@ public class OrganizationRestControllerTest {
         // then
         Assertions.assertEquals(2, orgs.size());
     }
-    
+
     @Test
-    public void testShowSignUpForm() {
+    void testShowPrettyOutput() {
+        
         depts.add(dept1);
 
         // Given -- Setup eg. initializing or preparing
@@ -181,10 +203,13 @@ public class OrganizationRestControllerTest {
         when(deptClient.findDeptsWithEmpsUsingOrgId(1L)).thenReturn(depts);
 
         // when
-        List<Organization> orgs = orgSvc.getDeptsEmpsAndOrgsInfo();
+        List<Organization> orgs = orgRestController.getDeptsEmpsAndOrgsInfo();
+        String return_val = orgViewController.showPrettyOutput(model);
 
         // then
         Assertions.assertEquals(2, orgs.size());
+        Assertions.assertEquals("show_pretty_output", return_val);
+
     }
 
 }

@@ -215,7 +215,7 @@ public class EmployeeRestControllerTest {
     }
 
     @Test
-    void testShowSignUpForm() {
+    void testShowPrettyOutput() {
 
         // Given -- Setup eg. initializing or preparing
         when(emprepo.findAll()).thenReturn(Stream.of(emp1, emp2).collect(Collectors.toList()));

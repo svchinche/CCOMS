@@ -20,7 +20,7 @@ public class DepartmentViewController {
     DepartmentService deptSvc;
 
     @GetMapping("/pretty")
-    public String showSignUpForm(Model model) {
+    public String showPrettyOutput(Model model) {
         model.addAttribute("depts", deptSvc.getDeptswithEmps());
         return "show_pretty_output";
     }

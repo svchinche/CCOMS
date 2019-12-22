@@ -19,7 +19,7 @@ public class EmployeeViewController {
     EmployeeRepository empRep;
 
     @GetMapping("/pretty")
-    public String showSignUpForm(Model model) {
+    public String showPrettyOutput(Model model) {
         model.addAttribute("emps", empRep.findAll());
         return "show_pretty_output";
     }

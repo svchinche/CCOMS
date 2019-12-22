@@ -24,12 +24,12 @@ public class DepartmentService {
         return (List<Department>) deptrepo.findAll();
     }
 
-    public Department createDept(Department dept) {
+    public Department addDept(Department dept) {
         deptrepo.save(dept);
         return dept;
     }
 
-    public List<Department> createDepts(List<Department> depts) {
+    public List<Department> addDepts(List<Department> depts) {
         deptrepo.saveAll(depts);
         return depts;
 

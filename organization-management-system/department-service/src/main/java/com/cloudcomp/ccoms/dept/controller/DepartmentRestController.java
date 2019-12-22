@@ -1,5 +1,6 @@
 package com.cloudcomp.ccoms.dept.controller;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.cloudcomp.ccoms.dept.model.Department;
@@ -49,21 +51,21 @@ public class DepartmentRestController {
 
     @ApiOperation(value = "Add single department")
     @PostMapping("/adddept")
-    public ResponseEntity<Void> createDept(@RequestBody Department dept, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Object> addDept(@RequestBody Department dept) {
 
-        deptSvc.createDept(dept);
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        deptSvc.addDept(dept);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/api/{id}").buildAndExpand(dept.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @ApiOperation(value = "Add multiple departments at same time")
     @PostMapping("/adddepts")
-    public ResponseEntity<Void> createDepts(@RequestBody List<Department> depts, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<Object> addDepts(@RequestBody List<Department> depts) {
 
-        deptSvc.createDepts(depts);
-        HttpHeaders headers = new HttpHeaders();
-
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        deptSvc.addDepts(depts);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/api/all").buildAndExpand().toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @ApiOperation(value = "delete all departments")
@@ -77,9 +79,7 @@ public class DepartmentRestController {
     @ApiOperation(value = "Get department by departmet id")
     @GetMapping("/dept/{deptId}")
     public Department getDeptById(@PathVariable("deptId") Long deptId) {
-
         return deptSvc.getDeptById(deptId);
-
     }
 
     @ApiOperation(value = "Get department using organization id")

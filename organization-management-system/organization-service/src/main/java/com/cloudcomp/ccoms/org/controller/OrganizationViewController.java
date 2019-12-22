@@ -19,7 +19,7 @@ public class OrganizationViewController {
     OrganizationService orgSvc;
 
     @GetMapping("/pretty")
-    public String showSignUpForm(Model model) {
+    public String showPrettyOutput(Model model) {
         model.addAttribute("orgs", orgSvc.getDeptsEmpsAndOrgsInfo());
         return "show_pretty_output";
     }
