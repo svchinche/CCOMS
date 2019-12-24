@@ -29,6 +29,7 @@
         <testng.version>6.14.3</testng.version>
         <selenium.version>3.141.59</selenium.version>
         <hamcrest.version>2.1-rc3</hamcrest.version>
+        <cucumber.version>5.0.0-RC1</cucumber.version>
 
         <sonar.sources>src/main</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
@@ -180,6 +181,26 @@
                 <version>0.8.3</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-spring</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
