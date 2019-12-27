@@ -87,7 +87,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-spring</artifactId>
         </dependency>
-        
+
     </dependencies>
 
     <build>
@@ -137,9 +137,8 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-
                 <configuration>
-                    <skip>false</skip>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

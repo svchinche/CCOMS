@@ -243,6 +243,21 @@
                     </configuration>
                 </plugin>
 
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>${surefire.version}</version>
+                    <configuration>
+                        <aggregate>true</aggregate>
+                        <linkXRef>false</linkXRef>
+                        <parallel>methods</parallel>
+                        <skip>true</skip>
+                    </configuration>
+
+                </plugin>
+
+
                 <!-- Sonar-JaCoCo integration plugin -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
@@ -287,7 +302,7 @@
                                             <limit>
                                                 <counter>LINE</counter>
                                                 <value>COVEREDRATIO</value>
-                                                <minimum>0.3</minimum>
+                                                <minimum>0.7</minimum>
                                             </limit>
                                         </limits>
                                     </rule>

@@ -14,7 +14,7 @@
 
 
     <dependencies>
-
+    
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -198,7 +198,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
 
                 <configuration>
-                    <skip>false</skip>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
 
