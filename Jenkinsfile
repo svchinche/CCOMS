@@ -15,7 +15,7 @@ pipeline {
     environment {
          
         APP_NAME = "ccoms"
-        APP_ROOT_DIR = "org-mgmt-system"
+        APP_ROOT_DIR = "organization-management-system"
         APP_AUTHOR = "Suyog Chinche"
         
         GIT_URL="https://github.com/svchinche/CCOMS.git"
