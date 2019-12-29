@@ -22,8 +22,7 @@
         <spring-cloud.version>Hoxton.RC2</spring-cloud.version>
         <docker.image.prefix>compucomm/${project.artifactId}</docker.image.prefix>
 
-
-        <jacoco.version>0.8.2</jacoco.version>
+        <jacoco.version>0.8.5</jacoco.version>
         <surefire.version>3.0.0-M3</surefire.version>
         <failsafe.version>2.13</failsafe.version>
         <testng.version>6.14.3</testng.version>
@@ -40,7 +39,6 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.jacoco.reportPath>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.language>java</sonar.language>
-
     </properties>
 
     <modules>
@@ -150,8 +148,6 @@
                 <scope>compile</scope>
             </dependency>
 
-
-
             <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
             <dependency>
                 <groupId>org.jacoco</groupId>
@@ -164,7 +160,6 @@
                 <artifactId>selenium-java</artifactId>
                 <version>${selenium.version}</version>
             </dependency>
-
 
             <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
             <dependency>
@@ -266,7 +261,6 @@
                     <configuration>
                         <destFile>${sonar.jacoco.reportPath}</destFile>
                         <append>true</append>
-                        <skip>true</skip>
                     </configuration>
                     <executions>
                         <execution>
@@ -283,7 +277,7 @@
                         </execution>
                         <execution>
                             <id>jacoco-report</id>
-                            <phase>test</phase>
+                            <phase>prepare-package</phase>
                             <goals>
                                 <goal>report</goal>
                             </goals>
@@ -311,8 +305,6 @@
                         </execution>
                     </executions>
                 </plugin>
-
-
 
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
@@ -380,6 +372,7 @@
                     </executions>
                 </plugin>
             </plugins>
+            
         </pluginManagement>
     </build>
 
