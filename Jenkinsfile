@@ -15,7 +15,7 @@ pipeline {
     environment {
          
         APP_NAME = "ccoms"
-        APP_ROOT_DIR = "organization-management-system"
+        APP_ROOT_DIR = "org-mgmt-system"
         APP_AUTHOR = "Suyog Chinche"
         
         GIT_URL="https://github.com/svchinche/CCOMS.git"
@@ -62,17 +62,31 @@ pipeline {
         
         stage('Generate Test Cases - Surefire') {
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire:test'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire-report:report'
             }
 
             post {
                 success {
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'organization-management-system/employee-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'organization-management-system/target/site', reportFiles: 'surefire-report.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
                 }
                 failure {
                     mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }                     
             }            
+        }
+        
+        stage('Check code Coverage'){
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire:test jacoco:report  jacoco:check@jacoco-check'
+            }
+            post {
+                success {
+                    jacoco buildOverBuild: true, changeBuildStatus: true, inclusionPattern: '**/*.class'
+                }
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                }
+            }	
         }
         
         stage('Publishing code on SONARQUBE'){
