@@ -52,7 +52,7 @@ pipeline {
         
         stage('Verify JACOCO & Run Unit Test Cases'){
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire-report:report jacoco:report  jacoco:check@jacoco-check'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire-report:report jacoco:report jacoco:check@jacoco-check'
             }
             post {
                 success {
@@ -84,7 +84,7 @@ pipeline {
 		 
         stage('Packaging') {
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl department-service,employee-service,gateway-service,organization-service war:war spring-boot:repackage dependency:unpack@unpack'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 4 -pl department-service,employee-service,gateway-service,organization-service war:war spring-boot:repackage dependency:unpack@unpack'
             }
             post {
                 failure {
