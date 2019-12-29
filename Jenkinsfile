@@ -57,7 +57,7 @@ pipeline {
             post {
                 success {
                      publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'organization-management-system/target/site', reportFiles: 'surefire-report.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
-                    jacoco buildOverBuild: true, changeBuildStatus: true, inclusionPattern: '**/*.class'
+                     jacoco buildOverBuild: true, changeBuildStatus: true, inclusionPattern: '**/*.class'
                 }
                 failure {
                     mailextrecipients([developers(), upstreamDevelopers(), culprits()])
@@ -102,7 +102,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 4 dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
             }
             post {
                 failure {
@@ -119,7 +119,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 4 dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
             }
             post {
                 failure {
