@@ -49,38 +49,14 @@ pipeline {
             }
         }
         
-        stage('Copy Resources') {
-            steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
-            }
-            post {
-                failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
-                }
-            }				
-        }
         
-        stage('Generate Test Cases - Surefire') {
+        stage('Verify JACOCO & Run Unit Test Cases'){
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire-report:report'
-            }
-
-            post {
-                success {
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'organization-management-system/target/site', reportFiles: 'surefire-report.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
-                }
-                failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
-                }                     
-            }            
-        }
-        
-        stage('Check code Coverage'){
-            steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire:test jacoco:report  jacoco:check@jacoco-check'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire-report:report jacoco:report  jacoco:check@jacoco-check'
             }
             post {
                 success {
+                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'organization-management-system/target/site', reportFiles: 'surefire-report.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
                     jacoco buildOverBuild: true, changeBuildStatus: true, inclusionPattern: '**/*.class'
                 }
                 failure {
@@ -96,7 +72,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl .,config-service  sonar:sonar'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" sonar:sonar'
             }
             post {
                 failure {
