@@ -196,7 +196,6 @@
                 <scope>test</scope>
             </dependency>
 
-
         </dependencies>
     </dependencyManagement>
 
@@ -372,7 +371,7 @@
                     </executions>
                 </plugin>
             </plugins>
-            
+
         </pluginManagement>
     </build>
 
