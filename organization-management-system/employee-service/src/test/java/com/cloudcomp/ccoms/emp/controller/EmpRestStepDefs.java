@@ -40,6 +40,8 @@ public class EmpRestStepDefs extends AbstractEmpRestCntr implements En {
 
     List<Employee> emps = new ArrayList<Employee>();
     private final Logger log = LoggerFactory.getLogger(EmpRestStepDefs.class);
+    
+    Long empid;
 
     final Employee emp1 = new Employee(1L, "Suyog", 29, "DevOps Engineer", 21, 2);
     final Employee emp2 = new Employee(5L, "Sanjay", 29, "DevOps Engineer", 21, 2);
@@ -75,6 +77,7 @@ public class EmpRestStepDefs extends AbstractEmpRestCntr implements En {
 
     @When("I set HTTP GET request RESTful API with URI {long}")
     public void get_rest_api_to_get_single_emp_info(final Long empid) {
+        this.empid = empid;
         if (empid >= 3L) {
             when(emprepo.findById(empid)).thenReturn(Optional.empty());
         } else {
@@ -140,14 +143,14 @@ public class EmpRestStepDefs extends AbstractEmpRestCntr implements En {
         when(emprepo.saveAll(emps)).thenReturn(emps);
     }
 
-    @Then("I should get valid HTTP response code 200 of GET request for respective employee information")
-    public void testGetEmpById() throws ResourceNotFoundException {
+    @Then("I should get {int} response code of HTTP GET request")
+    public void get_http_response_code_of_http_get_request(Integer http_code){
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-        ResponseEntity<Employee> responseEntity = empRestController.getEmpById(1L);
-        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+        ResponseEntity<Employee> responseEntity = empRestController.getEmpById(this.empid);
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(http_code);
     }
-
+    
     @Then("I should get valid HTTP response code 200 of POST request to add one employee at a time")
     public void testAddEmp() {
         MockHttpServletRequest request = new MockHttpServletRequest();

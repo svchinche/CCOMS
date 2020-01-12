@@ -8,13 +8,18 @@ Given Following Employee information is available in store
   |  2 | Sachin |  29 | DevOps Engineer-2 |  11     |  1     |
   |  3 | Suraj  |  29 | DevOps Engineer-2 |  13     |  1     |
 
-Scenario: Get Employee information using Emp-id
-When I set HTTP GET request RESTful API with URI 1
-Then I should get valid HTTP response code 200 of GET request for respective employee information
+Scenario Outline: Get Employee information using Emp-id
+When I set HTTP GET request RESTful API with URI <emp_id>
+Then I should get <result> response code of HTTP GET request
+Examples:
+|emp_id |result  | 
+|1      |200     |
+|4      |404     |     
 
 Scenario: Get Employee information using Dept-id
 When I set HTTP GET request RESTful API with dept with 11 id URI
 Then I should get valid HTTP response code 200 of GET request for respective dept
+
 
 Scenario: Get Employee information using Org-id
 When I set HTTP GET request RESTful API with org with 2 id URI
