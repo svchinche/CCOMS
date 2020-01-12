@@ -1,5 +1,8 @@
 package com.cloudcomp.ccoms.dept.controller;
 
+import com.cloudcomp.ccoms.dept.model.Department;
+import com.cloudcomp.ccoms.dept.model.Employee;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -9,14 +12,14 @@ public class DeptStepDefs {
 
 @Given("Following Department information is available in store")
 public void following_Department_information_is_available_in_store(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List<E>, List<List<E>>, List<Map<K,V>>, Map<K,V> or
-    // Map<K, List<V>>. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new cucumber.api.PendingException();
+
+    Department dept1 = new Department(11L, 1, "ORMB");
+    Department dept2 = new Department(12L, 1, "I-FLEX");
+
+    Employee emp1 = new Employee(1L, "Suyog", 29, "DevOps Engineer");
+    Employee emp2 = new Employee(2L, "Sachin", 29, "DevOps Engineer-2");
+
+    
 }
 
 @When("I set HTTP GET request RESTful API with depts URI")
