@@ -28,7 +28,7 @@
         <testng.version>6.14.3</testng.version>
         <selenium.version>3.141.59</selenium.version>
         <hamcrest.version>2.1-rc3</hamcrest.version>
-        <cucumber.version>5.0.0-RC1</cucumber.version>
+        <cucumber.version>4.2.5</cucumber.version>
 
         <sonar.sources>src/main</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
@@ -50,7 +50,9 @@
     </modules>
 
     <dependencyManagement>
+
         <dependencies>
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -58,6 +60,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>io.pivotal.spring.cloud</groupId>
                 <artifactId>spring-cloud-services-dependencies</artifactId>
@@ -65,6 +68,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
@@ -82,17 +86,21 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
             <!-- https://mvnrepository.com/artifact/io.swagger/swagger-models -->
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-models</artifactId>
                 <version>1.5.21</version>
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.retry</groupId>
                 <artifactId>spring-retry</artifactId>
-                <version>1.2.4.RELEASE</version><!--$NO-MVN-MAN-VER$ -->
+                <version>1.2.5.RELEASE</version>
+                <!-- <version>1.2.4.RELEASE</version> $NO-MVN-MAN-VER$ -->
             </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
@@ -105,12 +113,15 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>2.2.1.RELEASE</version>
                 <scope>test</scope>
-                <exclusions>
+                <!-- disable since cucumber class was not invoking during
+                    test phase
+                    <exclusions>
                     <exclusion>
-                        <groupId>org.junit.vintage</groupId>
-                        <artifactId>junit-vintage-engine</artifactId>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
                     </exclusion>
-                </exclusions>
+                    </exclusions>
+                -->
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -179,6 +190,12 @@
 
             <dependency>
                 <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java8</artifactId>
+                <version>${cucumber.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
                 <artifactId>cucumber-java</artifactId>
                 <version>${cucumber.version}</version>
                 <scope>test</scope>
@@ -197,6 +214,7 @@
             </dependency>
 
         </dependencies>
+
     </dependencyManagement>
 
     <build>
