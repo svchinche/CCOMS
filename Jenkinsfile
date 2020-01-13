@@ -191,7 +191,7 @@ pipeline {
             }
         }
 
-        stage('Checklist report generation') {
+        stage('Checklist report generation'){
             steps {
                 echo "Generating checklist report"
             }
