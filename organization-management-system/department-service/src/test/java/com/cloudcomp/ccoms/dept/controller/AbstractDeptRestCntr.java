@@ -16,7 +16,7 @@ import com.cloudcomp.ccoms.dept.dao.DepartmentRepository;
 
 
 @ContextConfiguration
-@SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class AbstractDeptRestCntr {

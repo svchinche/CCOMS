@@ -16,7 +16,7 @@ import com.cloudcomp.ccoms.org.client.EmployeeClient;
 import com.cloudcomp.ccoms.org.dao.OrganizationRepository;
 
 @ContextConfiguration
-@SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class AbstractOrgRestCntr {
