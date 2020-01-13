@@ -12,6 +12,7 @@ Table of contents
    * [Abstract](#abstract)
    * [Introdution](#introduction)
    * [Software Metrics](#software-metrics)
+   * [Requirement Gathering](#requirement-gathering)
    * [Implementation](#implementation)
       * [Spring Boot](#spring-boot)
       * [Maven](#maven)
@@ -102,6 +103,32 @@ Software Metrics
 |Building Infrastructure     |Vagrant             |                    |          |To form virtual machines with softwares,packages and k8s cluster                             |
 |Webserver                   |Apache Tomcat       |                    |          |To deploy web based application                                                              |
 |Operating system            |OEL                 |                    |7.3       |for deploying k8s cluster                                                                    |
+
+Requirement Gathering
+=====================
+Generating a list of requirements (functional, system, technical, etc.) from the various stakeholders (customers, users, vendors, IT staff, etc.) that will be used as the basis for the formal Requirements. </br>
+The exact implementation of behavioral requirements varies per tool, for development of features i am using cucumber framework.</br>
+
+Behaviour Driven Development
+----------------------------
+
+In both TDD and BDD approaches, tests are written upfront before the actual code is written. </br>
+Writing tests first helps predict the course of the development, which will ultimately prevent any cases being missed from the code or functionality. </br>
+Prevention of bugs will be the main aim of these approaches, and these tests will also act as concrete documentation of what is planned to be achieved in terms of test coverage.</br></br>
+
+BDD is an agile technique that brings developers, analysts and testers together through the use of scenarios. </br>
+Scenarios that are written in a behaviour-driven development format allow business analysts to specify events, conditions, and actions which can later serve as acceptance test criteria.</br>
+
+Higher level flow
+------------------
+- Business analyst or customer write the feature file
+- Developer and tester (work collaberatively) and convert file to step definations and then start working on the features.</br>
+
+Below is the screenshot of overall cucumber results and one of scenarion.</br>
+
+<p align="center"><img width="800" height="400" src=".images/cucumber_result.PNG"></p>
+
+<p align="center"><img width="800" height="400" src=".images/cucumber_emp_result.PNG"></p>
 
 Implementation
 ============
