@@ -20,12 +20,8 @@ When I set HTTP GET request RESTful API with org with 2 id URI
 Then I should get valid HTTP response code 200 of GET request department for respective org
 
 Scenario: Get Employee with department information using org-id
-When I set HTTP GET request RESTful API with org with org 11 withemp URI
-Then I should get valid HTTP response code 200 of GET request for respective dept
-
-Scenario: Get all Departments information with Pretty
-When I set HTTP GET request RESTful API with pretty URI
-Then I should get valid HTTP response code 200 of GET request with all Departments information in UI with pretty
+When I set HTTP GET request RESTful API with org 11 withemp URI to get emp and dept info
+Then I should get valid HTTP response code 200 of GET request to get emp and dept info using org
 
 Scenario: Get all Departments with employees and organizations
 When I set HTTP GET request RESTful API with org/withemp URI
@@ -42,10 +38,6 @@ Then I should get valid HTTP response code 200 of POST request to add all Depart
 Scenario: Delete all departments information at once
 When I set HTTP DELETE REST API 
 Then I should get valid HTTP response code 200 of DELETE request to delete all Department at once
-
-Scenario: Error message should shown when no api input is provided
-When I set HTTP GET request without any resource mentioned in API
-Then I should get valid HTTP response code 200 for that request with warning message
 
 Scenario: All Geters and Setters should be invoked to improve code quality
 When I initialize all Getters and Setters

@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.ui.Model;
 
 import com.cloudcomp.ccoms.dept.Application;
+import com.cloudcomp.ccoms.dept.client.EmployeeClient;
 import com.cloudcomp.ccoms.dept.dao.DepartmentRepository;
 
 
@@ -21,6 +23,9 @@ public class AbstractDeptRestCntr {
     
     @MockBean
     private DepartmentRepository deptrepo;
+    
+    @MockBean
+    private EmployeeClient empClient;
     
 }
 
