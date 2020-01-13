@@ -29,8 +29,8 @@ public class Application {
     @Bean
     public Docket api(ServletContext servletContext) {
         return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.basePackage("com.cloudcomp.ccoms.empsvc.controller"))
-                .paths(PathSelectors.regex("/.*")).build().apiInfo(apiEndPointsInfo());
+                .apis(RequestHandlerSelectors.basePackage("com.cloudcomp.ccoms.emp.controller"))
+                .paths(PathSelectors.regex("/api.*")).build().apiInfo(apiEndPointsInfo());
     }
 
     private ApiInfo apiEndPointsInfo() {
