@@ -57,7 +57,8 @@ pipeline {
             post {
                 success {
                      publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'organization-management-system/target/site', reportFiles: 'surefire-report.html', reportName: 'CCOMS Unit Test Report', reportTitles: 'CCOMS Unit Test Result'])
-                     jacoco buildOverBuild: true, changeBuildStatus: true, inclusionPattern: '**/*.class'
+                     jacoco buildOverBuild: true, changeBuildStatus: false, inclusionPattern: '**/*.class'
+                     cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
                 }
                 failure {
                     mailextrecipients([developers(), upstreamDevelopers(), culprits()])
