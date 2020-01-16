@@ -18,9 +18,16 @@ echo -e "Verifying ------ All nodes mentioned in inventory should be reachable \
 
 for env in ${envs[@]}
 do
-   ansible -m ping -i ${DIR_NAME}/environments/$env all 2>&1 >/dev/null || ( echo "Few nodes are not reachable from $env";exit 1; )
-   echo "$env environemnt nodes are reachable"
+   ansible -m ping -i ${DIR_NAME}/environments/$env all | grep -q "SUCCESS"
+   exit_val=$?
+   [[ $exit_val -ne 0 ]] && ( echo "some of the nodes are not reachable" )
 done
+
+if [[ $exit_val -eq 0 ]]; 
+then
+   echo "all nodes are reachable";
+   exit 0
+fi
 
 echo -e "\n\nVerifying ---- Vault key should be rotable\n"
 result=`sh $VAULT_SCRIPT`;
