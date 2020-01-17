@@ -29,17 +29,6 @@ then
    exit 0
 fi
 
-echo -e "\n\nVerifying ---- Vault key should be rotable\n"
-result=`sh $VAULT_SCRIPT`;
-if [[ $? -eq 0 ]] ;
-then
-   echo "Successfully verified rotation"
-else
-   echo "Exited due to vault rotation failure";
-   exit 1;
-fi
-
-echo -e "\n\nVerifying ---- After Git Checkout soft links should work properly \n"
 
 for env in ${envs[@]}
 do
