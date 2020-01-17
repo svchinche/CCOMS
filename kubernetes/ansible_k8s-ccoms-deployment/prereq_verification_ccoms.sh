@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 #"**********  Below are the pre-requisites ****************"
 # 1. All nodes mentioned in inventory should be reachable"
