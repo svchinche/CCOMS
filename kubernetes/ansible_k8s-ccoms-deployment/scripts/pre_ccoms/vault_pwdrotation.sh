@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 
 DIR_NAME=$(dirname $(realpath $0))
