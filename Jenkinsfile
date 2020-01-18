@@ -109,7 +109,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}-SNAPSHOT" -T 5 -DskipTests=true install''
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}-SNAPSHOT" -T 5 -DskipTests=true install'
             }
             post {
                 failure {
