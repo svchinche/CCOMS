@@ -1,0 +1,7 @@
+---
+# tasks file for preccoms
+
+- import_tasks: kube-system-coredns.yml
+  tags:
+  - preccoms
+  - preccoms:cordens

@@ -1,0 +1,39 @@
+---
+# vars file for ccoms
+
+APPS:
+  CONFIG:
+    IMAGE: config-service:{{ ccoms_service_tag }}
+    REPLICA: 2
+    READYNESSPROBEHTTPPATH: /employee-microservice/default
+    LIVENESSPROBEHTTPPATH: /employee-microservice/default
+    CONTAINERPORT: 8888
+  EMPLOYEE:
+    IMAGE: emp-service:{{ ccoms_service_tag }}
+    REPLICA: 3
+    READYNESSPROBEHTTPPATH: /pretty
+    LIVENESSPROBEHTTPPATH: /pretty
+    CONTAINERPORT: 8080
+  DEPARTMENT:
+    IMAGE: dept-service:{{ ccoms_service_tag }}
+    REPLICA: 3
+    READYNESSPROBEHTTPPATH: /pretty
+    LIVENESSPROBEHTTPPATH: /pretty
+    CONTAINERPORT: 8081
+  ORGANIZATION:
+    IMAGE: org-service:{{ ccoms_service_tag }}
+    REPLICA: 3
+    READYNESSPROBEHTTPPATH: /pretty
+    LIVENESSPROBEHTTPPATH: /pretty
+    CONTAINERPORT: 8082
+  PROXY:
+    IMAGE: gateway-service:{{ ccoms_service_tag }}
+    REPLICA: 2
+    READYNESSPROBEHTTPPATH: /emp/pretty
+    LIVENESSPROBEHTTPPATH: /emp/pretty
+    CONTAINERPORT: 8111
+
+DB:
+  MONGO:
+    PORT: 27017
+    REPLICA: 5

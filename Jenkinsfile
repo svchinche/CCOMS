@@ -1,189 +1,194 @@
 pipeline {
-      agent {
+
+    agent {
         label 'master'
-      }
-      tools {
-      maven 'maven'
-      jdk 'jdk8'
-      }
+    }
+    tools {
+        maven 'maven'
+        jdk 'jdk8'
+    }
 
-      libraries {
-           lib('my-shared-library@master')
-      }
+    libraries {
+        lib('git_infoshared_lib@master')
+    }
 
+    environment {
+         
+        APP_NAME = "ccoms"
+        APP_ROOT_DIR = "organization-management-system"
+        APP_AUTHOR = "Suyog Chinche"
+        
+        GIT_URL="https://github.com/svchinche/CCOMS.git"
 
-      environment {
-           //application metadata related variables 
-           APP_NAME = "quickstart"
-           APP_AUTHOR = "Suyog Chinche"
-           PACKAGING  = "jar"
-           OUTPUT_FILE = "${APP_NAME}.${PACKAGING}" 
-           MAVEN_EXTENSION = "${PACKAGING}"
-           SORT_OPTION = "repository"
-           GIT_URL="https://github.com/suyogchinche/CICD_declarative_pipeline.git"
+        VERSION_NUMBER=VersionNumber([
+            versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${REVISION_IDBER}',
+            projectStartDate : '2019-02-09',
+            versionPrefix : 'v'
+        ])
 
-           // Version specific variable
-           VERSION_NUMBER=VersionNumber([
-               versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${BUILD_NUMBER}',
-               projectStartDate : '2019-02-09',
-               versionPrefix : 'v'
-           ])
+        SBT_OPTS='-Xmx1024m -Xms512m'
+        JAVA_OPTS='-Xmx1024m -Xms512m'
 
-           //appn memory argument
-           SBT_OPTS='-Xmx1024m -Xms512m'
-           JAVA_OPTS='-Xmx1024m -Xms512m'
-
-           //All servers URL
-           NEXUS_URL = "worker-node1:8081"
-
-           //Used shared library to get the build no and tag name
-           //BUILD_NUM = show_BuildId()
-      }
+    }
 
 
-      stages {
-           
-           stage('Cleaning Phase') {
-                steps {
-                     // This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library
-                     script {
-                          env.BUILD_NUM = show_BuildId()
-                     }
-                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" clean:clean'
+    stages {
+         
+        stage('Clean-Phase') {
+            steps {
+                 /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
+                script {
+                    env.REVISION_ID = getBuildVersion()
                 }
-           }
-           
-           // Compile main and test classes
-           stage('Compiling Phase') {
-                steps {
-                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" compiler:compile compiler:testCompile'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
+            }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
-           }
-
-           // Generate test cases using default surefire plugin in maven
-           stage('Generate Test Cases - Surefire') {
-                steps {
-                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" surefire:test'
+            }
+        }
+        
+        
+        stage('Gen-Cucumber-Report&verify-jacoco'){
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire-report:report jacoco:report jacoco:check@jacoco-check'
+            }
+            post {
+                success {
+                    cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: 'organization-management-system/**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
+                    jacoco inclusionPattern: '**/*.class'
+                    
                 }
-
-                post {
-                     success {
-                          //junit 'java_project/target/surefire-reports/*.xml'
-                          publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'java_project/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
-                     }
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
-           }
-          
-           stage('Verify code coverage - Jacoco') {
-                steps {
-                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" jacoco:prepare-agent surefire:test jacoco:report jacoco:check@jacoco-check'
+            }	
+        }
+        
+        stage('Upload-Code-SonarQube'){
+            when {
+                anyOf {
+                    branch 'release'
                 }
-                post {
-                     always {
-                         jacoco classPattern: '**/target/classes', execPattern: '**/target/**.exec'
-                     }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" sonar:sonar'
+            }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
-
-           }
-    
-           stage('Publishing code on SONARQUBE'){
-                when {
-                     anyOf {
-                          branch 'release'
-                     }
+            }	
+        }
+        
+        
+        stage('Build&Push-docker-image') {
+            when {
+                anyOf {
+                    branch 'release'
+					branch 'hotfix'
+					branch 'master'
                 }
-                steps {
-                    sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" sonar:sonar'
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 5 -DskipTests=true install'
+            }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
-           }
-           stage('Pushing artifacts to NEXUS') {
-                when {
-                     anyOf {
-                          branch 'develop'
-                          branch 'release'
-                          branch 'hotfix'
-                          allOf {
-                                     branch "feature-*"
-                                     tag "release-*"
-                          }
-                     }
+            }				
+        }
+		
+		// In case of develop branch, QA env will be provision based on local private docker registry
+		stage('Build&Push-docker-image-SNAPSHOT') {
+            when {
+                anyOf {
+                    branch 'develop'
                 }
-                steps {
-                     sh 'mvn -f java_project/pom.xml -Drevision="${BUILD_NUM}" jar:jar deploy:deploy'
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}-SNAPSHOT" -T 5 -DskipTests=true install''
+            }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
-           }
+            }	
+        }
 
-           stage('Download artifact for deployment') {
-                environment{
-                       ASSET_URL= "http://${NEXUS_URL}/service/rest/v1/search/assets/download?sort=${SORT_OPTION}&repository=maven-snapshots&name=${APP_NAME}&group=com.vogella.maven&version=${VERSION_NUMBER}&maven.extension=${PACKAGING}"
+        stage('Depoloy-Podonk8s-Cluster') {
+            environment {
+                ANSIBLE_CONFIG = "$WORKSPACE/kubernetes/ansible_k8s-ccoms-deployment/ansible.cfg"
+            }
+            steps {
+                sh 'kubernetes/ansible_k8s-ccoms-deployment/prereq_verification_ccoms.sh'
+                ansiblePlaybook extras: '-e ccoms_service_tag="${REVISION_ID}"', installation: 'ansible_2.8.5',  inventory: 'kubernetes/ansible_k8s-ccoms-deployment/environments/dev', playbook: 'kubernetes/ansible_k8s-ccoms-deployment/ccoms_playbook.yaml'
+            }
+            post {
+                failure {
+                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
-                steps {
-                     echo "Downloading ...."
-                     withCredentials([usernamePassword(credentialsId: 'nexus_artifactory_repository_credentials', passwordVariable: 'password', usernameVariable: 'username')]) { 
-                         sh 'curl -u ${username}:${password} -L -X GET ${ASSET_URL} -o ${APP_NAME}.${PACKAGING}'
-                     }
-                      
+            }   
+        }      
+
+
+        stage('Post Deployment ll stages') {
+        
+            parallel {
+            
+                stage('Integration Test') {
+                    steps {
+                        echo "Integration test is in Progress ...."
+                    }
                 }
-           }
+				
+                /*
+                stage('Performance Test') {
 
-           stage('Install/Update artifact - QA/Stage/DEV-UAT') {
-                steps {
-                     echo "Installation is in Progress ...."
+                    environment{
+                        JMETER_HOME="/u01/app/jmeter/apache-jmeter-5.1.1";
+                        JMX_FILE_LOC="${APP_ROOT_DIR}/jmeter_test_cases/buyer.jmx"
+                        JMX_RESULT_FILE_LOC="${APP_ROOT_DIR}/target/result.file"
+                        JMX_WEB_REP_LOC="${APP_ROOT_DIR}/target/jmxreport"
+                    }
+
+                    steps {
+                        echo "Performance test is in progress ...."
+                        sh script: ''' [ -d ${JMX_WEB_REP_LOC} ] &&  rm -rf  ${JMX_WEB_REP_LOC}
+                            [ -f ${JMX_RESULT_FILE_LOC} ] &&  rm -rf  ${JMX_RESULT_FILE_LOC}
+                            mkdir -p ${JMX_WEB_REP_LOC}
+                            ${JMETER_HOME}/bin/jmeter.sh -n -t ${JMX_FILE_LOC} -l ${JMX_RESULT_FILE_LOC} -e -o ${JMX_WEB_REP_LOC}
+                            '''
+                    }
+                    post {
+                        success {
+                            perfReport sourceDataFiles: env.JMX_RESULT_FILE_LOC
+                        }
+                    }
                 }
-           }
-
-
-           stage('Post Deployment ll stages') {
-                parallel {
-                     stage('Integration Test') {
-                           steps {
-                                  echo "Integration test is in Progress ...."
-                           }
-                     }
-
-                     stage('Performance Test') {
-
-                          environment{
-                                JMETER_HOME="/u01/app/jmeter/apache-jmeter-5.1.1";
-                                JMX_FILE_LOC="java_project/jmeter_test_cases/buyer.jmx"
-                                JMX_RESULT_FILE_LOC="java_project/target/result.file"
-                                JMX_WEB_REP_LOC="java_project/target/jmxreport"
-                            }
-
-                           steps {
-                                 echo "Performance test is in progress ...."
-                                 sh script: ''' [ -d ${JMX_WEB_REP_LOC} ] &&  rm -rf  ${JMX_WEB_REP_LOC}
-                                                [ -f ${JMX_RESULT_FILE_LOC} ] &&  rm -rf  ${JMX_RESULT_FILE_LOC}
-                                                mkdir -p ${JMX_WEB_REP_LOC}
-                                                ${JMETER_HOME}/bin/jmeter.sh -n -t ${JMX_FILE_LOC} -l ${JMX_RESULT_FILE_LOC} -e -o ${JMX_WEB_REP_LOC}
-                                            '''
-                           }
-                           post {
-                               success {
-                                   perfReport sourceDataFiles: env.JMX_RESULT_FILE_LOC
-                               }
-                           }
-
-                     }
-
-                     stage('Functional Regression Test') {
-                           steps {
-                                 echo "Function test is in progress...."
-                                 sh 'mvn -f java_project/ -Drevision="${BUILD_NUM}" failsafe:integration-test'
-                           }
-                           post {
-                                always {
-                                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'java_project/target/failsafe-reports', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: 'IT Test Result'])
-                                }
-                          }
-                     }
-                 }
-           }
-
-           stage('Checklist report generation') {
-                steps {
-                    echo "Generating checklist report"
+                
+                stage('Functional Regression Test') {
+                    steps {
+                        echo "Function test is in progress...."
+                        sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" failsafe:integration-test'
+                    }
+                    post {
+                        always {
+                            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/target/failsafe-reports', reportFiles: 'index.html', reportName: 'Integration Test Report', reportTitles: 'IT Test Result'])
+                        }
+                    }
                 }
-           }
-      }
+                */
+            }
+        }
+
+        stage('Checklist report generation'){
+            steps {
+                echo "Generating checklist report"
+            }
+        }
+        
+    }
 }

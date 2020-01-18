@@ -1,0 +1,8 @@
+---
+- hosts: k8s_master
+  tasks:
+  - name: "Dubug Messgae"
+    debug: 
+      msg: 
+      - "Host info is :: Hostname - {{ ansible_hostname }} and IP Adress - {{ ansible_default_ipv4.address }}"
+      - "Database info is :: Username :: {{ common.username | b64decode }} Password :: {{ common.password | b64decode }} Servicename :: {{ common.servicename | b64decode}}"
