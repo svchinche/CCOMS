@@ -16,9 +16,9 @@ rm -rf ~/.ansible_keys_back && cp -r ~/.ansible_keys ~/.ansible_keys_back
 rm -rf ~/.ansible_keys && mkdir -p ~/.ansible_keys
 
 ## Generate random passwords
-tr -cd '[:alnum:]' < /dev/urandom | fold -w32 | head -n1 > ~/.ansible_keys/.vault_ccoms.dev
-tr -cd '[:alnum:]' < /dev/urandom | fold -w32 | head -n1 > ~/.ansible_keys/.vault_ccoms.prod
-tr -cd '[:alnum:]' < /dev/urandom | fold -w32 | head -n1 > ~/.ansible_keys/.vault_ccoms.uat
+date +%s | sha256sum | base64 | head -c 32  > ~/.ansible_keys/.vault_ccoms.dev
+date +%s | sha256sum | base64 | head -c 32  > ~/.ansible_keys/.vault_ccoms.prod
+date +%s | sha256sum | base64 | head -c 32  > ~/.ansible_keys/.vault_ccoms.uat
 
 ## Rekeying vault ids
 ansible-vault rekey --vault-id dev@~/.ansible_keys_back/.vault_ccoms.dev --new-vault-id dev@~/.ansible_keys/.vault_ccoms.dev ${DIR_NAME}/../../environments/dev/group_vars/all/vault/ccoms_db
