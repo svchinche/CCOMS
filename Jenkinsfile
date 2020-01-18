@@ -34,7 +34,7 @@ pipeline {
 
     stages {
          
-        stage('Cleaning Phase') {
+        stage('Clean-Phase') {
             steps {
                  /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
                 script {
@@ -50,7 +50,7 @@ pipeline {
         }
         
         
-        stage('Verify JACOCO & Run Unit Test Cases'){
+        stage('Gen-Cucumber-Report&verify-jacoco'){
             steps {
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire-report:report jacoco:report jacoco:check@jacoco-check'
             }
@@ -66,7 +66,7 @@ pipeline {
             }	
         }
         
-        stage('Publishing code on SONARQUBE'){
+        stage('Upload-Code-SonarQube'){
             when {
                 anyOf {
                     branch 'release'
@@ -82,19 +82,8 @@ pipeline {
             }	
         }
         
-		 
-        stage('Packaging') {
-            steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 4 -pl department-service,employee-service,gateway-service,organization-service war:war spring-boot:repackage dependency:unpack@unpack'
-            }
-            post {
-                failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
-                }
-            }	
-        }
         
-        stage('Building and Pushing an image') {
+        stage('Build&Push-docker-image') {
             when {
                 anyOf {
                     branch 'release'
@@ -103,7 +92,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 4 dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 5 -DskipTests=true install'
             }
             post {
                 failure {
@@ -113,14 +102,14 @@ pipeline {
         }
 		
 		// In case of develop branch, QA env will be provision based on local private docker registry
-		stage('Snapshot Release- Building and Pushing an image') {
+		stage('Build&Push-docker-image-SNAPSHOT') {
             when {
                 anyOf {
                     branch 'develop'
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 4 dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}-SNAPSHOT" -T 5 -DskipTests=true install''
             }
             post {
                 failure {
@@ -129,16 +118,20 @@ pipeline {
             }	
         }
 
-        stage('Install/Update artifact - QA/Stage/DEV-UAT') {
+        stage('Depoloy-Podonk8s-Cluster') {
+            environment {
+                ANSIBLE_CONFIG = "$WORKSPACE/kubernetes/ansible_k8s-ccoms-deployment/ansible.cfg"
+            }
             steps {
-                echo "Installation is in Progress ...."
+                sh 'kubernetes/ansible_k8s-ccoms-deployment/prereq_verification_ccoms.sh'
+                ansiblePlaybook extras: '-e ccoms_service_tag="${REVISION_ID}"', installation: 'ansible_2.8.5',  inventory: 'kubernetes/ansible_k8s-ccoms-deployment/environments/dev', playbook: 'kubernetes/ansible_k8s-ccoms-deployment/ccoms_playbook.yaml'
             }
             post {
                 failure {
                     mailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
-            }	
-        }
+            }   
+        }      
 
 
         stage('Post Deployment ll stages') {
