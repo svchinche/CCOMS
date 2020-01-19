@@ -8,7 +8,7 @@
 
 DIR_NAME=$(dirname $(realpath $0))
 
-envs=(prod uat dev)
+envs=(prod uat dev uat-2 qa)
 VAULT_SCRIPT="${DIR_NAME}/scripts/pre_ccoms/vault_pwdrotation.sh"
 
 export ANSIBLE_CONFIG="${DIR_NAME}/ansible.cfg"
