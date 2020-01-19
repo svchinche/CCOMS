@@ -13,22 +13,12 @@ pipeline {
     }
 
     environment {
-         
         APP_NAME = "ccoms"
         APP_ROOT_DIR = "organization-management-system"
         APP_AUTHOR = "Suyog Chinche"
-        
         GIT_URL="https://github.com/svchinche/CCOMS.git"
-
-        VERSION_NUMBER=VersionNumber([
-            versionNumberString :'${BUILD_MONTH}.${BUILDS_TODAY}.${REVISION_IDBER}',
-            projectStartDate : '2019-02-09',
-            versionPrefix : 'v'
-        ])
-
         SBT_OPTS='-Xmx1024m -Xms512m'
         JAVA_OPTS='-Xmx1024m -Xms512m'
-
     }
 
 
@@ -36,15 +26,33 @@ pipeline {
          
         stage('Clean-Phase') {
             steps {
-                 /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
                 script {
+                    if ( BRANCH_NAME == 'master' ) {
+                        env.ENVIRONMENT = "uat"
+                        env.ENVID= "1"
+                    } else if ( BRANCH_NAME == 'hotfix' ){
+                        env.ENVIRONMENT = "uat-2"
+                        env.ENVID= "2"
+                    } else if ( BRANCH_NAME == 'release' ){
+                        env.ENVIRONMENT = "qa"
+                        env.ENVID= "3"
+                    } else if ( BRANCH_NAME == 'development' ){
+                        env.ENVIRONMENT = "dev"
+                        env.ENVID= "4"
+                    } else {
+                        env.ENVIRONMENT = "none"
+                        env.ENVID= "5"
+                    }
                     env.REVISION_ID = getBuildVersion()
+                    env.REVISION="${REVISION_ID}.${ENVID}.${BUILD_NUMBER}"
                 }
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
+                
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION}" clean:clean'
             }
+            
             post {
                 failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                    emailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
             }
         }
@@ -52,7 +60,7 @@ pipeline {
         
         stage('Gen-Cucumber-Report&verify-jacoco'){
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION_ID}" jacoco:prepare-agent surefire-report:report jacoco:report jacoco:check@jacoco-check'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION}" jacoco:prepare-agent surefire-report:report jacoco:report jacoco:check@jacoco-check'
             }
             post {
                 success {
@@ -61,7 +69,7 @@ pipeline {
                     
                 }
                 failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                    emailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
             }	
         }
@@ -73,62 +81,68 @@ pipeline {
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" sonar:sonar'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION}" sonar:sonar'
             }
             post {
                 failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                    emailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
             }	
         }
         
-        
-        stage('Build&Push-docker-image') {
+        stage('Build&Push-DockerImg') {
             when {
                 anyOf {
-                    branch 'release'
 					branch 'hotfix'
 					branch 'master'
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -T 5 -DskipTests=true install'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION}" -T 5 -DskipTests=true install'
             }
             post {
                 failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                    emailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
             }				
         }
 		
-		// In case of develop branch, QA env will be provision based on local private docker registry
-		stage('Build&Push-docker-image-SNAPSHOT') {
+		stage('Build&Push-DockerImg-SNAPSHOT') {
             when {
                 anyOf {
                     branch 'develop'
+                    branch 'release'
                 }
             }
             steps {
-                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}-SNAPSHOT" -T 5 -DskipTests=true install'
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION}" -T 5 -DskipTests=true install'
             }
             post {
                 failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                    emailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
             }	
         }
 
-        stage('Depoloy-Podonk8s-Cluster') {
+        stage('Depoloy-PodOnK8S-Cluster') {
+            when {
+                anyOf {
+                    branch 'develop'
+                    branch 'release'
+                    branch 'hotfix'
+                    branch 'master'
+                }
+            }
             environment {
                 ANSIBLE_CONFIG = "$WORKSPACE/kubernetes/ansible_k8s-ccoms-deployment/ansible.cfg"
             }
             steps {
                 sh 'kubernetes/ansible_k8s-ccoms-deployment/prereq_verification_ccoms.sh'
-                ansiblePlaybook extras: '-e ccoms_service_tag="${REVISION_ID}"', installation: 'ansible_2.8.5',  inventory: 'kubernetes/ansible_k8s-ccoms-deployment/environments/dev', playbook: 'kubernetes/ansible_k8s-ccoms-deployment/ccoms_playbook.yaml'
+                ansiblePlaybook extras: '-e ccoms_service_tag="${REVISION_ID}"', installation: 'ansible_2.8.5',  inventory: 'kubernetes/ansible_k8s-ccoms-deployment/environments/${ENVIRONMENT}', playbook: 'kubernetes/ansible_k8s-ccoms-deployment/ccoms_playbook.yaml'
             }
             post {
                 failure {
-                    mailextrecipients([developers(), upstreamDevelopers(), culprits()])
+                    emailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
             }   
         }      
