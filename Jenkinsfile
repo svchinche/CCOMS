@@ -20,10 +20,8 @@ pipeline {
         SBT_OPTS='-Xmx1024m -Xms512m'
         JAVA_OPTS='-Xmx1024m -Xms512m'
     }
-
-
+    
     stages {
-         
         stage('Clean-Phase') {
             steps {
                 script {
@@ -36,7 +34,7 @@ pipeline {
                     } else if ( BRANCH_NAME == 'release' ){
                         env.ENVIRONMENT = "qa"
                         env.ENVID= "3"
-                    } else if ( BRANCH_NAME == 'development' ){
+                    } else if ( BRANCH_NAME == 'develop' ){
                         env.ENVIRONMENT = "dev"
                         env.ENVID= "4"
                     } else {
@@ -46,18 +44,15 @@ pipeline {
                     env.REVISION_ID = getBuildVersion()
                     env.REVISION="${REVISION_ID}.${ENVID}.${BUILD_NUMBER}"
                 }
-                
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION}" clean:clean'
             }
-            
             post {
                 failure {
                     emailextrecipients([developers(), upstreamDevelopers(), culprits()])
                 }
             }
         }
-        
-        
+               
         stage('Gen-Cucumber-Report&verify-jacoco'){
             steps {
                 sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -T 4 -Drevision="${REVISION}" jacoco:prepare-agent surefire-report:report jacoco:report jacoco:check@jacoco-check'
