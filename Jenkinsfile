@@ -133,7 +133,7 @@ pipeline {
             }
             steps {
                 sh 'kubernetes/ansible_k8s-ccoms-deployment/prereq_verification_ccoms.sh'
-                ansiblePlaybook extras: '-e ccoms_service_tag="${REVISION_ID}"', installation: 'ansible_2.8.5',  inventory: 'kubernetes/ansible_k8s-ccoms-deployment/environments/${ENVIRONMENT}', playbook: 'kubernetes/ansible_k8s-ccoms-deployment/ccoms_playbook.yaml'
+                ansiblePlaybook extras: '-e ccoms_service_tag="${REVISION}"', installation: 'ansible_2.8.5',  inventory: 'kubernetes/ansible_k8s-ccoms-deployment/environments/${ENVIRONMENT}', playbook: 'kubernetes/ansible_k8s-ccoms-deployment/ccoms_playbook.yaml'
             }
             post {
                 failure {

@@ -10,7 +10,7 @@ Table of contents
 
 <!--ts-->
    * [Abstract](#abstract)
-   * [Introdution](#introduction)
+   * [Introduction](#introduction)
    * [Software Metrics](#software-metrics)
    * [Requirement Gathering](#requirement-gathering)
    * [Implementation](#implementation)
@@ -109,7 +109,7 @@ Requirement Gathering
 Generating a list of requirements (functional, system, technical, etc.) from the various stakeholders (customers, users, vendors, IT staff, etc.) that will be used as the basis for the formal Requirements. </br>
 The exact implementation of behavioral requirements varies per tool, for development of features i am using cucumber framework.</br>
 
-Behaviour Driven Development
+Behavior Driven Development
 ----------------------------
 
 In both TDD and BDD approaches, tests are written upfront before the actual code is written. </br>
@@ -119,16 +119,18 @@ Prevention of bugs will be the main aim of these approaches, and these tests wil
 BDD is an agile technique that brings developers, analysts and testers together through the use of scenarios. </br>
 Scenarios that are written in a behaviour-driven development format allow business analysts to specify events, conditions, and actions which can later serve as acceptance test criteria.</br>
 
-Higher level flow
-------------------
-- Business analyst or customer write the feature file
-- Developer and tester (work collaberatively) and convert file to step definations and then start working on the features.</br>
-
-Below is the screenshot of overall cucumber results and one of scenarion.</br>
+Below is the screenshot of overall cucumber results and one of scenario.</br>
 
 <p align="center"><img width="800" height="400" src=".images/cucumber_result.PNG"></p>
 
 <p align="center"><img width="800" height="400" src=".images/cucumber_emp_result.PNG"></p>
+
+How Team Works in Agile Based Project
+------------------
+- Business analyst or customer write the feature file
+- Developer and tester (work in collaboratively) and convert file to step definitions and then start working on the features.</br>
+- Project Owner conducts Scrum 15 min daily meeting to track the activity
+- Project building tool is responsible for building, testing, deploying the project.   
 
 Implementation
 ============
@@ -716,6 +718,10 @@ def call() {
 Enable web-hook to auto trigger build.
 -------------------------------------
 
+Sonar-Qube reports 
+-------------------
+
+<p align="center"><img width="800" height="400" src=".images/sonar-qube.PNG"></p>
 
 Docker images 
 --------------
