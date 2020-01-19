@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 
 DIR_NAME=$(dirname $(realpath $0))
@@ -15,32 +15,29 @@ rm -rf ~/.ansible_keys_back && cp -r ~/.ansible_keys ~/.ansible_keys_back
 ## Remove existing files
 rm -rf ~/.ansible_keys && mkdir -p ~/.ansible_keys
 
-## Generate random passwords
-date +%s | sha256sum | base64 | head -c 32  > ~/.ansible_keys/.vault_ccoms.dev
-date +%s | sha256sum | base64 | head -c 32  > ~/.ansible_keys/.vault_ccoms.prod
-date +%s | sha256sum | base64 | head -c 32  > ~/.ansible_keys/.vault_ccoms.uat
+envs=(dev qa uat uat-2 prod)
 
-## Rekeying vault ids
-ansible-vault rekey --vault-id dev@~/.ansible_keys_back/.vault_ccoms.dev --new-vault-id dev@~/.ansible_keys/.vault_ccoms.dev ${DIR_NAME}/../../environments/dev/group_vars/all/vault/ccoms_db
+for env in "${envs[@]}"
+do
+    ## Generate random passwords
+    date +%s | sha256sum | base64 | head -c 32  > ~/.ansible_keys/.vault_ccoms.${env}
+done
 
-if [ $? -ne 0 ]; then
-  exit 1;
-fi
+for env in "${envs[@]}"
+do
 
-ansible-vault rekey --vault-id prod@~/.ansible_keys_back/.vault_ccoms.prod --new-vault-id prod@~/.ansible_keys/.vault_ccoms.prod ${DIR_NAME}/../../environments/prod/group_vars/all/vault/ccoms_db
+    ## Rekeying vault ids
+    ansible-vault rekey --vault-id ${env}@~/.ansible_keys_back/.vault_ccoms.${env} --new-vault-id ${env}@~/.ansible_keys/.vault_ccoms.${env} ${DIR_NAME}/../../environments/${env}/group_vars/all/vault/ccoms_db
+    
+     
+    if [ $? -ne 0 ]; then
+       exit 1;
+    fi
 
-if [ $? -ne 0 ]; then
-  exit 1;
-fi
+    rm -rf ${DIR_NAME}/../../.ansible_keys/.vault_ccoms.${env} && cp -r ~/.ansible_keys/.vault_ccoms.${env}  ${DIR_NAME}/../../.ansible_keys/
 
-ansible-vault rekey --vault-id uat@~/.ansible_keys_back/.vault_ccoms.uat --new-vault-id uat@~/.ansible_keys/.vault_ccoms.uat ${DIR_NAME}/../../environments/uat/group_vars/all/vault/ccoms_db
+done
 
-if [ $? -ne 0 ]; then
-  exit 1;
-fi
-
-## replace the new files
-rm -rf ./.ansible_keys && cp -r ~/.ansible_keys ${DIR_NAME}/../../
 rm -rf ~/.ansible_keys_back
 
 exit 0;
