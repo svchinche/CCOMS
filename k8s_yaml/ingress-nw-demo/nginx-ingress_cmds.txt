@@ -1,3 +1,0 @@
-1. kubectl create -f ingress.yaml -f ingress-rules.yaml -f deployment.yaml
-2. kubectl delete -f ingress.yaml -f ingress-rules.yaml -f deployment.yaml
-3. curl -H "Host: my.kubernetes.example" 192.168.43.165/webapp2

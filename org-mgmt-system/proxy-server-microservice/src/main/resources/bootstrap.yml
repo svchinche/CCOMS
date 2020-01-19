@@ -1,9 +1,0 @@
-spring:
-   application:  
-      name: zuulserver-microservice
-   profiles:
-     include:
-     - ${app.profile}
-   cloud:
-     config:
-       uri: http://cfg.ccoms.com:8888

@@ -1,0 +1,5 @@
+- name: "Create MONGO DB Deployment"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'deployment/db-deployment.yaml') | from_yaml }}"
+

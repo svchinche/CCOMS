@@ -1,0 +1,28 @@
+# Task related to create user, will be goes here
+
+
+- name: "Wait till containers get created"
+  register: result
+  shell: | 
+    kubectl get pod -n mongo 
+  until: result.stdout.find("Running") != -1
+  retries: 15
+  delay: 10
+
+- name: "Creating a template file"
+  template:
+    src: createuser/create_user.j2
+    dest: /tmp/create_user.json 
+
+- name: "Creating a user on mongo database" 
+  register: kubectl
+  shell: |
+    kubectl exec -i -n mongo  mongodb-0 -- mongo < /tmp/create_user.json
+  ignore_errors: True
+  changed_when: "'already exists' not in kubectl.stdout"
+  failed_when: "'not found' in kubectl.stderr"
+
+- name: "Delete newly created template file"
+  file:
+    name: "/tmp/create_user.json"
+    state: absent

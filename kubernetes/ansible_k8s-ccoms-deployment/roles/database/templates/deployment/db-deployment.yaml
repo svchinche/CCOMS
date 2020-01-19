@@ -1,0 +1,70 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  namespace: {{ namespace }}
+  labels:
+    role: mongo
+    environment: {{ PROFILE }}
+spec:
+  replicas: {{ DB.MONGO.REPLICA }}
+  serviceName: db
+  selector:
+    matchLabels:
+      role: mongo
+      environment: {{ PROFILE }}
+  template:
+    metadata:
+      labels:
+        role: mongo
+        environment: {{ PROFILE }}
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mongodb
+        image: mongo:3.4
+        command:
+        - mongod
+        - "--replSet"
+        - rs0
+        - "--bind_ip"
+        - 0.0.0.0
+        - "--smallfiles"
+        - "--noprealloc"
+        volumeMounts:
+        - mountPath: "/data/db"
+          name: dbvolumes
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ DB.MONGO.PORT }}
+        env:
+        - name: MONGO_INITDB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: mongodb
+              key: database-name
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb
+              key: database-user
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb
+              key: database-password
+      - name: mongo-sidecar
+        image: cvallance/mongo-k8s-sidecar
+        env:
+        - name: MONGO_SIDECAR_POD_LABELS
+          value: "role=mongo,environment={{ PROFILE }}"
+  volumeClaimTemplates:
+  - metadata:
+      name: dbvolumes
+    spec:
+      storageClassName: manual
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi

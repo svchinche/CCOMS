@@ -1,0 +1,4 @@
+- name: "Create CCOMS Namespace"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace/ccoms-namespace.yml') | from_yaml }}"

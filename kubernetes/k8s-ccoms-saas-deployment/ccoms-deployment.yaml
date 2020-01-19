@@ -1,0 +1,264 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: cfg-ms
+   namespace: ccoms
+   labels:
+      app: cfg-ms
+spec:
+   replicas: 2
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 1
+         maxUnavailable: 50%
+   revisionHistoryLimit: 5
+   selector:
+      matchLabels:
+         app: cfg-ms
+   template:
+      metadata:
+         labels:
+            app: cfg-ms
+      spec:
+         containers:
+         -  name: cfg-ms
+            image: compucomm/config-service:1.2
+            imagePullPolicy: Always
+            ports:
+            -  containerPort: 8888
+            env:
+            -  name: app.profile
+               value: dev
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: emp-ms
+   namespace: ccoms
+   labels:
+      app: emp-ms
+spec:
+   replicas: 3
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 1
+         maxUnavailable: 50%
+   revisionHistoryLimit: 5
+   selector:
+      matchLabels:
+         app: emp-ms
+   template:
+      metadata:
+         labels:
+            app: emp-ms
+      spec:
+         containers:
+         -  name: emp-ms
+            image: compucomm/emp-service:1.2
+            imagePullPolicy: Always
+            ports:
+            -  containerPort: 8080
+            env:
+            - name: app.profile
+              value: dev
+            - name: CCOMS_DATABASE_USERNAME
+              value: admin
+            - name: CCOMS_DATABASE_PASSWORD
+              value: admin123
+            - name: CCOMS_DATABASE_SERVICENAME
+              value: admin
+            - name: CCOMS_DATABASE_PORT
+              value: "27017"
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            readinessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8080
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+            livenessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8080
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: dept-ms
+   namespace: ccoms
+   labels:
+      app: dept-ms
+spec:
+   replicas: 3
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 1
+         maxUnavailable: 50%
+   revisionHistoryLimit: 5
+   selector:
+      matchLabels:
+         app: dept-ms
+   template:
+      metadata:
+         labels:
+            app: dept-ms
+      spec:
+         containers:
+         -  name: dept-ms
+            image: compucomm/dept-service:1.2
+            imagePullPolicy: Always
+            ports:
+            -  containerPort: 8081
+            env:
+            -  name: app.profile
+               value: dev
+            - name: CCOMS_DATABASE_USERNAME
+              value: admin
+            - name: CCOMS_DATABASE_PASSWORD
+              value: admin123
+            - name: CCOMS_DATABASE_SERVICENAME
+              value: admin
+            - name: CCOMS_DATABASE_PORT
+              value: "27017"
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            - name: CCOMS_DEPT_PORT
+              value: "8081"
+            readinessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8081
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+            livenessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8081
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: org-ms
+   namespace: ccoms
+   labels:
+      app: org-ms
+spec:
+   replicas: 3
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 1
+         maxUnavailable: 50%
+   revisionHistoryLimit: 5
+   selector:
+      matchLabels:
+         app: org-ms
+   template:
+      metadata:
+         labels:
+            app: org-ms
+      spec:
+         containers:
+         -  name: org-ms
+            image: compucomm/org-service:1.2
+            imagePullPolicy: Always
+            ports:
+            -  containerPort: 8082
+            env:
+            - name: app.profile
+              value: dev
+            - name: CCOMS_DATABASE_USERNAME
+              value: admin
+            - name: CCOMS_DATABASE_PASSWORD
+              value: admin123
+            - name: CCOMS_DATABASE_SERVICENAME
+              value: admin
+            - name: CCOMS_DATABASE_PORT
+              value: "27017"
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            - name: CCOMS_DEPT_PORT
+              value: "8081"
+            - name: CCOMS_ORG_PORT
+              value: "8082"
+            readinessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8082
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+            livenessProbe:
+               httpGet:
+                  path: /pretty
+                  port: 8082
+               initialDelaySeconds: 120
+               periodSeconds: 10
+               successThreshold: 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: proxy-ms
+   namespace: ccoms
+   labels:
+      app: proxy-ms
+spec:
+   replicas: 2
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxSurge: 1
+         maxUnavailable: 50%
+   revisionHistoryLimit: 5
+   selector:
+      matchLabels:
+         app: proxy-ms
+   template:
+      metadata:
+         labels:
+            app: proxy-ms
+      spec:
+         containers:
+         -  name: proxy-ms
+            image: compucomm/gateway-service:1.2
+            imagePullPolicy: Always
+            ports:
+            -  containerPort: 8111
+            env:
+            - name: app.profile
+              value: dev
+            - name: CCOMS_EMP_PORT
+              value: "8080"
+            - name: CCOMS_DEPT_PORT
+              value: "8081"
+            - name: CCOMS_ORG_PORT
+              value: "8082"
+            - name: CCOMS_ZUUL_PORT
+              value: "8111"
+            readinessProbe:
+              httpGet:
+                path: /emp/pretty
+                port: 8111
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              successThreshold: 1
+            livenessProbe:
+              httpGet:
+                path: /emp/pretty
+                port: 8111
+              initialDelaySeconds: 120
+              periodSeconds: 10
+              successThreshold: 1

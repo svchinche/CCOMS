@@ -1,0 +1,65 @@
+kind: Deployment
+metadata:
+  name: dept-ms
+  namespace: {{ namespace }}
+  labels:
+    app: dept-ms
+spec:
+  replicas: {{ APPS.DEPARTMENT.REPLICA }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: dept-ms
+  template:
+    metadata:
+      labels:
+        app: dept-ms
+    spec:
+      containers:
+      - name: dept-ms
+        image: "{{ IMAGEPREFIX }}/{{ APPS.DEPARTMENT.IMAGE }}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{ APPS.DEPARTMENT.CONTAINERPORT }}
+        env:
+        - name: app.profile
+          value: {{ PROFILE }}
+        - name: CCOMS_DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: ccoms
+              key: database-user
+        - name: CCOMS_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ccoms
+              key: database-password
+        - name: CCOMS_DATABASE_SERVICENAME
+          valueFrom:
+            secretKeyRef:
+              name: ccoms
+              key: database-servicename
+        - name: CCOMS_DATABASE_PORT
+          value: "{{ DB.MONGO.PORT }}"
+        - name: CCOMS_EMP_PORT
+          value: "{{ APPS.EMPLOYEE.CONTAINERPORT }}"
+        - name: CCOMS_DEPT_PORT
+          value: "{{ APPS.DEPARTMENT.CONTAINERPORT }}"
+        readinessProbe:
+          httpGet:
+            path: {{ APPS.DEPARTMENT.READYNESSPROBEHTTPPATH }}
+            port: {{ APPS.DEPARTMENT.CONTAINERPORT }}
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+        livenessProbe:
+          httpGet:
+            path: {{ APPS.DEPARTMENT.LIVENESSPROBEHTTPPATH }}
+            port: {{ APPS.DEPARTMENT.CONTAINERPORT }}
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1

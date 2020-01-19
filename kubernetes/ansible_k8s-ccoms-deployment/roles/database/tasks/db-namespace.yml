@@ -1,0 +1,4 @@
+- name: "Create MONGO DB Namespace"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace/db-namespace.yaml') | from_yaml }}"

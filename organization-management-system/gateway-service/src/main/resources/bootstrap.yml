@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: zuulserver-microservice
+---
+spring:
+  profiles: test
+  cloud:
+    config:
+       enabled: false
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+---
+spring:
+  profiles:
+    include:
+    - ${app.profile}
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://cfg.ccoms.com:8888
+      retry:
+        max-attempts: 20
+        max-interval: 10000 

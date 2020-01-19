@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: proxy-extsvc
+   namespace: ccoms
+   labels:
+      app: proxy-ms
+spec:
+   ports:
+   -  port: 8111
+      protocol: TCP
+   selector:
+      app: proxy-ms
+   externalIPs:
+   - 10.180.86.187

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Organization Information</title>
+<style>
+html, body {
+	height: 100%;
+}
+
+caption {
+	background: #dbb768;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+body {
+	margin: 0;
+	background: linear-gradient(45deg, #49a09d, #5f2c82);
+	font-family: sans-serif;
+	font-weight: 100;
+}
+
+.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+table {
+	width: 800px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th, td, caption {
+	padding: 15px;
+	background-color: rgba(255, 255, 255, 0.2);
+	color: #fff;
+}
+
+th {
+	text-align: left;
+}
+
+thead {th { background-color:#55608f;
+	
+}
+
+}
+tbody {tr { &:hover {
+			background-color : rgba(255, 255, 255, 0.3);
+	
+}
+
+}
+td {
+	position: relative; &: hover { & : before { 
+				 content : "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: -9999px;
+	bottom: -9999px;
+	background-color: rgba(255, 255, 255, 0.2);
+	z-index: -1;
+}
+}
+}
+}
+</style>
+</head>
+
+
+<body>
+
+	<table>
+		<caption>CCOMS Organization Information</caption>
+		<thead>
+			<tr>
+				<th scope="col">Id</th>
+				<th scope="col">Name</th>
+				<th scope="col">Address</th>
+				<th scope="col">Department Employees</th>
+				</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${orgs.empty}">
+				<td colspan="2">Information of employee is not available</td>
+			</tr>
+			<tr th:each="org : ${orgs}">
+				<td><span th:text="${org.id}"> OrgID </span></td>
+				<td><span th:text="${org.name}"> OrgName </span></td>
+				<td><span th:text="${org.address}"> Address </span></td>
+				<td>
+					<table>
+						<caption hidden="true">Employee info with department</caption>
+						<tr th:each="dept : ${org.depts}">
+							<td><span th:text="${dept.id}"> Id </span></td>
+							<td><span th:text="${dept.name}"> Name </span></td>
+							<td>
+								<table>
+								<caption hidden="true">Employee info</caption>
+									<tr>
+										<th scope="col">Id</th>
+										<th scope="col">Name</th>
+										<th scope="col">Age</th>
+										<th scope="col">Position</th>
+									</tr>
+									<caption hidden="true">Employee info</caption>
+									<tr th:each="emp : ${dept.emps}">
+										<td><span th:text="${emp.id}"> Id </span></td>
+										<td><span th:text="${emp.name}"> Name </span></td>
+										<td><span th:text="${emp.age}"> Age </span></td>
+										<td><span th:text="${emp.position}"> Position </span></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
