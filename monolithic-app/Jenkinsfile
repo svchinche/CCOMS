@@ -14,7 +14,7 @@ pipeline {
 
       environment {
            //application metadata related variables 
-           APP_NAME = "quickstart"
+           APP_NAME = "monolithic_app"
            APP_AUTHOR = "Suyog Chinche"
            PACKAGING  = "jar"
            OUTPUT_FILE = "${APP_NAME}.${PACKAGING}" 

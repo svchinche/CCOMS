@@ -6,11 +6,11 @@
      <modelVersion>4.0.0</modelVersion>
 
      <groupId>com.vogella.maven</groupId>
-     <artifactId>quickstart</artifactId>
+     <artifactId>monolithic_app</artifactId>
      <version>${revision}</version>
      <packaging>jar</packaging>
 
-     <name>quickstart</name>
+     <name>monolithic_app</name>
      <!-- FIXME change it to the project's website -->
      <url>http://www.example.com</url>
 

@@ -12,6 +12,7 @@ Table of contents
    * [Abstract](#abstract)
    * [Introdution](#introduction)
    * [Software Metrics](#software-metrics)
+   * [Requirement Gathering](#requirement-gathering)
    * [Implementation](#implementation)
       * [Spring Boot](#spring-boot)
       * [Maven](#maven)
@@ -29,6 +30,7 @@ Table of contents
       * [Application Password Rotation](#application-password-rotation)
       * [Autoscalling of Microservices](#autoscalling-of-microservices)
       * [Backup and Restoration of k8s resources using Heptio Velero](#backup-and-restoration-of-k8s-resources-using-heptio-velero)
+   * [Monitoring](#monitoring)
    * [Dev-Ops Best Practices](#devops-best-practices)
    * [Objectives](#objectives)
 <!--te-->
@@ -58,7 +60,7 @@ Below is the groupid that i have used in maven project. </br>
 <groupId>com.cloudcomp.ccoms</groupId>
 com -- for commercial
 cloudcomp -- Organization name
-ccoms -- Organization Management Sysem Project
+ccoms -- Organization Management System Project
 ```
 Software Metrics
 ===================
@@ -102,6 +104,32 @@ Software Metrics
 |Webserver                   |Apache Tomcat       |                    |          |To deploy web based application                                                              |
 |Operating system            |OEL                 |                    |7.3       |for deploying k8s cluster                                                                    |
 
+Requirement Gathering
+=====================
+Generating a list of requirements (functional, system, technical, etc.) from the various stakeholders (customers, users, vendors, IT staff, etc.) that will be used as the basis for the formal Requirements. </br>
+The exact implementation of behavioral requirements varies per tool, for development of features i am using cucumber framework.</br>
+
+Behaviour Driven Development
+----------------------------
+
+In both TDD and BDD approaches, tests are written upfront before the actual code is written. </br>
+Writing tests first helps predict the course of the development, which will ultimately prevent any cases being missed from the code or functionality. </br>
+Prevention of bugs will be the main aim of these approaches, and these tests will also act as concrete documentation of what is planned to be achieved in terms of test coverage.</br></br>
+
+BDD is an agile technique that brings developers, analysts and testers together through the use of scenarios. </br>
+Scenarios that are written in a behaviour-driven development format allow business analysts to specify events, conditions, and actions which can later serve as acceptance test criteria.</br>
+
+Higher level flow
+------------------
+- Business analyst or customer write the feature file
+- Developer and tester (work collaberatively) and convert file to step definations and then start working on the features.</br>
+
+Below is the screenshot of overall cucumber results and one of scenarion.</br>
+
+<p align="center"><img width="800" height="400" src=".images/cucumber_result.PNG"></p>
+
+<p align="center"><img width="800" height="400" src=".images/cucumber_emp_result.PNG"></p>
+
 Implementation
 ============
 - Spring Boot
@@ -128,7 +156,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long>{
 }
 ```
 
-* Entity class has been nnotated with @document and primary key with @id
+* Entity class has been annotated with @document and primary key with @id
 ```java
 @ApiModel(description = "All details about the Employee. ")
 @Document(collection = "employee")
@@ -186,7 +214,7 @@ public class EmployeeViewController {
 }
 ```
 
-2. HTML page using thymeleaf template
+2. Used Thymeleaf template in html file
 ```html
 		<tbody>
 			<tr th:if="${emps.empty}">
@@ -242,8 +270,8 @@ public interface DepartmentClient {
 
 Proxy Microserver (Gateway)
 -----------------------------
-* Annotated application class with EnableZullProxy for enabling spring proxy server.
-```
+* Used EnableZullProxy annoattion for cteating a Proxy/Gateway server.
+```java
 @EnableRetry
 @EnableZuulProxy
 @EnableSwagger2
@@ -262,8 +290,9 @@ public class ProxyServerMicroserviceApplication {
     }
 ```
 
-* Routes are configure for Proxy Server as below
+* Routes are configured, as below
 [Git hub link](https://github.com/svchinche/CCOMS-configfiles/blob/master/config-files/uat/zuulserver-microservice-uat.yaml)
+
 ```yaml
 server:
    port: ${CCOMS_ZUUL_PORT}
@@ -348,12 +377,12 @@ Aggreated Dependency and Plugin Management into Parent Pom file.
 ```   
 For the demonstration purpose i an using install maven phase</br>
 
-Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to CCOMS/org-mgmt-system directory </br>
+Clone github repository [https://github.com/svchinche/CCOMS.git] and then go to CCOMS/organization-management-system directory </br>
 and run below command.
 </br>
 
 ```linux
-[root@mum00aqm org-mgmt-system]# mvn -Drevision=1.3 -DskipTests=true  clean:clean install
+[root@mum00aqm organization-management-system]# mvn -Drevision=1.3 -DskipTests=true  clean:clean install
 [INFO] Scanning for projects...
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Build Order:
@@ -372,12 +401,12 @@ and run below command.
 [INFO]
 [INFO] --- maven-war-plugin:3.2.3:war (default-war) @ config-service ---
 [INFO] Packaging webapp
-[INFO] Assembling webapp [config-service] in [/root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService]
+[INFO] Assembling webapp [config-service] in [/root/CCOMS/CCOMS/organization-management-system/config-service/target/ConfigServer-MicroService]
 [INFO] Processing war project
 [INFO]
 [INFO] --- dockerfile-maven-plugin:1.4.13:tag (tag-version) @ config-service ---
 [INFO] Tagging image de44e39ded7f as compucomm/config-service:1.3
-[INFO] Building jar: /root/CCOMS/CCOMS/org-mgmt-system/config-service/target/ConfigServer-MicroService-docker-info.jar
+[INFO] Building jar: /root/CCOMS/CCOMS/organization-management-system/config-service/target/ConfigServer-MicroService-docker-info.jar
 [INFO]
 [INFO] --- dockerfile-maven-plugin:1.4.13:push (tag-version) @ config-service ---
 [INFO] The push refers to repository [docker.io/compucomm/config-service]
@@ -412,7 +441,7 @@ As docker spotify plugin is entitled  with install phase, thats is why it is pus
 Ansible
 =======
 
-Below is directory structure of ansible.these are the self explainatory.
+Below is directory structure of ansible. it's  Self explainatory.
 ```
 [root@mum00aqm ansible_k8s-ccoms-deployment]# tree -L 2
 .
@@ -535,10 +564,163 @@ For more information on kubernetes, go to this [link](https://github.com/svchinc
 Jenkins
 =======
 
+Automated Development, build and test process using Jenkins.
+ - Used MultiBranch-Pipeline project.
+ - Used Declarative and scripted section in JenkinsFile.
+ - Enable web-hook to auto trigger build.
+For more information on Jenkins, go to this [link](https://github.com/svchinche/TechTopicswithBestPractices/tree/master/jenkins)
+ 
+MultiBranch-pipeline Project
+----------------------
+This will allows you to automatically create a pipeline for each branch on your source control repository. </br>
+See below Jenkins MultiBranchPipeline Screenshot.</br>
+<p align="center"><img width="800" height="400" src=".images/Jenkins_multibranching.PNG"></p>
+
+Workflow of jenkins pipeline 
+<p align="center"><img width="800" height="400" src=".images/jenkins_blue_occean.PNG"></p>
+
+
+Multibranch pipeline works using a Jenkinsfile, that is stored along with your source code inside a version control repository.</br>
+A Jenkinsfile is nothing but a pipeline script that defines your CI pipeline.</br>
+
+One more, benefit of using Jenkins is that, You can continue from past failed stage, Use repay feature of jenkins as shown below.
+<p align="center"><img width="800" height="400" src=".images/jenkins_repay.PNG"></p>
+
+
+Used Declarative and scripted section in JenkinsFile
+---------------------------------------------------
+You can see in below code snippet, i have used shared library (git_infoshared-lib) to get the recent tag information, which will be used to form the artifact id.</br>
+We use groovy language to write shared library.</br>
+
+```groovy
+pipeline {
+
+    agent {
+        label 'master'
+    }
+    tools {
+        maven 'maven'
+        jdk 'jdk8'
+    }
+
+    libraries {
+        lib('git_infoshared_lib@master')
+    }
+
+    environment {
+        APP_NAME = "ccoms"
+        APP_ROOT_DIR = "organization-management-system"
+        APP_AUTHOR = "Suyog Chinche"
+        GIT_URL="https://github.com/svchinche/CCOMS.git"
+
+    }
+
+    stages {
+         
+        stage('Cleaning Phase') {
+            steps {
+                 /* This block used here since VERSION_NUMBER env var is not initialize and we were initializing this value through shared library  */
+                script {
+                    env.REVISION_ID = getBuildVersion()
+                }
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" clean:clean'
+            }
+        }
+        
+        stage('Copy Resources') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" resources:resources  resources:testResources'
+            }
+        }
+        
+        stage('Generate Test Cases - Surefire') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" compiler:compile  compiler:testCompile surefire:test'
+            }
+
+            post {
+                success {
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '${APP_ROOT_DIR}/config-service/target/surefire-reports', reportFiles: 'index.html', reportName: 'Unit Test Report', reportTitles: 'Unit Test Result'])
+                }
+            }
+        }
+        
+        stage('Publishing code on SONARQUBE'){
+            when {
+                anyOf {
+                    branch 'release'
+                }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl .,config-service  sonar:sonar'
+            }
+        }
+        
+		 
+        stage('Packaging') {
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" -pl department-service,employee-service,gateway-service,organization-service war:war spring-boot:repackage dependency:unpack@unpack'
+            }
+        }
+        
+        stage('Building and Pushing an image') {
+            when {
+                anyOf {
+                    branch 'release'
+					branch 'hotfix'
+					branch 'master'
+                }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+            }
+        }
+		
+		// In case of develop branch, QA env will be provision based on local private docker registry
+		stage('Snapshot Release- Building and Pushing an image') {
+            when {
+                anyOf {
+                    branch 'develop'
+                }
+            }
+            steps {
+                sh 'mvn -f ${APP_ROOT_DIR}/pom.xml -Drevision="${REVISION_ID}" dockerfile:build dockerfile:tag@tag-version dockerfile:push@default dockerfile:push@tag-version'
+            }
+        }
+
+```
+
+**Shared library snippet**
+
+```groovy
+def call() {
+
+    tag_id = sh(script: "git describe --abbrev=0", returnStdout: true)?.trim()
+
+    env.TAG_NAME = tag_id
+
+    if ( BRANCH_NAME == 'master' || BRANCH_NAME == 'hostfix' || BRANCH_NAME == 'release' ) {
+        echo "master-hotfix-release"
+        env.REVISION_ID = tag_id;
+        return "${TAG_NAME}"
+    } else if ( BRANCH_NAME == 'develop' || BRANCH_NAME =~ /feature/ ) {
+        echo "development-feature-*"
+        env.REVISION_ID = "${TAG_NAME}-SNAPSHOT"
+        return "${REVISION_ID}"
+    } else {
+        return null
+    }
+}
+```
+
+Enable web-hook to auto trigger build.
+-------------------------------------
+
+
 Docker images 
 --------------
 
-<p align="center"><img width="460" height="300" src=".images/dockerhubimages.PNG"></p>
+<p align="center"><img width="800" height="400" src=".images/dockerhubimages.PNG"></p>
 
 
 
@@ -547,7 +729,7 @@ Docker images
 Visualization of Containers
 ==================
 Below visualization of containers, volumes has been taken from Weave-scope kubernetes plugin
-<p align="center"><img width="460" height="300" src=".images/weave.PNG"></p>
+<p align="center"><img width="1000" height="500" src=".images/weave.PNG"></p>
 
 
 
@@ -818,6 +1000,117 @@ Autoscalling of Microservices
 Backup and Restoration of k8s resources using Heptio Velero
 -------------------------------------------
 
+Monitoring
+==========
+
+Before going for Monitoring setup
+- We need to have tiller component on kubernetes cluster.
+- We need dynamic nfs provision 
+ 
+* Tiller : 
+is the service that actually communicates with the Kubernetes API to manage our Helm packages.
+
+Using Grafana and Prometheus
+----------------------------
+Basically Grafana is monitoring tool and Prometheus is a visualization tool.
+
+**Helm**
+For customization on package installation using help, we used below options.
+- name:  name to that package to identify on k8s cluster
+- namespace: install application on newly mentioned namespace
+- values:  to use our customized values using yaml file, we can use this flag
+- set: to set individual attribute value
+
+Graphana vs Kibana
+------------------
+Graphana- Both are the visualization tool that can be used  on top of graphite,Prometheus </br>
+
+If you are building a monitoring system, both can do the job pretty well.  </br>
+for any of the use cases that logs support — troubleshooting, forensics, development, security, Kibana is your only option. </br>
+
+I am choosing Kibana amongst two.
+
+Kibana, Fluent-bit, elasticsearch and Metricbeat implemntation.
+----------------------------------------------------------------
+
+Create Persistent Volume for Storing logs parmanently.
+
+```yaml
+[root@mum00aqm efk-metricbeat]# cat pv_efk.yaml
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efk-master-volume
+spec:
+  storageClassName: elasticsearch-master
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  nfs:
+    server: mum00aqm
+    path: /u02/pvs/master
+...
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efk-data-volume
+spec:
+  storageClassName: elasticsearch-data
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadWriteMany
+  nfs:
+    server: mum00aqm
+    path: /u02/pvs/data
+...
+```
+
+Kibana
+-----
+* Install elasticsearch using helm.
+```
+helm install stable/elasticsearch --name=elasticsearch --namespace=logs \
+--set client.replicas=1 \
+--set master.replicas=1 \
+--set cluster.env.MINIMUM_MASTER_NODES=1 \
+--set cluster.env.RECOVER_AFTER_MASTER_NODES=1 \
+--set cluster.env.EXPECTED_MASTER_NODES=1 \
+--set data.replicas=1 \
+--set data.heapSize=300m \
+--set master.persistence.storageClass=elasticsearch-master \
+--set master.persistence.size=5Gi \
+--set data.persistence.storageClass=elasticsearch-data \
+--set data.persistence.size=5Gi
+```
+
+* Install fluent-bit 
+```
+helm install stable/fluent-bit --name=fluent-bit --namespace=logs --set backend.type=es --set backend.es.host=elasticsearch-client
+```
+
+* install kibana
+``` 
+helm install stable/kibana --name=kibana --namespace=logs --set env.ELASTICSEARCH_HOSTS=http://elasticsearch-client:9200 --set service.type=NodePort --set service.nodePort=31000
+```
+* install metricbeat 
+
+Steps will be provided soon
+
+**Screenshot::**
+- Logs of CCOMS application with some fields filtered with emp microservice
+
+<p align="center"><img width="1000" height="500" src=".images/kibana_index_withfilterlogs.PNG"></p>
+
+
+
+
 DevOps Best Practices
 ======================
 
@@ -825,7 +1118,7 @@ Objectives
 ==========
 
 Everyone/Newbies should able to build a project based on Devops technology, When i was moving from Developer to Devops most of the time i was spending in building a infrastructure. for ex. I had taken almost 2-3 weeks only for creating kubernetes cluster.
-If the same thing happened with newbies, they might loss there interest in devops field. Thats why i have created this project where everyone shoud take a checkout and build a project in few meenutes and start exploring devops technologies
+If the same thing happened with newbies, they might lose there interest in devops field. Thats why i have created this project where everyone shoud take a checkout and build a project in few meenutes and start exploring devops technologies
 
 Quote
 -----
