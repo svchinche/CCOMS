@@ -67,16 +67,16 @@ Software Metrics
 
 |Category                    |Tools               |Subtools/Plugin     |Version   |Purpose                                                                                      |
 |----------------------------|--------------------|--------------------|----------|---------------------------------------------------------------------------------------------|
-|Development                 |Springboot          |springframework     |2.2.1     |Easy in developing webservices                                                               |
-|                            |                    |swagger             |1.2.4     |To share documentation of REST API                                                           |
+|Development                 |Springboot          |springframework     |2.2.1     |Easy to develop microservices                                                               |
+|                            |                    |swagger             |1.2.4     |To build documentation for all restAPIs                                                           |
 |                            |                    |Config Server/Client|2.2.1     |Used distributed configuration server to store configuration                                 |
-|                            |                    |Openfeign           |2.2.1     |To communication one microservice with other microservice                                    |
+|                            |                    |Openfeign           |2.2.1     |To communicate one microservice with other microservice                                    |
 |                            |                    |thymeleaf           |2.2.1     |Its modern Java template to build a web environemnt                                          |
 |                            |                    |spring data mongodb |2.2.1     |To interact with mongo db                                                                    |
 |                            |                    |Zuul                |2.2.1     |To use proxy server and centralize swagger, this is why we havent used ingress k8s controller|
 |Project building Tool       |Maven               |Maven               |3.6.2     |To build Spring boot project                                                                 |
-|                            |                    |Surefire            |          |Surefire is default plugin to generate Unit test report [Junit and TestNG]                   |
-|                            |                    |failsafe            |          |Used for Integration testing                                                                 |
+|                            |                    |Surefire            |          |Surefire is default plugin to generate Unit test case report [Junit and TestNG]                   |
+|                            |                    |failsafe            |          |Used to generate integration test report                                                                 |
 |                            |                    |jacoco              |          |Used to check criteria of newly developed code                                               |
 |                            |                    |cucumber            |          |used for Behavior Driven Development                                                         |
 |                            |                    |sonar               |          |Use for static code analysis                                                                 |
