@@ -46,3 +46,14 @@ else
    echo "Exited due to vault rotation failure";
    exit 1;
 fi
+
+
+echo -e "Add variables based on input file"
+
+set +a
+source $DIR_NAME/input_file.sh
+set -a
+
+ansible-playbook presetup.yaml 
+
+echo -e "Verifying ------ All nodes mentioned in inventory should be reachable \n"
