@@ -50,9 +50,9 @@ fi
 
 echo -e "Add variables based on input file"
 
-set +a
-source $DIR_NAME/input_file.sh
 set -a
+source $DIR_NAME/input_file.sh
+set +a
 
 ansible-playbook presetup.yaml 
 
