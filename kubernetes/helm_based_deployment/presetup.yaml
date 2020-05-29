@@ -1,4 +1,4 @@
-- name: "Installing Kubernetes python client for ansible"
+- name: "Run Presetup for CCOMS projects"
   hosts: localhost
   gather_facts: True
   roles:
