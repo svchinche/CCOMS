@@ -2,12 +2,11 @@
 # tasks file for weave
 
 - name: "Installing Weave scope on Rancher/OS Cluster"
-  shell: |
-    kubectl create -f 'https://cloud.weave.works/launch/k8s/weavescope.yaml
+  shell: kubectl create -f 'https://cloud.weave.works/launch/k8s/weavescope.yaml
   register: result
 
 - debug:
-   msg: "{{ result }}"
+    msg: "{{ result }}"
 
 - name: "Exposting service to external IP to access application from K8s master node"
   shell: |
@@ -16,4 +15,4 @@
   register: result
 
 - debug:
-   msg: "{{ result }}"
+    msg: "{{ result }}"
