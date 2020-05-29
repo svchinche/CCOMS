@@ -4,3 +4,4 @@
 IMAGEPREFIX: compucomm
 LOGLEVEL: DEBUG
 PROFILE: dev
+NAMESPACE: ccoms
