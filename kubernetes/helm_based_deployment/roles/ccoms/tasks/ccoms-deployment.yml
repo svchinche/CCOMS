@@ -7,20 +7,20 @@
     clone: yes
  
 - replace:
-    path: "{{ playbook_dir }}/helm_charts/helm_charts/common/values.yaml"
+    path: "{{ playbook_dir }}/helm_charts/common/values.yaml"
     regexp: 'app.profile:.*'
     replace: 'app.profile: {{ PROFILE }}'
   delegate_to: localhost
 
 - replace:
-    path: "{{ playbook_dir }}/helm_charts/helm_charts/common/values.yaml"
+    path: "{{ playbook_dir }}/helm_charts/common/values.yaml"
     regexp: '^profile:.*'
     replace: 'profile: {{ PROFILE }}'
   delegate_to: localhost
 
 - name: "Deploying CCOMS application using helm"
   shell: |
-    {{ playbook_dir}}/helm_charts/helm_charts/deploy_ccoms_app.sh -n {{ namespace }}
+    {{ playbook_dir}}/helm_charts/deploy_ccoms_app.sh -n {{ namespace }}
   register: deploy_logs
 
 - name: "Printing error messgae"
