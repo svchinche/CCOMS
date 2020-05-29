@@ -1,2 +1,19 @@
 ---
 # tasks file for weave
+
+- name: "Installing Weave scope on Rancher/OS Cluster"
+  shell: |
+    kubectl create -f 'https://cloud.weave.works/launch/k8s/weavescope.yaml
+  register: result
+
+- debug:
+   msg:  {{ result }}
+
+- name: "Exposting service to external IP to access application from K8s master node"
+  shell: |
+    pod=$(kubectl get pod -n weave --selector=name=weave-scope-app -o jsonpath={.items..metadata.name})
+    kubectl expose pod $pod -n weave --external-ip="{{ ansible_default_ipv4.address }}" --port=4040 --target-port=4040
+  register: result
+
+- debug:
+   msg:  {{ result }}

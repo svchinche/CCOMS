@@ -1,2 +1,4 @@
 ---
 # vars file for weave
+
+waave_port: 4040
