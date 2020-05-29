@@ -26,4 +26,3 @@
 - name: "Printing error messgae"
   debug:
     msg: "{{ deploy_logs }}"
-  
