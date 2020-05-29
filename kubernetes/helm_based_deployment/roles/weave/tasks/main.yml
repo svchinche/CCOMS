@@ -13,7 +13,7 @@
     pod=$(kubectl get pod -n weave --selector=name=weave-scope-app -o jsonpath={.items..metadata.name})
     kubectl expose pod $pod -n weave --external-ip="{{ ansible_default_ipv4.address }}" --port=4040 --target-port=4040
   register: result
-  ignore_errors: true
+  ignore_errors: True
 
 - debug:
     msg: "{{ result }}"
