@@ -5,6 +5,7 @@
     repo: '{{ helm_repo }}'
     dest: "{{ playbook_dir }}/helm_charts"
     clone: yes
+  delegate_to: localhost
  
 - replace:
     path: "{{ playbook_dir }}/helm_charts/common/values.yaml"
