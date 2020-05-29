@@ -2,7 +2,7 @@
 # tasks file for weave
 
 - name: "Installing Weave scope on Rancher/OS Cluster"
-  shell: kubectl create -f 'https://cloud.weave.works/launch/k8s/weavescope.yaml
+  shell: kubectl create -f https://cloud.weave.works/launch/k8s/weavescope.yaml
   register: result
 
 - debug:
