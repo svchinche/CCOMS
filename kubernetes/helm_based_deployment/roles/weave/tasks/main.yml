@@ -11,7 +11,7 @@
 
 - fail:
     msg: "weave scope deployment is failed"
-  when: result.stderr not in AlreadyExists or result.rc not in "0"
+  when: result.stderr not in AlreadyExists and result.rc not in "0"
 
 - name: "Exposting service to external IP to access application from K8s master node"
   shell: |
@@ -25,4 +25,4 @@
 
 - fail:
     msg: "Weave scope is failed"
-  when: result.stderr not in AlreadyExists or result.rc not in "0"
+  when: result.stderr not in AlreadyExists and result.rc not in "0"
