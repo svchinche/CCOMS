@@ -1,6 +1,4 @@
 ---
-- debg:
-    msg: "{{ maven.path }}/apache-maven-{{ maven.version }}/bin/mvn"
 
 - name: Check if maven, already installed
   file:
