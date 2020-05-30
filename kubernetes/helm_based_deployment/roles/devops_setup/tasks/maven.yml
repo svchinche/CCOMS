@@ -1,7 +1,10 @@
 ---
+- debg:
+    msg: "{{ maven.path }}/apache-maven-{{ maven.version }}/bin/mvn"
+
 - name: Check if maven, already installed
   file:
-    path: "/usr/local/apache-maven/apache-maven-{{ maven.version }}/bin/mvn"
+    path: "{{ maven.path }}/apache-maven-{{ maven.version }}/bin/mvn"
     state: present
   notify:
     - "Maven - Download Binary"
