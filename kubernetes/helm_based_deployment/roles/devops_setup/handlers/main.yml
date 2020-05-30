@@ -47,9 +47,16 @@
         vars:
         - encrypted_nexus_password: "{{ encryption_nexus_password.stdout }}"
           encrypted_docker_password: "{{ encryption_docker_password.stdout }}"
+    
+    rescue:
+    - debug:
+      msg: 'I caught an error, can do stuff here to fix it, :-)'
         
   - name: "Remove downloaded tar file"
     file:
       path: "{{ role_path }}/files/apache-maven-{{ maven.version }}-bin.tar.gz"
       state: absent
- 
+
+  rescue:
+  - debug:
+    msg: 'I caught an error, can do stuff here to fix it, :-)'
