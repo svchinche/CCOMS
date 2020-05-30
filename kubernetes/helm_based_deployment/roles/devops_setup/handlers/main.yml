@@ -18,7 +18,6 @@
         export PATH="$M2_HOME/bin:$PATH"
         grep 'M2_HOME=.*3.6.3' || ( sed -i '/M2_HOME/d;$ a\export M2_HOME=$M2_HOME\nPATH="$M2_HOME/bin:$PATH"' ~/.bashrc
 
-    ### Adding user details into settings.xml
     - name: Update configuration information
       block:
         - name: Encrypt Maven master password
