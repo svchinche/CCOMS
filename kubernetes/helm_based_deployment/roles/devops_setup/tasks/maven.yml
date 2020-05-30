@@ -1,8 +1,8 @@
 ---
 - name: Check if maven, already installed
   file:
-   path: /usr/local/apache-maven/apache-maven-{{ maven.version }}/bin/mvn
-   state: directory
+    path: "/usr/local/apache-maven/apache-maven-{{ maven.version }}/bin/mvn"
+    state: present
   notify:
     - "Maven - Download Binary"
     - "Maven - Unarchieve Binary"
