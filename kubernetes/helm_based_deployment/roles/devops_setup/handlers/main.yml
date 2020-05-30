@@ -24,6 +24,14 @@
   register: encryption_master_password
   listen: "Install Maven" 
 
+- name: Update master password in ~/.m2/settings-security.xml
+  template:
+    src: settings-security.xml
+    dest: ~/.m2/settings-security.xml
+  vars:
+  - encrypted_maven_master_password: "{{ encryption_master_password.stdout }}"
+  listen: "Install Maven" 
+
 - name: Encrypt Nexus password
   shell: mvn --encrypt-password "{{ maven.nexus_password }}"
   register: encryption_nexus_password
@@ -32,14 +40,6 @@
 - name: Encrypt Docker password
   shell: mvn --encrypt-password "{{ maven.docker_password }}"
   register: encryption_docker_password
-  listen: "Install Maven" 
-
-- name: Update master password in ~/.m2/settings-security.xml
-  template:
-    src: settings-security.xml
-    dest: ~/.m2/settings-security.xml
-  vars:
-  - encrypted_maven_master_password: "{{ encryption_master_password.stdout }}"
   listen: "Install Maven" 
 
 - name: "Store Encrypted password in the ~/.m2/settings.xml"
@@ -56,5 +56,3 @@
     path: "{{ role_path }}/files/apache-maven-{{ maven.version }}-bin.tar.gz"
     state: absent
   listen: "Install Maven"
-
-  
