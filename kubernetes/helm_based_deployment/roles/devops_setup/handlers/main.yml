@@ -16,7 +16,7 @@
   shell: |
     export M2_HOME="{{ maven.path }}/apache-maven-{{ maven.version }}"
     export PATH="$M2_HOME/bin:$PATH"
-    grep 'M2_HOME=.*3.6.3' || ( sed -i '/M2_HOME/d;$ a\export M2_HOME=$M2_HOME\nPATH="$M2_HOME/bin:$PATH"' ~/.bashrc
+    grep 'M2_HOME=.*3.6.3' || ( sed -i '/M2_HOME/d;$ a\export M2_HOME=$M2_HOME\nPATH="$M2_HOME/bin:$PATH"' ~/.bashrc )
   listen: "Install Maven" 
 
 - name: Encrypt Maven master password
@@ -55,5 +55,6 @@
   file:
     path: "{{ role_path }}/files/apache-maven-{{ maven.version }}-bin.tar.gz"
     state: absent
-  listen: "Install Maven" 
-       
+  listen: "Install Maven"
+
+  
