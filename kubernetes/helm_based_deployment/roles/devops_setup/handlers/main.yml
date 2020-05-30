@@ -1,2 +1,27 @@
 ---
 # handlers file for devops_setup
+- name: "Maven - Download Binary"
+  get_url:
+    url: "{{ maven.path }}"
+    dest: "{{ role_path }}/files/" 
+   
+- name: "Maven - Unarchieve Binary"
+  unarchive: 
+    src: "{{ role_path }}/files/apache-maven-{{ maven.version }}-bin.tar.gz"
+    dest: "{{ maven.path }}/apache-maven-{{ maven.version }}" 
+  
+- name: "Maven - Set home directory"
+  shell: |
+    export M2_HOME="{{ maven.path }}/apache-maven-{{ maven.version }}"
+    export PATH="$M2_HOME/bin:$PATH"
+    grep 'M2_HOME=.*3.6.3' || ( sed -i '/M2_HOME/d;$ a\export M2_HOME=$M2_HOME\nPATH="$M2_HOME/bin:$PATH"' ~/.bashrc
+
+- name: "Maven - Add docker and nexus repository into settings.xml"
+  debug:
+    msg: "Maven add docker and nexus repository"
+
+- name: "Maven - Remove downloaded tar file"
+  file:
+    path: "{{ role_path }}/files/apache-maven-{{ maven.version }}-bin.tar.gz"
+    state: absent
+ 
