@@ -9,7 +9,7 @@
 - name: "Unarchieve Binary"
   unarchive: 
     src: "{{ role_path }}/files/apache-maven-{{ maven.version }}-bin.tar.gz"
-    dest: "{{ maven.path }}/apache-maven-{{ maven.version }}" 
+    dest: "{{ maven.path }}/" 
   listen: "Install Maven" 
 
 - name: "Set home directory"
