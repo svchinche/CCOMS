@@ -2,7 +2,7 @@
 # handlers file for devops_setup
 - name: "Download Binary"
   get_url:
-    url: "{{ maven.path }}"
+    url: "{{ maven.location }}"
     dest: "{{ role_path }}/files/"
   listen: "Install Maven" 
   
@@ -11,7 +11,7 @@
     src: "{{ role_path }}/files/apache-maven-{{ maven.version }}-bin.tar.gz"
     dest: "{{ maven.path }}/apache-maven-{{ maven.version }}" 
   listen: "Install Maven" 
-  
+
 - name: "Set home directory"
   shell: |
     export M2_HOME="{{ maven.path }}/apache-maven-{{ maven.version }}"
