@@ -5,10 +5,7 @@
 - name: Check if maven, already installed
   file:
     path: "{{ maven.path }}/apache-maven-{{ maven.version }}/bin/mvn"
-    state: present
+    state: file
   notify:
-    - "Maven - Download Binary"
-    - "Maven - Unarchieve Binary"
-    - "Maven - Set home directory" 
-    - "Maven - Add docker and nexus repository into settings.xml"
-    - "Maven - Remove downloaded tar file"
+    - "Install Maven"
+
