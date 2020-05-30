@@ -1,9 +1,8 @@
 ---
-
-- name: Check if maven, already installed
+- name: "Check if maven, already installed"
   file:
     path: "{{ maven.path }}/apache-maven-{{ maven.version }}/bin/mvn"
-    state: file
+    state: file 
   notify:
     - "Install Maven"
 
