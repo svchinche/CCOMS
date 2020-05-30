@@ -50,7 +50,7 @@
       
       rescue:
         - debug:
-          msg: 'I caught an error, can do stuff here to fix it, :-)'
+            msg: 'I caught an error, can do stuff here to fix it, :-)'
           
     - name: "Remove downloaded tar file"
       file:
@@ -59,4 +59,4 @@
 
   rescue:
     - debug:
-      msg: 'I caught an error, can do stuff here to fix it, :-)'
+        msg: "I caught an error, can do stuff here to fix it, :-)"
