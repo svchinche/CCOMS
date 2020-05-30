@@ -21,7 +21,7 @@
     - name: Update configuration information
       block:
         - name: Encrypt Maven master password
-          shell: mvn --encrypt-master-password "{{ maven_master_password }}"
+          shell: mvn --encrypt-master-password "{{ maven.master_password }}"
           register: encryption_master_password
 
         - name: Encrypt Nexus password
