@@ -1,29 +1,36 @@
 ## task file for ccoms-deployment
 --- 
+- name: "Create /data1 dir on k8s master node"
+  file:
+    path: /data1
+    state: directory
+
 - name: "Tacking helm checkout"
   git:
     repo: '{{ helm_repo }}'
-    dest: "{{ playbook_dir }}/helm_charts"
+    dest: "/data1/helm_charts"
     clone: yes
-  delegate_to: localhost
  
 - replace:
-    path: "{{ playbook_dir }}/helm_charts/common/values.yaml"
+    path: "/data1/helm_charts/common/values.yaml"
     regexp: 'app.profile:.*'
     replace: 'app.profile: {{ PROFILE }}'
-  delegate_to: localhost
 
 - replace:
-    path: "{{ playbook_dir }}/helm_charts/common/values.yaml"
+    path: "/data1/helm_charts/common/values.yaml"
     regexp: '^profile:.*'
     replace: 'profile: {{ PROFILE }}'
-  delegate_to: localhost
 
 - name: "Deploying CCOMS application using helm"
   shell: |
-    {{ playbook_dir}}/helm_charts/deploy_ccoms_app.sh -n {{ namespace }}
+    /data1/helm_charts/deploy_ccoms_app.sh -n {{ namespace }}
   register: deploy_logs
 
 - name: "Printing error messgae"
   debug:
     msg: "{{ deploy_logs }}"
+
+- name: "Remove helm charts"
+  file:
+    path: /data1
+    state: absent
