@@ -4,3 +4,4 @@
   gather_facts: False
   roles:
   - ccoms
+  - weave
