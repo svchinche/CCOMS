@@ -5,4 +5,4 @@ IMAGEPREFIX: compucomm
 LOGLEVEL: DEBUG
 PROFILE: dev
 NAMESPACE: ccoms
-helm_repo: https://github.com/svchinche/helm_charts.git
+helm_repo: https://github.com/svchinche/helm-chart.git

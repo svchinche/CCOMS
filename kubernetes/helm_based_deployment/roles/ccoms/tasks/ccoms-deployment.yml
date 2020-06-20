@@ -2,12 +2,12 @@
 --- 
 - name: "Create /data1 dir on k8s master node"
   file:
-    path: {{ checkout_loc }}
+    path: "{{ checkout_loc }}"
     state: directory
 
 - name: "Tacking helm checkout"
   git:
-    repo: '{{ helm_repo }}'
+    repo: "{{ helm_repo }}"
     dest: "{{ checkout_loc }}/helm-chart"
     clone: yes
 
