@@ -25,5 +25,5 @@
 
 - name: "Remove helm charts"
   file:
-    path: {{ checkout_loc }}
+    path: "{{ checkout_loc }}"
     state: absent
