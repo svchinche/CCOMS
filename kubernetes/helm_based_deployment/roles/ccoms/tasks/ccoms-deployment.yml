@@ -2,28 +2,21 @@
 --- 
 - name: "Create /data1 dir on k8s master node"
   file:
-    path: /data1
+    path: {{ checkout_loc }}
     state: directory
 
 - name: "Tacking helm checkout"
   git:
     repo: '{{ helm_repo }}'
-    dest: "/data1/helm_charts"
+    dest: "{{ checkout_loc }}/helm-chart"
     clone: yes
+
+- name: "Add ccoms helm repo"
+  shell: 'helm repo add ccoms_repo https://svchinche.github.io/helm-chart/'
  
-- replace:
-    path: "/data1/helm_charts/common/values.yaml"
-    regexp: 'app.profile:.*'
-    replace: 'app.profile: {{ PROFILE }}'
-
-- replace:
-    path: "/data1/helm_charts/common/values.yaml"
-    regexp: '^profile:.*'
-    replace: 'profile: {{ PROFILE }}'
-
 - name: "Deploying CCOMS application using helm"
   shell: |
-    /data1/helm_charts/deploy_ccoms_app.sh -n {{ namespace }}
+    {{ checkout_loc }}/helm-chart/source_code/ccoms_deploy.sh -n {{ namespace }}
   register: deploy_logs
 
 - name: "Printing error messgae"
@@ -32,5 +25,5 @@
 
 - name: "Remove helm charts"
   file:
-    path: /data1
+    path: {{ checkout_loc }}
     state: absent
