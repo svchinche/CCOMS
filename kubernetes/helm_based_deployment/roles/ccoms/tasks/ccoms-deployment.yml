@@ -1,6 +1,11 @@
 ## task file for ccoms-deployment
 --- 
-- name: "Create /data1 dir on k8s master node"
+- name: "Remove helm charts"
+  file:
+    path: "{{ checkout_loc }}"
+    state: absent
+
+- name: "Create /data1/helm-chart dir on k8s master node"
   file:
     path: "{{ checkout_loc }}"
     state: directory
@@ -16,7 +21,7 @@
  
 - name: "Deploying CCOMS application using helm"
   shell: |
-    {{ checkout_loc }}/helm-chart/source_code/ccoms_deploy.sh -n {{ namespace }}
+    {{ checkout_loc }}/helm-chart/source_code/deploy_ccoms.sh -n {{ namespace }}
   register: deploy_logs
 
 - name: "Printing error messgae"
