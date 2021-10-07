@@ -1126,6 +1126,8 @@ Development Setup
 4. install lambok
 5. Install mongo db
 6. Add env variables in maven build
+7. Run microservices one by one
+8. Access and get rest apis from swagger URL
 
 
 Clone and import project
@@ -1235,6 +1237,20 @@ organization -- 8083
 Proxy -- 8111 
 ```
 
+Run microservices one by one
+---------------------------
+**Config** 
+run and check if below url is working or not </br>
+http://localhost:8888/employee-microservice/dev
+
+**Employee**
+run and check the logs, there should be any exception in the logs </br>
+
+
+
+Access and get rest apis from swagger URL
+---------------------------------------
+http://localhost:8111/swagger-ui.html </br>
     
 DevOps Best Practices
 ======================
