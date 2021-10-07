@@ -1129,6 +1129,9 @@ Development Setup
 7. Run microservices one by one
 8. Access and get rest apis from swagger URL
 
+Install eclipse IDE
+-------------------
+Eclipse IDE for Enterprise Java and Web Developers (includes Incubating components) </br>
 
 Clone and import project
 ------------------
@@ -1170,7 +1173,21 @@ Install Mongo db
 -----------------
 Install mongo latest on windows or any linux version with version 4 </br>
 
-Linux docker daemon, you can use below commands </br>
+**On Windows**
+Go to below link
+https://www.mongodb.com/try/download/community
+
+select --> on premises --> mongo db community server -> 3.4.23 then download/community </br>
+
+Create db folder under data directory </br>
+C:\data\db 
+
+Go to -> C:\Program Files\MongoDB\Server\3.4\bin 
+- Double click mongod.exe to start db service  
+- Double click mongo.exe to get mongo terminal
+
+
+**Linux docker daemon, you can use below commands** </br>
 ```sh
 docker run -dit -p 27017:27017 --name=mongo mongo:latest
 docker exec -it mongo sh
