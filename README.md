@@ -1229,10 +1229,10 @@ Environment variables
 ```java
 app.profile=dev
 CCOMS_DATABASE_PORT=27017
-CCOMS_DEPT_PORT=8082
 CCOMS_EMP_PORT=8081
+CCOMS_DEPT_PORT=8082
 CCOMS_ORG_PORT=8083
-CCOMS_ZUUL_PORT=8088
+CCOMS_ZUUL_PORT=8111
 CONFIG_HOST=localhost
 DATABASE=admin
 DB_PASSWD=admin123
@@ -1240,8 +1240,8 @@ DB_USER=admin
 DEPT_HOST=localhost
 EMP_HOST=localhost
 ORG_HOST=localhost
-MONGO_HOST=192.168.43.46
-server.port=8088
+MONGO_HOST=localhost
+server.port=8081
 ```
 
 Update MONGO_HOST and server.port for each microservice</br>
