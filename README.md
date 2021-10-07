@@ -1268,6 +1268,12 @@ run and check the logs, there should be any exception in the logs </br>
 Access and get rest apis from swagger URL
 ---------------------------------------
 http://localhost:8111/swagger-ui.html </br>
+
+**Add data using this url, refer below link for json files**</br>
+https://github.com/svchinche/CCOMS/tree/feature-1235/kubernetes/ansible_k8s-ccoms-deployment/scripts/post_ccoms/json_files </br>
+
+Go to -->  employee-rest-controller --> POST -> api/addemps and copy employee data from above location and try it out and finally execute </br>
+similarly you can do it for other microservices.
     
 DevOps Best Practices
 ======================
