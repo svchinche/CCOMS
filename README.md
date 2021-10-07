@@ -33,6 +33,7 @@ Table of contents
       * [Backup and Restoration of k8s resources using Heptio Velero](#backup-and-restoration-of-k8s-resources-using-heptio-velero)
    * [Monitoring](#monitoring)
    * [Dev-Ops Best Practices](#devops-best-practices)
+   * [Development Setup](#development-setup)
    * [Objectives](#objectives)
 <!--te-->
 
@@ -1116,8 +1117,125 @@ Steps will be provided soon
 <p align="center"><img width="1000" height="500" src=".images/kibana_index_withfilterlogs.PNG"></p>
 
 
+Development Setup
+==================
+
+1. Install eclipse IDE
+2. Clone and import project
+3. Use openjdk 1.8 libraries
+4. install lambok
+5. Install mongo db
+6. Add env variables in maven build
 
 
+Clone and import project
+------------------
+Go to </br>
+File ->import -> project from git(With smart import) ->Clone URI </br>
+
+Provide this url </br>
+https://github.com/svchinche/CCOMS.git </br>
+
+and then select the branch </br>
+
+then select package explorer
+
+
+Use openjdk 1.8 libraries
+-------------------------
+Go to - https://www.openlogic.com/openjdk-downloads and download and untar jdk libraries in program files folder. </br>
+Go to </br>
+Window -> Preferences -> Search for jre -> installed JRE -> update JDK path
+
+<p align="center"><img width="1000" height="500" src=".images/installed-jre.PNG"></p>
+
+
+Install lambok
+------------
+
+Close your IDE </br>
+Download the Lombok jar from the https://projectlombok.org/download </br>
+Double click the jar </br>
+Follow the steps mentioned in the https://projectlombok.org/setup/eclipse </br>
+Open your IDE </br>
+
+Refer below link </br>
+https://stackoverflow.com/questions/50991619/the-method-builder-is-undefined-for-the-type-builderexample
+
+
+ 
+Install Mongo db
+-----------------
+Install mongo latest on windows or any linux version with version 4 </br>
+
+Linux docker daemon, you can use below commands </br>
+```sh
+docker run -dit -p 27017:27017 --name=mongo mongo:latest
+docker exec -it mongo sh
+```
+
+rub below commands on mongodb server </br>
+
+```sh
+mongo
+   
+use admin;   
+db.createUser(
+  {
+    user: "admin",
+    pwd: "admin123",
+    roles: [ { role: "readWrite", db: "admin" } ]
+  }
+)
+
+```
+
+Add Env variable in maven build
+---------------------------------
+
+Go to Run As -> Run Configurations ->  </br>
+
+Update base directory -> ${project_loc:${project_name}} </br>
+Goals -> spring-boot:run </br>
+
+<p align="center"><img width="1000" height="500" src=".images/base_directory.PNG"></p>
+
+*Note:* For every microservice we will have to create  maven build
+
+<p align="center"><img width="1000" height="500" src=".images/env_variables.PNG"></p>
+
+
+Environment variables
+=======================
+```java
+app.profile=dev
+CCOMS_DATABASE_PORT=27017
+CCOMS_DEPT_PORT=8082
+CCOMS_EMP_PORT=8081
+CCOMS_ORG_PORT=8083
+CCOMS_ZUUL_PORT=8088
+CONFIG_HOST=localhost
+DATABASE=admin
+DB_PASSWD=admin123
+DB_USER=admin
+DEPT_HOST=localhost
+EMP_HOST=localhost
+ORG_HOST=localhost
+MONGO_HOST=192.168.43.46
+server.port=8088
+```
+
+Update MONGO_HOST and server.port for each microservice</br>
+
+```
+Config -- 8888 
+employee-- 8081
+department -- 8082
+organization -- 8083
+Proxy -- 8111 
+```
+
+    
 DevOps Best Practices
 ======================
 
