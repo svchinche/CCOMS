@@ -1132,25 +1132,22 @@ Development Setup
 
 Install eclipse IDE
 -------------------
-Eclipse IDE for Enterprise Java and Web Developers (includes Incubating components) </br>
+Eclipse IDE for Enterprise Java and Web Developers (includes Incubating components) or STS
 
 Clone and import project
 ------------------
-Go to </br>
-File ->import -> project from git(With smart import) ->Clone URI </br>
-
-Provide this url </br>
-https://github.com/svchinche/CCOMS.git </br>
-
-and then select the branch </br>
-
-then select package explorer
+* Go to </br> 
+File ->import -> project from git(With smart import) ->Clone URI 
+* Provide this url  </br>
+https://github.com/svchinche/CCOMS.git
+* and then select the branch 
+* then select package explorer
 
 
 Use openjdk 1.8 libraries
 -------------------------
-Go to - https://www.openlogic.com/openjdk-downloads and download and untar jdk libraries in program files folder. </br>
-Go to </br>
+* Go to - https://www.openlogic.com/openjdk-downloads and download and untar jdk libraries in program files folder. 
+* Go to </br>
 Window -> Preferences -> Search for jre -> installed JRE -> update JDK path
 
 <p align="center"><img width="1000" height="500" src=".images/installed-jre.PNG"></p>
@@ -1159,13 +1156,12 @@ Window -> Preferences -> Search for jre -> installed JRE -> update JDK path
 Install lambok
 ------------
 
-Close your IDE </br>
-Download the Lombok jar from the https://projectlombok.org/download </br>
-Double click the jar </br>
-Follow the steps mentioned in the https://projectlombok.org/setup/eclipse </br>
-Open your IDE </br>
-
-Refer below link </br>
+* Close your IDE 
+* Download the Lombok jar from the https://projectlombok.org/download 
+* Double click the jar 
+* Follow the steps mentioned in the https://projectlombok.org/setup/eclipse 
+* Open your IDE 
+* Refer below link </br>
 https://stackoverflow.com/questions/50991619/the-method-builder-is-undefined-for-the-type-builderexample
 
 
@@ -1175,19 +1171,19 @@ Install Mongo db
 Install mongo latest on windows or any linux version with version 4 </br>
 
 **On Windows**
-Go to below link
+* Go to below link</br>
 https://www.mongodb.com/try/download/community
 
-select --> on premises --> mongo db community server -> 3.4.23 then download/community </br>
+* select --> on premises --> mongo db community server -> 3.4.23 then download/community 
 
-Create db folder under data directory </br>
+* Create db folder under data directory </br>
 C:\data\db 
 
-Go to -> C:\Program Files\MongoDB\Server\3.4\bin 
+* Go to -> C:\Program Files\MongoDB\Server\3.4\bin </br>
 - Double click mongod.exe to start db service  
 - Double click mongo.exe to get mongo terminal 
 
-*Note: You can create windows shortcut to start mongodb
+* Note: You can create windows shortcut to start mongodb
 
 **Linux docker daemon, you can use below commands** </br>
 ```sh
@@ -1196,9 +1192,7 @@ docker exec -it mongo sh
 mongo
 ```
 
-rub below commands on mongodb server </br>
-
-
+* Run below commands on mongodb server 
 
 ```sh   
 use admin;   
@@ -1215,20 +1209,17 @@ db.createUser(
 Add Env variable in maven build
 ---------------------------------
 
-Go to Run As -> Run Configurations ->  </br>
-
-Update base directory -> ${project_loc:${project_name}} </br>
-Goals -> spring-boot:run </br>
-
+* Go to Run As -> Run Configurations ->  
+* Update base directory -> ${project_loc:${project_name}} 
+* Goals -> spring-boot:run 
 <p align="center"><img width="1000" height="500" src=".images/base_directory.PNG"></p>
 
 *Note:* For every microservice we will have to create  maven build
-
 <p align="center"><img width="1000" height="500" src=".images/env_variables.PNG"></p>
 
 
-Environment variables
-=======================
+** Environment variables **
+
 ```java
 app.profile=dev
 CCOMS_DATABASE_PORT=27017
@@ -1247,7 +1238,7 @@ MONGO_HOST=localhost
 server.port=8081
 ```
 
-Update MONGO_HOST and server.port for each microservice</br>
+** Update MONGO_HOST and server.port for each microservice **
 
 ```
 Config -- 8888 
@@ -1267,10 +1258,10 @@ http://localhost:8888/employee-microservice/dev
 run and check the logs, there should be any exception in the logs </br>
 
 **URLS**
-http://localhost:8111/swagger-ui.html </br>
-http://localhost:8111/emp/pretty </br>
-http://localhost:8111/dept/pretty </br>
-http://localhost:8111/org/pretty </br>
+* http://localhost:8111/swagger-ui.html 
+* http://localhost:8111/emp/pretty 
+* http://localhost:8111/dept/pretty 
+* http://localhost:8111/org/pretty 
 
 
 Access and get rest apis from swagger URL
@@ -1285,12 +1276,12 @@ similarly you can do it for other microservices.
 
 Debug spring boot application
 ------------------------------
--add spring tools plugin from eclipse market place
-<p align="center"><img width="1000" height="500" src=".images/eclipse_market_place.PNG"></p>
--set breakpoint for debugging
--Debug application as Spring Boot App to add entry (This has to be done once for creating run spring boot configuration)
+* Add spring tools plugin from eclipse market place
+<p align="center"><img width="600" height="200" src=".images/eclipse_market_place.PNG"></p>
+* Set breakpoint for debugging
+* Debug application as Spring Boot App to add entry (This has to be done once for creating run spring boot configuration)
 <p align="center"><img width="1000" height="500" src=".images/run_as_spring_boot_app.PNG"></p>
--Add env variables and then run.
+* Add env variables and then run.
 <p align="center"><img width="1000" height="500" src=".images/springboot_debug.PNG"></p>
 
     
