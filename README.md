@@ -1184,20 +1184,22 @@ C:\data\db
 
 Go to -> C:\Program Files\MongoDB\Server\3.4\bin 
 - Double click mongod.exe to start db service  
-- Double click mongo.exe to get mongo terminal
+- Double click mongo.exe to get mongo terminal 
 
+*Note: You can create windows shortcut to start mongodb
 
 **Linux docker daemon, you can use below commands** </br>
 ```sh
 docker run -dit -p 27017:27017 --name=mongo mongo:latest
 docker exec -it mongo sh
+mongo
 ```
 
 rub below commands on mongodb server </br>
 
-```sh
-mongo
-   
+
+
+```sh   
 use admin;   
 db.createUser(
   {
@@ -1263,6 +1265,11 @@ http://localhost:8888/employee-microservice/dev
 **Employee**
 run and check the logs, there should be any exception in the logs </br>
 
+**URLS**
+http://localhost:8111/swagger-ui.html </br>
+http://localhost:8111/emp/pretty </br>
+http://localhost:8111/dept/pretty </br>
+http://localhost:8111/org/pretty </br>
 
 
 Access and get rest apis from swagger URL
@@ -1286,5 +1293,4 @@ If the same thing happened with newbies, they might lose there interest in devop
 
 Quote
 -----
-Hard work pays off, Bootlicking will not help you to grow in long term. It will end up with problem.
-My final words to everyone: Only hard work will help you to grow
+Only hard work will help you to grow
