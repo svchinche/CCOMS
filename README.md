@@ -1218,7 +1218,7 @@ Add Env variable in maven build
 <p align="center"><img width="1000" height="500" src=".images/env_variables.PNG"></p>
 
 
-** Environment variables **
+**Environment variables**
 
 ```java
 app.profile=dev
@@ -1238,7 +1238,7 @@ MONGO_HOST=localhost
 server.port=8081
 ```
 
-** Update MONGO_HOST and server.port for each microservice **
+**Update MONGO_HOST and server.port for each microservice**
 
 ```
 Config -- 8888 
