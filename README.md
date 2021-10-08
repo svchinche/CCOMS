@@ -1128,6 +1128,7 @@ Development Setup
 6. Add env variables in maven build
 7. Run microservices one by one
 8. Access and get rest apis from swagger URL
+9. Debug springboot application
 
 Install eclipse IDE
 -------------------
@@ -1281,6 +1282,17 @@ https://github.com/svchinche/CCOMS/tree/feature-1235/kubernetes/ansible_k8s-ccom
 
 Go to -->  employee-rest-controller --> POST -> api/addemps and copy employee data from above location and try it out and finally execute </br>
 similarly you can do it for other microservices.
+
+Debug spring boot application
+------------------------------
+- add spring tools plugin from eclipse market place
+<p align="center"><img width="1000" height="500" src=".images/eclipse_market_place.PNG"></p>
+- set breakpoint for debugging
+- Debug application as Spring Boot App to add entry (This has to be done once for creating run spring boot configuration)
+<p align="center"><img width="1000" height="500" src=".images/run_as_spring_boot_app.PNG"></p>
+- Add env variables and then run.
+<p align="center"><img width="1000" height="500" src=".images/springboot_debug.PNG"></p>
+
     
 DevOps Best Practices
 ======================
