@@ -1253,7 +1253,7 @@ Run microservices one by one
 * Config
   * Run and check if below url is working or not - http://localhost:8888/employee-microservice/dev
 * Employee
-  * Run and check the logs, there should be any exception in the logs
+  * Run and check the logs, there should not be any exception in the logs
 * Department
 * Organization
 * Proxy
@@ -1267,12 +1267,12 @@ Run microservices one by one
 
 Access and get rest apis from swagger URL
 ---------------------------------------
-http://localhost:8111/swagger-ui.html </br>
+* http://localhost:8111/swagger-ui.html 
 
-**Add data using this url, refer below link for json files**</br>
+* Add data using this url and refer below link for json files
 https://github.com/svchinche/CCOMS/tree/feature-1235/kubernetes/ansible_k8s-ccoms-deployment/scripts/post_ccoms/json_files </br>
 
-Go to -->  employee-rest-controller --> POST -> api/addemps and copy employee data from above location and try it out and finally execute </br>
+* Go to -->  employee-rest-controller --> POST -> api/addemps and copy employee data from above location and try it out and finally execute </br>
 similarly you can do it for other microservices.
 
 Debug Spring boot application
