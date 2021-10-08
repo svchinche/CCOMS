@@ -1257,6 +1257,9 @@ http://localhost:8888/employee-microservice/dev
 **Employee**
 run and check the logs, there should be any exception in the logs </br>
 
+**Department**
+**Organization**
+**Proxy**
 **URLS**
 * http://localhost:8111/swagger-ui.html 
 * http://localhost:8111/emp/pretty 
@@ -1274,7 +1277,7 @@ https://github.com/svchinche/CCOMS/tree/feature-1235/kubernetes/ansible_k8s-ccom
 Go to -->  employee-rest-controller --> POST -> api/addemps and copy employee data from above location and try it out and finally execute </br>
 similarly you can do it for other microservices.
 
-Debug spring boot application
+Debug Spring boot application
 ------------------------------
 * Add spring tools plugin from eclipse market place
 <p align="center"><img width="600" height="200" src=".images/eclipse_market_place.PNG"></p>
