@@ -1183,7 +1183,7 @@ C:\data\db
 - Double click mongod.exe to start db service  
 - Double click mongo.exe to get mongo terminal 
 
-* Note: You can create windows shortcut to start mongodb
+**Note-**You can create windows shortcut to start mongodb </br>
 
 **Linux docker daemon, you can use below commands** </br>
 ```sh
