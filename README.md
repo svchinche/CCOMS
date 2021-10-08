@@ -1251,10 +1251,9 @@ Proxy -- 8111
 Run microservices one by one
 ---------------------------
 * Config
- * Run and check if below url is working or not </br>
-   http://localhost:8888/employee-microservice/dev
+  * Run and check if below url is working or not - http://localhost:8888/employee-microservice/dev
 * Employee
- * Run and check the logs, there should be any exception in the logs </br>
+  * Run and check the logs, there should be any exception in the logs
 * Department
 * Organization
 * Proxy
