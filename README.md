@@ -1250,21 +1250,20 @@ Proxy -- 8111
 
 Run microservices one by one
 ---------------------------
-**Config** 
-run and check if below url is working or not </br>
-http://localhost:8888/employee-microservice/dev
+* Config
+ * Run and check if below url is working or not </br>
+   http://localhost:8888/employee-microservice/dev
+* Employee
+ * Run and check the logs, there should be any exception in the logs </br>
+* Department
+* Organization
+* Proxy
 
-**Employee**
-run and check the logs, there should be any exception in the logs </br>
-
-**Department**
-**Organization**
-**Proxy**
-**URLS**
-* http://localhost:8111/swagger-ui.html 
-* http://localhost:8111/emp/pretty 
-* http://localhost:8111/dept/pretty 
-* http://localhost:8111/org/pretty 
+* URLS for verifications
+  * http://localhost:8111/swagger-ui.html 
+  * http://localhost:8111/emp/pretty 
+  * http://localhost:8111/dept/pretty 
+  * http://localhost:8111/org/pretty 
 
 
 Access and get rest apis from swagger URL
