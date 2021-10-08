@@ -1179,13 +1179,13 @@ https://www.mongodb.com/try/download/community
 * Create db folder under data directory </br>
 C:\data\db 
 
-* Go to -> C:\Program Files\MongoDB\Server\3.4\bin </br>
-- Double click mongod.exe to start db service  
-- Double click mongo.exe to get mongo terminal 
+* Go to -> C:\Program Files\MongoDB\Server\3.4\bin
+  *  Double click mongod.exe to start db service  
+  * Double click mongo.exe to get mongo terminal 
 
-**Note-**You can create windows shortcut to start mongodb </br>
+* Note- You can create windows shortcut to start mongodb
 
-**Linux docker daemon, you can use below commands** </br>
+**Linux docker daemon, you can use below commands** 
 ```sh
 docker run -dit -p 27017:27017 --name=mongo mongo:latest
 docker exec -it mongo sh
